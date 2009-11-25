@@ -1,12 +1,12 @@
-package org.openengsb.mantis.common.domains;
+package org.openengsb.mantis.common.entities;
 
 import java.util.Date;
 import java.util.List;
 
-import org.openengsb.mantis.common.domains.enums.IssuePriority;
-import org.openengsb.mantis.common.domains.enums.IssueResolution;
-import org.openengsb.mantis.common.domains.enums.IssueSeverity;
-import org.openengsb.mantis.common.domains.enums.IssueStatus;
+import org.openengsb.mantis.common.entities.enums.IssuePriority;
+import org.openengsb.mantis.common.entities.enums.IssueResolution;
+import org.openengsb.mantis.common.entities.enums.IssueSeverity;
+import org.openengsb.mantis.common.entities.enums.IssueStatus;
 
 public interface Issue {
 	
@@ -36,15 +36,15 @@ public interface Issue {
 	
 	/**
 	 * Sets the detailed description of the task
-	 * @param description - detailed description of the task
+	 * @param issueDescription - detailed description of the task
 	 */
-	public void setDescription(String description);
+	public void setIssueDescription(String issueDescription);
 	
 	/**
 	 * Return the detailed task description
-	 * @return description - detailed description
+	 * @return issueDescription - detailed description
 	 */
-	public String getDescription();
+	public String getIssueDescription();
 	
 	/**
 	 * Sets the priority of the task

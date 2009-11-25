@@ -45,11 +45,11 @@ public class MantisComponent extends DefaultComponent
     }
 
     protected Class[] getEndpointClasses() {
-        return new Class[] { MyConsumerEndpoint.class, MantisProviderEndpoint.class };
+        return new Class[] { MyConsumerEndpoint.class, IssueEndpoint.class };
     }
 
     protected Endpoint getResolvedEPR(ServiceEndpoint ep) throws Exception {
-        MantisProviderEndpoint endpoint = new MantisProviderEndpoint();
+        IssueEndpoint endpoint = new IssueEndpoint();
         // TODO: initialize endpoint here
         endpoint.activate();
         return endpoint;

@@ -1,9 +1,9 @@
-package org.openengsb.mantis.common.domains;
+package org.openengsb.mantis.common.entities;
 
 import java.io.File;
 import java.util.List;
 
-import org.openengsb.mantis.common.domains.enums.ProjectStatus;
+import org.openengsb.mantis.common.entities.enums.ProjectStatus;
 
 public interface Project {
 	
