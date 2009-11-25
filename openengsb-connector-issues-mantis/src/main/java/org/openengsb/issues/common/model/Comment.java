@@ -1,8 +1,8 @@
-package org.openengsb.mantis.common.entities;
+package org.openengsb.issues.common.model;
 
 import java.util.Date;
 
-import org.openengsb.mantis.common.entities.enums.ViewState;
+import org.openengsb.issues.common.enums.ViewState;
 
 public interface Comment {
 	

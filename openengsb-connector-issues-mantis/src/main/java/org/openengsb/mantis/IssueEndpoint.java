@@ -35,14 +35,16 @@ import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
 
 
+import org.openengsb.issues.common.IssueDomain;
+import org.openengsb.issues.common.enums.IssuePriority;
+import org.openengsb.issues.common.enums.IssueResolution;
+import org.openengsb.issues.common.enums.IssueSeverity;
+import org.openengsb.issues.common.enums.IssueStatus;
+import org.openengsb.issues.common.exceptions.IssueDomainException;
+import org.openengsb.issues.common.model.Comment;
+import org.openengsb.issues.common.model.Issue;
+import org.openengsb.issues.common.model.Project;
 import org.openengsb.mantis.AbstractEndpoint;
-import org.openengsb.mantis.common.entities.Comment;
-import org.openengsb.mantis.common.entities.Issue;
-import org.openengsb.mantis.common.entities.Project;
-import org.openengsb.mantis.common.entities.enums.IssuePriority;
-import org.openengsb.mantis.common.entities.enums.IssueResolution;
-import org.openengsb.mantis.common.entities.enums.IssueSeverity;
-import org.openengsb.mantis.common.entities.enums.IssueStatus;
 import org.openengsb.mantis.common.exception.IssueException;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
@@ -57,11 +59,12 @@ import biz.futureware.mantisconnect.ObjectRef;
 /**
  * @org.apache.xbean.XBean element="mantis provider"
  */
-public class IssueEndpoint extends AbstractEndpoint{
+public class IssueEndpoint extends AbstractEndpoint implements IssueDomain{
 
 //	private static final String BEHAVIOR = "";
-	private static final String OPERATION_ADD_ISSUE="add_issue";
+	private static final String OPERATION_CREATE_ISSUE="create_issue";
 	private static final String OPERATION_GET_ISSUE="get_issue";
+	private static final String OPERATION_DELETE_ISSUE="delete_issue";
 	MantisConnectPortType porttype = null;
 	private static final Map<String,Integer> PRIORITIES = new HashMap<String,Integer>();
 	private static final Map<String,Integer> SEVERITIES = new HashMap<String,Integer>();
@@ -87,7 +90,6 @@ public class IssueEndpoint extends AbstractEndpoint{
 	
     public IssueEndpoint() {
     	MantisConnectLocator locator = new MantisConnectLocator();
-    	
     	try {
 			MantisConnectPortType porttype =locator.getMantisConnectPort();
 		} catch (ServiceException e) {
@@ -114,7 +116,7 @@ public class IssueEndpoint extends AbstractEndpoint{
 		String op = exchange.getOperation().getLocalPart();
         String body = null;
         
-        if(op.equals(IssueEndpoint.OPERATION_ADD_ISSUE)) {
+        if(op.equals(IssueEndpoint.OPERATION_CREATE_ISSUE)) {
         	
         	IssueData data1 = extractIssueData(in);
 			
@@ -130,7 +132,7 @@ public class IssueEndpoint extends AbstractEndpoint{
         
 	}
 	
-	protected IssueData extractIssueData(NormalizedMessage message) throws IssueException {
+	protected IssueData extractIssueData(NormalizedMessage message) throws IssueDomainException {
 		String category = null;
 		String description = null;
 		String summary = null;
@@ -152,27 +154,21 @@ public class IssueEndpoint extends AbstractEndpoint{
 			severity = extractSingleNode(message,"//severity").getNodeValue();
 			priority = extractSingleNode(message,"//priority").getNodeValue();
 		} catch (DOMException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IssueDomainException("DomException");
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IssueDomainException("MessagingException");
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IssueDomainException("TransformerException");
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IssueDomainException("ParserConfigurationException");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IssueDomainException("IOException");
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IssueDomainException("SAXException");
 		}
 		
 		if (category==null||description==null||summary==null||project==null) {
-			throw new IssueException("One or more required field(s) is(are) not set.");
+			throw new IssueDomainException("One or more required field(s) is(are) not set.");
 		}
     	
     	
@@ -190,6 +186,19 @@ public class IssueEndpoint extends AbstractEndpoint{
 //		data1.setReproducibility()
 		
 		return data1;
+	}
+	
+	
+	public String createIssue(Issue issue) throws IssueDomainException {
+		
+	}
+	
+	public void updateIssue(Issue issue) throws IssueDomainException {
+		
+	}
+	
+	public void deleteIssue(String id) throws IssueDomainException {
+		
 	}
 
 	

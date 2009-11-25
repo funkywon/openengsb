@@ -1,4 +1,4 @@
-package org.openengsb.mantis.common.entities.enums;
+package org.openengsb.issues.common.enums;
 
 public enum IssuePriority {
 	IMMEDIATE, URGENT, HIGH, NORMAL, LOW
