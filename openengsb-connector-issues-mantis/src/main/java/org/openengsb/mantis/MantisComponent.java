@@ -49,7 +49,7 @@ public class MantisComponent extends DefaultComponent
     }
 
     protected Endpoint getResolvedEPR(ServiceEndpoint ep) throws Exception {
-        MantisProviderEndpoint endpoint = new MantisProviderEndpoint(this, ep);
+        MantisProviderEndpoint endpoint = new MantisProviderEndpoint();
         // TODO: initialize endpoint here
         endpoint.activate();
         return endpoint;
