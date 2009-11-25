@@ -1,9 +1,9 @@
-package org.openengsb.mantis.common.entities;
+package org.openengsb.issues.common.model;
 
 import java.io.File;
 import java.util.List;
 
-import org.openengsb.mantis.common.entities.enums.ProjectStatus;
+import org.openengsb.issues.common.enums.ProjectStatus;
 
 public interface Project {
 	

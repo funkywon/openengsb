@@ -1,14 +1,31 @@
-package org.openengsb.mantis.common.entities;
+package org.openengsb.issues.common.model;
 
 import java.util.Date;
 import java.util.List;
 
-import org.openengsb.mantis.common.entities.enums.IssuePriority;
-import org.openengsb.mantis.common.entities.enums.IssueResolution;
-import org.openengsb.mantis.common.entities.enums.IssueSeverity;
-import org.openengsb.mantis.common.entities.enums.IssueStatus;
+import org.openengsb.issues.common.enums.IssuePriority;
+import org.openengsb.issues.common.enums.IssueResolution;
+import org.openengsb.issues.common.enums.IssueSeverity;
+import org.openengsb.issues.common.enums.IssueStatus;
 
-public interface Issue {
+public class Issue {
+	
+    private String id;
+    private String summary;
+    private String description;
+    private String reporter;
+    private String owner;
+    private String affectedVersion;
+    private IssuePriority priority;
+    private IssueSeverity severity;
+    private IssueResolution resolution;
+    private IssueStatus status;
+    private IssueType type;
+    private List<Comment> comments;
+    private Project project;
+    private Date creationTime;
+    private Date lastChange;
+	
 	
 	/**
 	 * Sets the id of the task to identify it.
