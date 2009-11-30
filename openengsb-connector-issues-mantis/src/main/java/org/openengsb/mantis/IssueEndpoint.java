@@ -35,7 +35,8 @@ import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
 
 
-import org.openengsb.issues.common.IssueDomain;
+import org.openengsb.issues.common.api.IssueDomain;
+import org.openengsb.issues.common.api.impl.MantisIssueDomainImpl;
 import org.openengsb.issues.common.enums.IssuePriority;
 import org.openengsb.issues.common.enums.IssueResolution;
 import org.openengsb.issues.common.enums.IssueSeverity;
@@ -59,15 +60,18 @@ import biz.futureware.mantisconnect.ObjectRef;
 /**
  * @org.apache.xbean.XBean element="mantis provider"
  */
-public class IssueEndpoint extends AbstractEndpoint implements IssueDomain{
+public class IssueEndpoint extends AbstractEndpoint{
 
 //	private static final String BEHAVIOR = "";
 	private static final String OPERATION_CREATE_ISSUE="create_issue";
-	private static final String OPERATION_GET_ISSUE="get_issue";
+	private static final String OPERATION_UPDATE_ISSUE="update_issue";
 	private static final String OPERATION_DELETE_ISSUE="delete_issue";
-	MantisConnectPortType porttype = null;
+	
 	private static final Map<String,Integer> PRIORITIES = new HashMap<String,Integer>();
 	private static final Map<String,Integer> SEVERITIES = new HashMap<String,Integer>();
+	
+	//FIX THIS
+	private IssueDomain handler = new MantisIssueDomainImpl(); 
 	
 	static {
 		
@@ -89,13 +93,7 @@ public class IssueEndpoint extends AbstractEndpoint implements IssueDomain{
 	
 	
     public IssueEndpoint() {
-    	MantisConnectLocator locator = new MantisConnectLocator();
-    	try {
-			MantisConnectPortType porttype =locator.getMantisConnectPort();
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	
     }
 
 	@Override
@@ -116,17 +114,20 @@ public class IssueEndpoint extends AbstractEndpoint implements IssueDomain{
 		String op = exchange.getOperation().getLocalPart();
         String body = null;
         
+        String user = extractSingleNode(in,"//user").getNodeValue();
+    	String pass = extractSingleNode(in,"//password").getNodeValue();
+    	IssueData data1 = extractIssueData(in);
+        
         if(op.equals(IssueEndpoint.OPERATION_CREATE_ISSUE)) {
         	
-        	IssueData data1 = extractIssueData(in);
-			
-			String user = extractSingleNode(in,"//user").getNodeValue();
-	    	String pass = extractSingleNode(in,"//password").getNodeValue();
         	
-	    	porttype.mc_issue_add(user,pass, data1);
-	    	
-	    	
-        } else if (op.equals(IssueEndpoint.OPERATION_GET_ISSUE)) {
+        	String issueId = handler.createIssue(data1,user,pass);
+
+        
+        } else if (op.equals(IssueEndpoint.OPERATION_UPDATE_ISSUE)) {
+        	handler.updateIssue(data1.getId(), data1, user, pass);
+        } else if (op.equals(IssueEndpoint.OPERATION_DELETE_ISSUE)) {
+        	handler.deleteIssue(data1.getId(), data1, user, pass);
         	
         }
         
@@ -180,27 +181,19 @@ public class IssueEndpoint extends AbstractEndpoint implements IssueDomain{
 		data1.setSummary(summary);
 		//needs to be fixed
 		data1.setProject(new ObjectRef(new BigInteger("1"),project));
-
+		
+		//not sure yet, if this is the right index
 		data1.setPriority(new ObjectRef(new BigInteger(IssueEndpoint.PRIORITIES.get(priority).toString()),priority));
 		data1.setSeverity(new ObjectRef(new BigInteger(IssueEndpoint.SEVERITIES.get(severity).toString()),severity));
 //		data1.setReproducibility()
 		
 		return data1;
 	}
-	
-	
-	public String createIssue(Issue issue) throws IssueDomainException {
-		
-	}
-	
-	public void updateIssue(Issue issue) throws IssueDomainException {
-		
-	}
-	
-	public void deleteIssue(String id) throws IssueDomainException {
-		
-	}
 
+	
+		
+	
+	
 	
     
 }
