@@ -31,155 +31,203 @@ public class Issue {
 	 * Sets the id of the task to identify it.
 	 * @param id - the id identifies the task
 	 */
-	public void setId(Long id);
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	/**
 	 * Supplies the identifier of the task
 	 * @return id - identifier of the task
 	 */
-	public Long getId();
+	public Long getId() {
+		return this.id;
+	}
 	
 	/**
 	 * Sets the summary, a short description of the task
 	 * @param summary - short description
 	 */
-	public void setSummary(String summary);
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
 	
 	/**
 	 * Returns the summary of the task
 	 * @return summary - short task description
 	 */
-	public String getSummary();
+	public String getSummary() {
+		return this.summary;
+	}
 	
 	/**
 	 * Sets the detailed description of the task
-	 * @param issueDescription - detailed description of the task
+	 * @param description - detailed description of the task
 	 */
-	public void setIssueDescription(String issueDescription);
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 	/**
 	 * Return the detailed task description
-	 * @return issueDescription - detailed description
+	 * @return description - detailed description
 	 */
-	public String getIssueDescription();
+	public String getDescription() {
+		return this.description;
+	}
 	
 	/**
 	 * Sets the priority of the task
 	 * @param priority - uses the enumeration values for setting
 	 * @see IssuePriority
 	 */
-	public void setPriority(IssuePriority priority);
+	public void setPriority(IssuePriority priority) {
+		this.priority = priority;
+	}
 	
 	/**
 	 * Returns the priority of the task
 	 * @return priority - the priority of the task
 	 * @see IssuePriority
 	 */
-	public IssuePriority getPriority();
+	public IssuePriority getPriority() {
+		return this.priority;
+	}
 	
 	/**
 	 * Sets the severity of the task
 	 * @param severity - uses the enumeration values for setting
 	 * @see IssueSeverity
 	 */
-	public void setSeverity(IssueSeverity severity);
+	public void setSeverity(IssueSeverity severity) {
+		this.severity = severity;
+	}
 	
 	/**
 	 * Returns the severity of the task
 	 * @return severity - the severity of the task
 	 * @see IssueSeverity
 	 */
-	public IssueSeverity getSeverity();
+	public IssueSeverity getSeverity() {
+		return this.severity;
+	}
 	
 	/**
 	 * Sets the resolution of the task
 	 * @param resolution - uses the enumeration values for setting
 	 * @see IssueResolution
 	 */
-	public void setResolution(IssueResolution resolution);
+	public void setResolution(IssueResolution resolution) {
+		this.resolution = resolution;
+	}
 	
 	/**
 	 * Returns the resolution of the task
 	 * @return resolution - the resolution of the task
 	 * @see IssueResolution
 	 */
-	public IssueResolution getResolution();
+	public IssueResolution getResolution() {
+		return this.resolution;
+	}
 	
 	/**
 	 * Sets the status of the task
 	 * @param status - uses the enumeration values for setting
 	 * @see IssueStatus
 	 */
-	public void setStatus(IssueStatus status);
+	public void setStatus(IssueStatus status) {
+		this.status = status;
+	}
 	
 	/**
 	 * Returns the status of the task
 	 * @return status - the status of the task
 	 * @see IssueStatus
 	 */
-	public IssueStatus getStatus();
+	public IssueStatus getStatus() {
+		return this.status;
+	}
 	
 	/**
 	 * Sets the creation time of the task due to the issue tracker
 	 * @param creationTime - time the task was created
 	 */
-	public void setCreationTime(Date creationTime);
+	public void setCreationTime(Date creationTime){
+		this.creationTime = creationTime:
+	}
 	
 	/**
 	 * Returns the creation time of the task
 	 * @return creationTime - time the task was created
 	 */
-	public Date getCreationTime();
+	public Date getCreationTime() {
+		return this.creationTime;
+	}
 	
 	/**
 	 * Sets the time the last change was updated
 	 * @param lastChange - the time the last change was updated
 	 */
-	public void setLastChange(Date lastChange);
+	public void setLastChange(Date lastChange) {
+		this.lastChange = lastChange;
+	}
 	
 	/**
 	 * Returns the last change time
 	 * @return lastChange - the time the last change was committed
 	 */
-	public Date getLastChange();
+	public Date getLastChange() {
+		return this.lastChange;
+	}
 	
 	/**
 	 * Sets the reporter(user of the issue tracker) of the task
 	 * @param reporter - the author of the task
 	 */
-	public void setReporter(String reporter);
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
+	}
 	
 	/**
 	 * Returns the reporter of the task
 	 * @return reporter - author of the task
 	 */
-	public String getReporter();
+	public String getReporter() {
+		return this.reporter;
+	}
 	
 	/**
 	 * Sets the owner of the task
 	 * @param owner - the person who has assigned to
 	 */
-	public void setOwner(String owner);
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 	
 	/**
 	 * Return the owner of the task
 	 * @return owner - person who has assigned to
 	 */
-	public String getOwner();
+	public String getOwner() {
+		return this.owner;
+	}
 	
 	/**
 	 * Sets the project of task
 	 * @param project - the project the task is being filed against
 	 * @see Project
 	 */
-	public void setProject(Project project);
+	public void setProject(Project project) {
+		this.project = project;
+	}
 	
 	/**
 	 * Returns the project the task is being filed against
 	 * @return project - the project the task is being filed against
 	 * @see Project
 	 */
-	public Project getProject();
+	public Project getProject() {
+		return this.project;
+	}
 	
 	/**
 	 * Sets the comments that are added to the task
@@ -187,12 +235,16 @@ public class Issue {
 	 * @param comments - a list of comments, default null
 	 * @see Comment
 	 */
-	public void setComments(List<Comment> comments);
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	
 	/**
 	 * Returns a list of comments added to the task
 	 * @return comments - a list of comments
 	 * @see Comment
 	 */
-	public List<Comment> getComments();
+	public List<Comment> getComments() {
+		return this.comments;
+	}
 }
