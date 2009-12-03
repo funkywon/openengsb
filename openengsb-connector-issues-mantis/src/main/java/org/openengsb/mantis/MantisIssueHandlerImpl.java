@@ -15,7 +15,7 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.api.impl;
+package org.openengsb.mantis;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -29,12 +29,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
 
-import org.openengsb.issues.common.api.IssueDomain;
-import org.openengsb.issues.common.enums.IssuePriority;
-import org.openengsb.issues.common.enums.IssueSeverity;
-import org.openengsb.issues.common.exceptions.IssueDomainException;
-import org.openengsb.issues.common.model.Issue;
-import org.openengsb.mantis.IssueEndpoint;
+import org.openengsb.issues.common.api.IssueHandler;
+import org.openengsb.issues.common.api.enums.IssuePriority;
+import org.openengsb.issues.common.api.enums.IssueSeverity;
+import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+import org.openengsb.issues.common.api.model.Issue;
+import org.openengsb.mantis.endpoints.IssueEndpoint;
 import org.w3c.dom.DOMException;
 import org.xml.sax.SAXException;
 
@@ -43,15 +43,15 @@ import biz.futureware.mantisconnect.MantisConnectLocator;
 import biz.futureware.mantisconnect.MantisConnectPortType;
 import biz.futureware.mantisconnect.ObjectRef;
 
-public class MantisIssueDomainImpl implements IssueDomain {
+public class MantisIssueHandlerImpl implements IssueHandler {
 
 	MantisConnectPortType porttype = null;
 	
 	
-	public MantisIssueDomainImpl() {
+	public MantisIssueHandlerImpl() {
 		MantisConnectLocator locator = new MantisConnectLocator();
     	try {
-			MantisConnectPortType porttype =locator.getMantisConnectPort();
+			porttype =locator.getMantisConnectPort();
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

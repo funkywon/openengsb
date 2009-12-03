@@ -15,26 +15,18 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.exceptions;
+package org.openengsb.mantis.endpoints;
 
-public class IssueDomainException extends Exception {
-	public IssueDomainException() {
-		// TODO Auto-generated constructor stub
-	}
+import javax.jbi.messaging.MessageExchange;
 
-	public IssueDomainException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
-	}
+import org.apache.servicemix.common.endpoints.ConsumerEndpoint;
 
-	public IssueDomainException(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
-	}
+public class MyConsumerEndpoint extends ConsumerEndpoint{
 
-	public IssueDomainException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
+	@Override
+	public void process(MessageExchange exchange) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -15,11 +15,8 @@
    limitations under the License.
    
 */
-package org.openengsb.mantis;
+package org.openengsb.issues.common.api.enums;
 
-/**
- * Marker interface for XBean schema generation
- */
-public interface MantisEndpointType {
-
+public enum IssueStatus {
+	NEW, CONFIRMED, ASSIGNED, RESOLVED, CLOSED
 }

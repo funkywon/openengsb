@@ -15,8 +15,11 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.enums;
+package org.openengsb.mantis.endpoints;
 
-public enum IssueResolution {
-	FIXED, INVALID, WONTFIX, DUPLICATE, WORKSFORME
+/**
+ * Marker interface for XBean schema generation
+ */
+public interface MantisEndpointType {
+
 }

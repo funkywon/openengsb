@@ -15,8 +15,8 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.enums;
+package org.openengsb.issues.common.api.enums;
 
-public enum IssuePriority {
-	IMMEDIATE, URGENT, HIGH, NORMAL, LOW
+public enum IssueResolution {
+	FIXED, INVALID, WONTFIX, DUPLICATE, WORKSFORME
 }

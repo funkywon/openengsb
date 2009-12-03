@@ -15,8 +15,8 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.enums;
+package org.openengsb.issues.common.api.enums;
 
-public enum ViewState {
-	PUBLIC, PRIVATE, ANY
+public enum IssuePriority {
+	IMMEDIATE, URGENT, HIGH, NORMAL, LOW
 }

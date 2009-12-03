@@ -15,12 +15,12 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.model;
+package org.openengsb.issues.common.api.model;
 
 import java.net.URI;
 import java.util.List;
 
-import org.openengsb.issues.common.enums.ProjectStatus;
+import org.openengsb.issues.common.api.enums.ProjectStatus;
 
 public class Project {
 	

@@ -15,8 +15,8 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.enums;
+package org.openengsb.issues.common.api.enums;
 
-public enum IssueStatus {
-	NEW, CONFIRMED, ASSIGNED, RESOLVED, CLOSED
+public enum IssueSeverity {
+	TRIVIAL,MINOR,MAJOR,CRITICAL,BLOCKER,ENHANCEMENT
 }

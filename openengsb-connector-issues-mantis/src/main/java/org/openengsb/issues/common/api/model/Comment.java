@@ -15,11 +15,11 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.model;
+package org.openengsb.issues.common.api.model;
 
 import java.util.Date;
 
-import org.openengsb.issues.common.enums.ViewState;
+import org.openengsb.issues.common.api.enums.ViewState;
 
 public class Comment {
 	

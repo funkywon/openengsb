@@ -15,7 +15,7 @@
    limitations under the License.
    
 */
-package org.openengsb.mantis;
+package org.openengsb.mantis.endpoints;
 
 import java.io.IOException;
 

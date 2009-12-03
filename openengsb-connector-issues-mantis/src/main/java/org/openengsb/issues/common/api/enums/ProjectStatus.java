@@ -15,18 +15,8 @@
    limitations under the License.
    
 */
-package org.openengsb.mantis;
+package org.openengsb.issues.common.api.enums;
 
-import javax.jbi.messaging.MessageExchange;
-
-import org.apache.servicemix.common.endpoints.ConsumerEndpoint;
-
-public class MyConsumerEndpoint extends ConsumerEndpoint{
-
-	@Override
-	public void process(MessageExchange exchange) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
+public enum ProjectStatus {
+	OPEN, ENABLED, DISABLE, CLOSED
 }

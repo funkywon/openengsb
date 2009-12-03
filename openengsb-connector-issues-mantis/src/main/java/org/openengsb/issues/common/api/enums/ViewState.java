@@ -15,8 +15,8 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.enums;
+package org.openengsb.issues.common.api.enums;
 
-public enum ProjectStatus {
-	OPEN, ENABLED, DISABLE, CLOSED
+public enum ViewState {
+	PUBLIC, PRIVATE, ANY
 }
