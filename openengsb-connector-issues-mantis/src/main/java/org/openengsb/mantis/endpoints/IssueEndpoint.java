@@ -15,7 +15,7 @@
    limitations under the License.
    
 */
-package org.openengsb.mantis;
+package org.openengsb.mantis.endpoints;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -36,18 +36,22 @@ import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
 
 
-import org.openengsb.issues.common.api.IssueDomain;
-import org.openengsb.issues.common.api.impl.MantisIssueDomainImpl;
-import org.openengsb.issues.common.enums.IssuePriority;
-import org.openengsb.issues.common.enums.IssueResolution;
-import org.openengsb.issues.common.enums.IssueSeverity;
-import org.openengsb.issues.common.enums.IssueStatus;
-import org.openengsb.issues.common.exceptions.IssueDomainException;
-import org.openengsb.issues.common.model.Comment;
-import org.openengsb.issues.common.model.Issue;
-import org.openengsb.issues.common.model.Project;
-import org.openengsb.mantis.AbstractEndpoint;
-import org.openengsb.issues.common.exceptions.IssueDomainException;
+import org.openengsb.issues.common.api.IssueHandler;
+import org.openengsb.issues.common.api.enums.IssuePriority;
+import org.openengsb.issues.common.api.enums.IssueResolution;
+import org.openengsb.issues.common.api.enums.IssueSeverity;
+import org.openengsb.issues.common.api.enums.IssueStatus;
+import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+import org.openengsb.issues.common.api.model.Comment;
+import org.openengsb.issues.common.api.model.Issue;
+import org.openengsb.issues.common.api.model.Project;
+import org.openengsb.mantis.MantisIssueHandlerImpl;
+import org.openengsb.mantis.commands.IssueCommand;
+import org.openengsb.mantis.commands.IssueCreateCommand;
+import org.openengsb.mantis.commands.IssueDeleteCommand;
+import org.openengsb.mantis.commands.IssueUpdateCommand;
+import org.openengsb.mantis.endpoints.AbstractEndpoint;
+import org.openengsb.mantis.util.IssueOpType;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -62,41 +66,30 @@ import biz.futureware.mantisconnect.ObjectRef;
  * @org.apache.xbean.XBean element="mantis provider"
  */
 public class IssueEndpoint extends AbstractEndpoint{
+	
+	private static final Map<IssueOpType, IssueCommand> commandMap = new HashMap<IssueOpType, IssueCommand>();
+	
+	
+	
+	//FIX THIS -> Factory
+	private IssueHandler handler = new MantisIssueHandlerImpl();
+	
 
-//	private static final String BEHAVIOR = "";
-	private static final String OPERATION_CREATE_ISSUE="create_issue";
-	private static final String OPERATION_UPDATE_ISSUE="update_issue";
-	private static final String OPERATION_DELETE_ISSUE="delete_issue";
+	//	private static final Map<String,Integer> PRIORITIES = new HashMap<String,Integer>();
+//	private static final Map<String,Integer> SEVERITIES = new HashMap<String,Integer>();
+//	static {
+//		for(IssuePriority priority:IssuePriority.values()) {
+//			PRIORITIES.put(priority.toString().toLowerCase(), priority.ordinal());
+//		}
+//		for(IssueSeverity severity:IssueSeverity.values()) {
+//			SEVERITIES.put(severity.toString().toLowerCase(), severity.ordinal());
+//		}
+//	}
 	
-	private static final Map<String,Integer> PRIORITIES = new HashMap<String,Integer>();
-	private static final Map<String,Integer> SEVERITIES = new HashMap<String,Integer>();
-	
-	//FIX THIS
-	private IssueDomain handler = new MantisIssueDomainImpl(); 
-	
-	static {
-		
-		PRIORITIES.put("immediate", IssuePriority.IMMEDIATE.ordinal());
-		PRIORITIES.put("urgent", IssuePriority.URGENT.ordinal());
-		PRIORITIES.put("high", IssuePriority.HIGH.ordinal());
-		PRIORITIES.put("normal", IssuePriority.NORMAL.ordinal());
-		PRIORITIES.put("low", IssuePriority.LOW.ordinal());
-		
-		
-		SEVERITIES.put("trivial", IssueSeverity.TRIVIAL.ordinal());
-		SEVERITIES.put("critical", IssueSeverity.CRITICAL.ordinal());
-		SEVERITIES.put("blocker", IssueSeverity.BLOCKER.ordinal());
-		SEVERITIES.put("enhancement", IssueSeverity.ENHANCEMENT.ordinal());
-		SEVERITIES.put("major", IssueSeverity.MAJOR.ordinal());
-		SEVERITIES.put("minor", IssueSeverity.MINOR.ordinal());
-		
-	}
 	
 	
     public IssueEndpoint() {
-    	
     }
-
 	@Override
 	protected String getEndpointBehaviour() {
 		// TODO Auto-generated method stub
@@ -108,44 +101,45 @@ public class IssueEndpoint extends AbstractEndpoint{
 		processInOutRequest(exchange,in,null);
 	}
 
+	@SuppressWarnings({ "unused"})
 	@Override
     protected void processInOutRequest(MessageExchange exchange, NormalizedMessage in, NormalizedMessage out)
             throws Exception {
-		
 		String op = exchange.getOperation().getLocalPart();
-        String body = null;
-        
         String user = extractSingleNode(in,"//user").getNodeValue();
     	String pass = extractSingleNode(in,"//password").getNodeValue();
     	IssueData data1 = extractIssueData(in);
-        
-        if(op.equals(IssueEndpoint.OPERATION_CREATE_ISSUE)) {
+    	
+        if(op.equals(IssueOpType.CREATE_ISSUE.toString().toLowerCase())) {
+        	//handler dem CommandKonstruktor übergeben
+        	//bei command execute einfach normalized In message übergeben
         	
-        	
+        	//aus commandmap rausholen und ausführen
         	String issueId = handler.createIssue(data1,user,pass);
-
-        
-        } else if (op.equals(IssueEndpoint.OPERATION_UPDATE_ISSUE)) {
+        } else if (op.equals(IssueOpType.UPDATE_ISSUE.toString().toLowerCase())) {
         	handler.updateIssue(data1.getId(), data1, user, pass);
-        } else if (op.equals(IssueEndpoint.OPERATION_DELETE_ISSUE)) {
+        } else if (op.equals(IssueOpType.DELETE_ISSUE.toString().toLowerCase())) {
         	handler.deleteIssue(data1.getId(), data1, user, pass);
-        	
         }
-        
 	}
 	
+	public void init() {
+		commandMap.put(IssueOpType.CREATE_ISSUE, new IssueCreateCommand(handler, getLog()));
+		commandMap.put(IssueOpType.DELETE_ISSUE, new IssueDeleteCommand(handler, getLog()));
+		commandMap.put(IssueOpType.UPDATE_ISSUE, new IssueUpdateCommand(handler, getLog()));
+	}
+	
+	//Refactor: make UTIL class
 	protected IssueData extractIssueData(NormalizedMessage message) throws IssueDomainException {
 		String category = null;
 		String description = null;
 		String summary = null;
 		String project = null;
 		
-		
 		//set the default values
 		String reproducibility="have not tried";
 		String severity="minor";
 		String priority="normal";
-		
 		try {
 			category = extractSingleNode(message,"//category").getNodeValue();
 			description = extractSingleNode(message,"//description").getNodeValue();
@@ -180,12 +174,21 @@ public class IssueEndpoint extends AbstractEndpoint{
 		data1.setCategory(category);
 		data1.setDescription(description);
 		data1.setSummary(summary);
+		
 		//needs to be fixed
 		data1.setProject(new ObjectRef(new BigInteger("1"),project));
 		
+		
 		//not sure yet, if this is the right index
-		data1.setPriority(new ObjectRef(new BigInteger(IssueEndpoint.PRIORITIES.get(priority).toString()),priority));
-		data1.setSeverity(new ObjectRef(new BigInteger(IssueEndpoint.SEVERITIES.get(severity).toString()),severity));
+		data1.setPriority(new ObjectRef(BigInteger.valueOf(IssuePriority.valueOf(priority).ordinal()),priority));
+		data1.setSeverity(new ObjectRef(BigInteger.valueOf(IssueSeverity.valueOf(severity).ordinal()),severity));
+		
+		
+		//keep this until we know, the upper lines are working
+//		data1.setPriority(new ObjectRef(new BigInteger(IssueEndpoint.PRIORITIES.get(priority).toString()),priority));
+//		data1.setSeverity(new ObjectRef(new BigInteger(IssueEndpoint.SEVERITIES.get(severity).toString()),severity));
+		
+		//TODO: reproducibility on issue data still has to be set
 //		data1.setReproducibility()
 		
 		return data1;

@@ -15,15 +15,15 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.model;
+package org.openengsb.issues.common.api.model;
 
 import java.util.Date;
 import java.util.List;
 
-import org.openengsb.issues.common.enums.IssuePriority;
-import org.openengsb.issues.common.enums.IssueResolution;
-import org.openengsb.issues.common.enums.IssueSeverity;
-import org.openengsb.issues.common.enums.IssueStatus;
+import org.openengsb.issues.common.api.enums.IssuePriority;
+import org.openengsb.issues.common.api.enums.IssueResolution;
+import org.openengsb.issues.common.api.enums.IssueSeverity;
+import org.openengsb.issues.common.api.enums.IssueStatus;
 
 public class Issue {
 	

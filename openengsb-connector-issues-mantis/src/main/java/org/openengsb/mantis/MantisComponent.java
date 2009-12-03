@@ -23,6 +23,9 @@ import javax.jbi.servicedesc.ServiceEndpoint;
 
 import org.apache.servicemix.common.DefaultComponent;
 import org.apache.servicemix.common.Endpoint;
+import org.openengsb.mantis.endpoints.IssueEndpoint;
+import org.openengsb.mantis.endpoints.MantisEndpointType;
+import org.openengsb.mantis.endpoints.MyConsumerEndpoint;
 
 /**
  * @org.apache.xbean.XBean element="mantisComponent"

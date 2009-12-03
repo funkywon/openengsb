@@ -19,15 +19,15 @@ package org.openengsb.issues.common.api;
 
 import java.math.BigInteger;
 
-import org.openengsb.issues.common.exceptions.IssueDomainException;
-import org.openengsb.issues.common.model.Issue;
+import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+import org.openengsb.issues.common.api.model.Issue;
 
 import biz.futureware.mantisconnect.IssueData;
 
 /**
  * Interface describing a generic issue domain.
  */
-public interface IssueDomain {
+public interface IssueHandler {
 
     /**
      * Creates an issue.
