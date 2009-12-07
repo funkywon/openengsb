@@ -17,31 +17,15 @@
 */
 package org.openengsb.mantis;
 
-import java.io.IOException;
+
 import java.math.BigInteger;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.jbi.messaging.MessagingException;
-import javax.jbi.messaging.NormalizedMessage;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
-import javax.xml.transform.TransformerException;
-
 import org.openengsb.issues.common.api.IssueHandler;
-import org.openengsb.issues.common.api.enums.IssuePriority;
-import org.openengsb.issues.common.api.enums.IssueSeverity;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.api.model.Issue;
-import org.openengsb.mantis.endpoints.IssueEndpoint;
-import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
-
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.MantisConnectLocator;
 import biz.futureware.mantisconnect.MantisConnectPortType;
-import biz.futureware.mantisconnect.ObjectRef;
 
 public class MantisIssueHandlerImpl implements IssueHandler {
 

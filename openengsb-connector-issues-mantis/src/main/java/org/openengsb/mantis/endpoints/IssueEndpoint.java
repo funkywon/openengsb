@@ -18,35 +18,21 @@
 package org.openengsb.mantis.endpoints;
 
 import java.io.IOException;
-import org.dom4j.DocumentException;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.jbi.management.DeploymentException;
-
 import javax.jbi.messaging.MessageExchange;
 import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
-import javax.jbi.messaging.MessageExchange.Role;
-import javax.xml.namespace.QName;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.rpc.ServiceException;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 
 
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.enums.IssuePriority;
-import org.openengsb.issues.common.api.enums.IssueResolution;
 import org.openengsb.issues.common.api.enums.IssueSeverity;
-import org.openengsb.issues.common.api.enums.IssueStatus;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.api.model.Comment;
-import org.openengsb.issues.common.api.model.Issue;
-import org.openengsb.issues.common.api.model.Project;
 import org.openengsb.mantis.MantisIssueHandlerImpl;
 import org.openengsb.mantis.commands.IssueCommand;
 import org.openengsb.mantis.commands.IssueCreateCommand;
@@ -55,14 +41,9 @@ import org.openengsb.mantis.commands.IssueUpdateCommand;
 import org.openengsb.mantis.endpoints.AbstractEndpoint;
 import org.openengsb.mantis.util.IssueOpType;
 import org.w3c.dom.DOMException;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-import org.apache.servicemix.common.ServiceUnit;
 import org.apache.servicemix.jbi.jaxp.StringSource;
-
 import biz.futureware.mantisconnect.IssueData;
-import biz.futureware.mantisconnect.MantisConnectLocator;
-import biz.futureware.mantisconnect.MantisConnectPortType;
 import biz.futureware.mantisconnect.ObjectRef;
 import org.openengsb.mantis.util.XmlParserFunctions;
 
@@ -110,6 +91,7 @@ public class IssueEndpoint extends AbstractEndpoint {
 //		String op = exchange.getOperation().getLocalPart();
 //		String user = extractSingleNode(in, "//user").getNodeValue();
 //		String pass = extractSingleNode(in, "//password").getNodeValue();
+		@SuppressWarnings("unused")
 		IssueData data1 = extractIssueData(in);
 
 		IssueOpType op;
@@ -122,7 +104,7 @@ public class IssueEndpoint extends AbstractEndpoint {
 		}
 		String body = null;
 
-		body = this.commandMap.get(op).execute(in);
+		body = IssueEndpoint.commandMap.get(op).execute(in);
 
 		// body =
 		// "<?xml version=\"1.0\" encoding=\"UTF-8\"?><acmResponseMessage><body>"
@@ -153,6 +135,7 @@ public class IssueEndpoint extends AbstractEndpoint {
 		String project = null;
 
 		// set the default values
+		@SuppressWarnings("unused")
 		String reproducibility = "have not tried";
 		String severity = "minor";
 		String priority = "normal";
@@ -209,8 +192,8 @@ public class IssueEndpoint extends AbstractEndpoint {
 		// data1.setSeverity(new ObjectRef(new
 		// BigInteger(IssueEndpoint.SEVERITIES.get(severity).toString()),severity));
 
-		// TODO: reproducibility on issue data still has to be set
-		// data1.setReproducibility()
+
+		 data1.setReproducibility(reproducibility);
 
 		return data1;
 	}

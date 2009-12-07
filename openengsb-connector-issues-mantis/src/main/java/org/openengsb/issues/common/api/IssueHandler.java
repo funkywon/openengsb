@@ -20,7 +20,6 @@ package org.openengsb.issues.common.api;
 import java.math.BigInteger;
 
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.api.model.Issue;
 
 import biz.futureware.mantisconnect.IssueData;
 

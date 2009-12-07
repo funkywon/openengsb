@@ -32,7 +32,8 @@ public class Issue {
     private String description;
     private String reporter;
     private String owner;
-    private String affectedVersion;
+    @SuppressWarnings("unused")
+	private String affectedVersion;
     private IssuePriority priority;
     private IssueSeverity severity;
     private IssueResolution resolution;

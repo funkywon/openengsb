@@ -17,6 +17,7 @@
  */
 
 package org.openengsb.cms;
+import org.openengsb.cms.RepositoryException;
 
 public interface Repository {
 	
