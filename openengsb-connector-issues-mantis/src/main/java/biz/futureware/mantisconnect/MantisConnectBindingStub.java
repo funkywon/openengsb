@@ -2083,6 +2083,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 
 	}
 
+	@SuppressWarnings("unchecked")
 	protected org.apache.axis.client.Call createCall()
 			throws java.rmi.RemoteException {
 		try {
@@ -2128,10 +2129,10 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 						javax.xml.namespace.QName qName = (javax.xml.namespace.QName) cachedSerQNames
 								.get(i);
 						java.lang.Object x = cachedSerFactories.get(i);
-						if (x instanceof Class) {
-							java.lang.Class sf = (java.lang.Class) cachedSerFactories
+						if (x instanceof Class<?>) {
+							java.lang.Class<Object> sf = (java.lang.Class<Object>) cachedSerFactories
 									.get(i);
-							java.lang.Class df = (java.lang.Class) cachedDeserFactories
+							java.lang.Class<Object> df = (java.lang.Class<Object>) cachedDeserFactories
 									.get(i);
 							_call
 									.registerTypeMapping(cls, qName, sf, df,
@@ -2803,7 +2804,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[16]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_get_biggest_id");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_get_biggest_id");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2842,7 +2843,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[17]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_get_id_from_summary");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_get_id_from_summary");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2882,7 +2883,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[18]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_add");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_add");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2921,7 +2922,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[19]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_update");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_update");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2959,7 +2960,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[20]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_delete");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_delete");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2998,7 +2999,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[21]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_note_add");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_note_add");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3036,7 +3037,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[22]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_note_delete");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_note_delete");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3076,7 +3077,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[23]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_relationship_add");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_relationship_add");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3116,7 +3117,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[24]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_relationship_delete");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_relationship_delete");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3157,7 +3158,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[25]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_attachment_add");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_attachment_add");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3196,7 +3197,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[26]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_attachment_delete");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_attachment_delete");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3235,7 +3236,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[27]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_attachment_get");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_attachment_get");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3275,7 +3276,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[28]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_add");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_add");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3313,7 +3314,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[29]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_delete");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_delete");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3352,7 +3353,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[30]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_issues");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_issues");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call
@@ -3395,7 +3396,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[31]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_issue_headers");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_issue_headers");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3437,7 +3438,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[32]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_users");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_users");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3477,7 +3478,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[33]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_projects_get_user_accessible");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_projects_get_user_accessible");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3518,7 +3519,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[34]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_categories");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_categories");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3557,7 +3558,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[35]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_versions");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_versions");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3599,7 +3600,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[36]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_version_add");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_version_add");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call
@@ -3640,7 +3641,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[37]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_version_update");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_version_update");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3679,7 +3680,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[38]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_version_delete");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_version_delete");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3718,7 +3719,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[39]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_released_versions");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_released_versions");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3759,7 +3760,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[40]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_unreleased_versions");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_unreleased_versions");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3800,7 +3801,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[41]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_attachments");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_attachments");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3841,7 +3842,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[42]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_get_custom_fields");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_get_custom_fields");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3883,7 +3884,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[43]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_attachment_get");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_attachment_get");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3925,7 +3926,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[44]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_attachment_add");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_attachment_add");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -3966,7 +3967,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[45]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_project_attachment_delete");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_project_attachment_delete");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -4005,7 +4006,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[46]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_filter_get");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_filter_get");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -4048,7 +4049,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setUseSOAPAction(true);
 
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_filter_get_issues");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_filter_get_issues");
 		// _call.setSOAPActionURI(_call.getTargetEndpointAddress()+"mc_filter_get_issues");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
@@ -4095,7 +4096,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[48]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_filter_get_issue_headers");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_filter_get_issue_headers");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -4137,7 +4138,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[49]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_config_get_string");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_config_get_string");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -4176,7 +4177,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[50]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_checkin");
+				.setSOAPActionURI("http://issues.openengsb.org/mantis/api/soap/mantisconnect.php/mc_issue_checkin");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(

@@ -44,7 +44,7 @@ public class MantisComponent extends DefaultComponent
         this.endpoints = endpoints;
     }
 
-    protected List getConfiguredEndpoints() {
+    protected List<?> getConfiguredEndpoints() {
         return asList(getEndpoints());
     }
 
