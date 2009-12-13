@@ -17,6 +17,7 @@
 */
 package org.openengsb.issues.common.api.exceptions;
 
+@SuppressWarnings("serial")
 public class IssueDomainException extends Exception {
 	public IssueDomainException() {
 		// TODO Auto-generated constructor stub

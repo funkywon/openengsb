@@ -44,7 +44,7 @@ import org.openengsb.mantis.util.XmlParserFunctions;
 import org.xml.sax.SAXException;
 
 /**
- * @org.apache.xbean.XBean element="mantis provider"
+ * @org.apache.xbean.XBean element="mantisprovider"
  */
 public class IssueEndpoint extends AbstractEndpoint {
 
@@ -71,15 +71,10 @@ public class IssueEndpoint extends AbstractEndpoint {
 	@Override
 	protected void processInOutRequest(MessageExchange exchange,
 			NormalizedMessage in, NormalizedMessage out)  throws IOException, SAXException, TransformerException, DocumentException, IssueDomainException, MessagingException{
-//		String op = exchange.getOperation().getLocalPart();
 		IssueOpType op;
 		op = XmlParserFunctions.getMessageType(in);
 		String body = null;
 		body = IssueEndpoint.commandMap.get(op).execute(in);
-		// body =
-		// "<?xml version=\"1.0\" encoding=\"UTF-8\"?><acmResponseMessage><body>"
-		// + body
-		// + "</body></acmResponseMessage>";
 		Source response = new StringSource(body);
 		this.logger.info(body);
 		out.setContent(response);

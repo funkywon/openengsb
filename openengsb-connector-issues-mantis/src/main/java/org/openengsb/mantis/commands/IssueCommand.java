@@ -18,9 +18,7 @@
 package org.openengsb.mantis.commands;
 
 import javax.jbi.messaging.NormalizedMessage;
-
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.mantis.pojos.UserCredential;
 
 public interface IssueCommand {
 	public String execute(NormalizedMessage in) throws IssueDomainException;

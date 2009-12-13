@@ -21,15 +21,12 @@ package org.openengsb.mantis;
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import javax.xml.rpc.ServiceException;
-
 import org.apache.axis.EngineConfiguration;
 import org.apache.axis.configuration.EngineConfigurationFactoryFinder;
 import org.apache.axis.configuration.SimpleProvider;
 import org.apache.axis.transport.http.CommonsHTTPSender;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.mantis.pojos.UserCredential;
-
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.MantisConnectLocator;
 import biz.futureware.mantisconnect.MantisConnectPortType;
@@ -98,7 +95,4 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 		}
 		return data;
 	}
-	
-	
-
 }

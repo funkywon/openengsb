@@ -18,15 +18,11 @@
 package org.openengsb.mantis;
 
 import java.util.List;
-
 import javax.jbi.servicedesc.ServiceEndpoint;
-
 import org.apache.servicemix.common.DefaultComponent;
 import org.apache.servicemix.common.Endpoint;
+import org.openengsb.mantis.endpoints.AbstractEndpoint;
 import org.openengsb.mantis.endpoints.IssueEndpoint;
-import org.openengsb.mantis.endpoints.MantisEndpointType;
-import org.openengsb.mantis.endpoints.MyConsumerEndpoint;
-
 /**
  * @org.apache.xbean.XBean element="mantisComponent"
  * description="mantis component"
@@ -34,13 +30,13 @@ import org.openengsb.mantis.endpoints.MyConsumerEndpoint;
 public class MantisComponent extends DefaultComponent
 {
 
-    private MantisEndpointType[] endpoints;
+    private AbstractEndpoint[] endpoints;
     
-    public MantisEndpointType[] getEndpoints() {
+    public AbstractEndpoint[] getEndpoints() {
         return endpoints;
     }
     
-    public void setEndpoints(MantisEndpointType[] endpoints) {
+    public void setEndpoints(AbstractEndpoint[] endpoints) {
         this.endpoints = endpoints;
     }
 
@@ -48,8 +44,8 @@ public class MantisComponent extends DefaultComponent
         return asList(getEndpoints());
     }
 
-    protected Class[] getEndpointClasses() {
-        return new Class[] { MyConsumerEndpoint.class, IssueEndpoint.class };
+    protected Class<?>[] getEndpointClasses() {
+        return new Class[] {AbstractEndpoint.class };
     }
 
     protected Endpoint getResolvedEPR(ServiceEndpoint ep) throws Exception {
@@ -58,5 +54,5 @@ public class MantisComponent extends DefaultComponent
         endpoint.activate();
         return endpoint;
     }
-
+    
 }
