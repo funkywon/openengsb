@@ -93,7 +93,7 @@ public class XmlParserFunctions {
 	}
 
 	public static String prepareCreateIssueResponse(String response) {
-		// TODO Auto-generated method stub
+		//<issue_create_messageResponse>
 		return null;
 	}
 

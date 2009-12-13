@@ -17,28 +17,22 @@
  */
 package org.openengsb.mantis.commands;
 
-import java.io.IOException;
-
-import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-
 import org.apache.commons.logging.Log;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.mantis.pojos.UserCredential;
-import org.openengsb.mantis.util.MantisUtil;
+import org.openengsb.issues.common.pojos.AccountDataType;
+import org.openengsb.issues.common.pojos.IssueUpdateMessage;
+import org.openengsb.mantis.util.JAXBUtil;
 import org.openengsb.mantis.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
-
 import biz.futureware.mantisconnect.IssueData;
 
 public class IssueUpdateCommand implements IssueCommand {
 
 	private IssueHandler handler;
+	@SuppressWarnings("unused")
 	private Log log;
 	
 	
@@ -54,35 +48,22 @@ public class IssueUpdateCommand implements IssueCommand {
 	
 	@Override
 	public String execute(NormalizedMessage in) throws IssueDomainException{
-		UserCredential userCred;
-		IssueData data1;
+		IssueUpdateMessage requestMessage = null;
+		AccountDataType userCred;
+		IssueData data;
 		try {
-			userCred = MantisUtil.extractUserCredentials(in);
-			data1 = MantisUtil.extractIssueData(in);
+			requestMessage = JAXBUtil.extractIssueUpdateMessage(in);
+			userCred = requestMessage.getAccountData();
+			data = JAXBUtil.convertIssueData(requestMessage.getIssueData());
 		} catch (DOMException e) {
 			e.printStackTrace();
 			throw new IssueDomainException("DomException: "+e.getMessage());
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("MessagingException: "+e.getMessage());
-		} catch (TransformerException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("TransformerException: "+e.getMessage());
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("ParserConfigurationException: "+e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("IOException: "+e.getMessage());
-		} catch (SAXException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("SAXException: "+e.getMessage());
 		} catch (JAXBException e) {
 			throw new IssueDomainException("JAXBException: "+e.getMessage());
 		}
 		
 		try {
-			handler.updateIssue(data1.getId(),data1, userCred.getUser(), userCred.getPassword());
+			handler.updateIssue(data.getId(),data, userCred.getUsername(), userCred.getPassword());
 		} catch (IssueDomainException e) {
 			return XmlParserFunctions.prepareUpdateIssueResponse("Failure updating issue!");
 		}

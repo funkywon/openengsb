@@ -17,23 +17,16 @@
  */
 package org.openengsb.mantis.commands;
 
-import java.io.IOException;
-
-import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-
 import org.apache.commons.logging.Log;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.mantis.pojos.UserCredential;
-import org.openengsb.mantis.util.MantisUtil;
+import org.openengsb.issues.common.pojos.AccountDataType;
+import org.openengsb.issues.common.pojos.IssueCreateMessage;
+import org.openengsb.mantis.util.JAXBUtil;
 import org.openengsb.mantis.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
-
 import biz.futureware.mantisconnect.IssueData;
 
 public class IssueCreateCommand implements IssueCommand {
@@ -53,34 +46,21 @@ public class IssueCreateCommand implements IssueCommand {
 	
 	@Override
 	public String execute(NormalizedMessage in) throws IssueDomainException {
-		IssueData data1;
-		UserCredential userCred;
+		IssueData data;
+		IssueCreateMessage requestMessage = null;
+		AccountDataType userCred;
 		try {
-			data1 = MantisUtil.extractIssueData(in);
-			userCred = MantisUtil.extractUserCredentials(in);
+			requestMessage = JAXBUtil.extractIssueCreateMessage(in);
+			userCred = requestMessage.getAccountData();
+			data = JAXBUtil.convertIssueData(requestMessage.getIssueData());
 		} catch (DOMException e) {
 			e.printStackTrace();
 			throw new IssueDomainException("DomException: "+e.getMessage());
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("MessagingException: "+e.getMessage());
-		} catch (TransformerException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("TransformerException: "+e.getMessage());
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("ParserConfigurationException: "+e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("IOException: "+e.getMessage());
-		} catch (SAXException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("SAXException: "+e.getMessage());
 		} catch (JAXBException e) {
 			throw new IssueDomainException("JAXBException: "+e.getMessage());
 		}
 		
-		String response = handler.createIssue(data1, userCred.getUser(), userCred.getPassword());
+		String response = handler.createIssue(data, userCred.getUsername(), userCred.getPassword());
 		response = XmlParserFunctions.prepareCreateIssueResponse(response);
 		
 		return response;
