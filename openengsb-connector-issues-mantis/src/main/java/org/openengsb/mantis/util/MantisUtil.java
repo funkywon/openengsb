@@ -17,6 +17,7 @@
  */
 package org.openengsb.mantis.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
@@ -24,6 +25,10 @@ import java.util.Properties;
 
 import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
@@ -31,6 +36,7 @@ import javax.xml.transform.dom.DOMSource;
 import org.apache.servicemix.jbi.jaxp.SourceTransformer;
 import org.apache.xpath.CachedXPathAPI;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+import org.openengsb.issues.common.pojos.IssueDataType;
 import org.openengsb.mantis.pojos.UserCredential;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -39,26 +45,59 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import biz.futureware.mantisconnect.IssueData;
-import biz.futureware.mantisconnect.ObjectRef;
+import biz.futureware.mantisconnect.IssueNoteData;
 
 public class MantisUtil {
 
 	private static final CachedXPathAPI XPATH = new CachedXPathAPI();
-	private static final String ISSUEDATA_PARAM = "issueData";
+	
 
 	public static Properties load(String propsName) throws IOException {
-        Properties props = new Properties();
-        URL url = ClassLoader.getSystemResource(propsName);
-        props.load(url.openStream());
-        return props;
-    }
+		Properties props = new Properties();
+		URL url = ClassLoader.getSystemResource(propsName);
+		props.load(url.openStream());
+		return props;
+	}
+
+
 	
-	public static IssueData extractIssueData(NormalizedMessage message)
-			throws IssueDomainException {
+
+	
+	private static IssueData convertIssueData(IssueDataType issue) {
+		IssueData issueData = new IssueData();
 		
+		issueData.setId(issue.getId());
+		issueData.setProject(issue.getProject());
+		issueData.setSummary(issue.getSummary());
+		issueData.setVersion(issue.getVersion());
+		issueData.setDescription(issue.getDescription());
+		issueData.setPriority(issue.getPriority());
+		issueData.setSeverity(issue.getSeverity());
+		issueData.setHandler(issue.getHandler());
+		issueData.setDate_submitted(issue.getDateSubmitted().toGregorianCalendar());
+		issueData.setLast_updated(issue.getLastUpdated().toGregorianCalendar());
+		issueData.setStatus(issue.getStatus());
+		issueData.setResolution(issue.getResolution());
+		issueData.setReporter(issue.getReporter());
+		issueData.setNotes((IssueNoteData[])issue.getNotes().getIssueNoteData().toArray());
+		return issueData;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static IssueData extractIssueData(NormalizedMessage message)
+			throws IssueDomainException, JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance("org.openengsb.issues.common.pojos");
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		JAXBElement<IssueDataType> issueData= (JAXBElement<IssueDataType>) unmarshaller
+				.unmarshal(message.getContent());
+		IssueDataType issue= issueData.getValue();
+		return MantisUtil.convertIssueData(issue);
+		
+		
+		/*
 		try {
-			
-			Node issueNode = extractSingleNode(message,ISSUEDATA_PARAM);
+
+			issueNode = extractSingleNode(message, ISSUEDATA_PARAM);
 		} catch (ParserConfigurationException e) {
 			throw new IssueDomainException(e.getMessage());
 		} catch (IOException e) {
@@ -70,113 +109,79 @@ public class MantisUtil {
 		} catch (MessagingException e) {
 			throw new IssueDomainException(e.getMessage());
 		}
-		String category;
 		String description;
 		String summary;
 		String project;
 		int projectId;
-		String reproducibility;
 		String severity;
 		String priority;
 		String id;
-		biz.futureware.mantisconnect.ObjectRef view_state;
 
-//		java.util.Calendar last_updated;
-//		biz.futureware.mantisconnect.AccountData reporter;
-//		java.util.Calendar date_submitted;
-//		java.math.BigInteger sponsorship_total;
-//		biz.futureware.mantisconnect.AccountData handler;
-//		biz.futureware.mantisconnect.ObjectRef projection;
-//		biz.futureware.mantisconnect.ObjectRef eta;
-//		biz.futureware.mantisconnect.ObjectRef resolution;
-//		
-//		biz.futureware.mantisconnect.AttachmentData[] attachments;
-//		biz.futureware.mantisconnect.RelationshipData[] relationships;
-//		biz.futureware.mantisconnect.IssueNoteData[] notes;
-//		biz.futureware.mantisconnect.CustomFieldValueForIssueData[] custom_fields;
-
-		
+		java.util.Calendar last_updated;
+		biz.futureware.mantisconnect.AccountData reporter;
+		java.util.Calendar date_submitted;
+		biz.futureware.mantisconnect.AccountData handler;
+		biz.futureware.mantisconnect.ObjectRef resolution;
+		biz.futureware.mantisconnect.AttachmentData[] attachments;
+		biz.futureware.mantisconnect.IssueNoteData[] notes;
+		biz.futureware.mantisconnect.CustomFieldValueForIssueData[] custom_fields;
 		String version;
-		String build;
-		String platform;
 		String os;
-		String os_build;
-		String fixed_in_version;
-		String target_version;
-		String steps_to_reproduce;
-		String additional_information;
-		
-		
+
 		try {
-			category = MantisUtil.extractStringParameter(message, "//category");
-			id = MantisUtil.extractStringParameter(message, "//id");
-			description = MantisUtil.extractStringParameter(message, "//description");
+
+			id = MantisUtil.extractStringParameter(issueNode, "/id");
+			description = MantisUtil.extractStringParameter(message,
+					"//description");
 			summary = MantisUtil.extractStringParameter(message, "//summary");
 			project = MantisUtil.extractStringParameter(message, "//project");
-			
-			projectId = Integer.parseInt((MantisUtil.extractStringParameter(message,
-					"//projectid")));
-			reproducibility = MantisUtil.extractStringParameter(message,
-					"//reproducibility");
+
+			projectId = Integer.parseInt((MantisUtil.extractStringParameter(
+					message, "//projectid")));
+
 			severity = MantisUtil.extractStringParameter(message, "//severity");
 			priority = MantisUtil.extractStringParameter(message, "//priority");
 			version = MantisUtil.extractStringParameter(message, "//version");
-			build = MantisUtil.extractStringParameter(message, "//build");
-			platform = MantisUtil.extractStringParameter(message, "//platform");
+
 			os = MantisUtil.extractStringParameter(message, "//os");
-			os_build = MantisUtil.extractStringParameter(message, "//os_build");
-			fixed_in_version = MantisUtil.extractStringParameter(message, "//fixed_in_version");
-			target_version = MantisUtil.extractStringParameter(message, "//target_version");
-			steps_to_reproduce = MantisUtil.extractStringParameter(message, "//steps_to_reproduce");
-			additional_information = MantisUtil.extractStringParameter(message, "//additional_information");
-			
-		
+
 		} catch (DOMException e) {
-			throw new IssueDomainException("DomException: "+e.getMessage());
+			throw new IssueDomainException("DomException: " + e.getMessage());
 		} catch (MessagingException e) {
-			throw new IssueDomainException("MessagingException: "+e.getMessage());
+			throw new IssueDomainException("MessagingException: "
+					+ e.getMessage());
 		} catch (TransformerException e) {
-			throw new IssueDomainException("TransformerException: "+e.getMessage());
+			throw new IssueDomainException("TransformerException: "
+					+ e.getMessage());
 		} catch (ParserConfigurationException e) {
-			throw new IssueDomainException("ParserConfigurationException: "+e.getMessage());
+			throw new IssueDomainException("ParserConfigurationException: "
+					+ e.getMessage());
 		} catch (IOException e) {
-			throw new IssueDomainException("IOException: "+e.getMessage());
+			throw new IssueDomainException("IOException: " + e.getMessage());
 		} catch (SAXException e) {
-			throw new IssueDomainException("SAXException: "+e.getMessage());
+			throw new IssueDomainException("SAXException: " + e.getMessage());
 		}
 
-		if (category == null || description == null || summary == null
-				|| project == null) {
+		if (description == null || summary == null || project == null) {
 			throw new IssueDomainException(
 					"One or more required field(s) is(are) not set.");
 		}
 
 		IssueData data = new IssueData();
-		
 
 		// Required fields
-		data.setCategory(category);
 		data.setDescription(description);
 		data.setSummary(summary);
-		
+
 		data.setId(new BigInteger(id));
 		data.setProject(new ObjectRef(BigInteger.valueOf(projectId), project));
 		data.setPriority(new ObjectRef(BigInteger.valueOf(0), priority));
 		data.setSeverity(new ObjectRef(BigInteger.valueOf(0), severity));
-		data.setReproducibility(new ObjectRef(BigInteger.valueOf(0),
-				reproducibility));
 
 		data.setVersion(version);
-		data.setBuild(build);
-		data.setPlatform(platform);
 		data.setOs(os);
-		data.setOs_build(os_build);
-		data.setFixed_in_version(fixed_in_version);
-		data.setTarget_version(target_version);
-		data.setSteps_to_reproduce(steps_to_reproduce);
-		data.setAdditional_information(additional_information);
-		
-		return data;
+
+		return data;*/
 	}
 
 	/**
@@ -260,6 +265,19 @@ public class MantisUtil {
 		}
 	}
 
+	public static String extractStringParameter(Node inNode, String xpath)
+			throws TransformerException {
+		// get parameter
+		Node node = MantisUtil.XPATH.selectSingleNode(inNode, xpath);
+
+		// validate them
+		if (node == null) {
+			return null;
+		} else {
+			return node.getNodeValue();
+		}
+	}
+
 	/**
 	 * Extracts to root-Node (actually XML-Element) from a NormalizedMessage.
 	 * This helper is needed, since, depending on the way the request was sent
@@ -290,14 +308,16 @@ public class MantisUtil {
 		}
 	}
 
-	public static UserCredential extractUserCredentials(NormalizedMessage in) throws DOMException, MessagingException, TransformerException, ParserConfigurationException, IOException, SAXException {
+	public static UserCredential extractUserCredentials(NormalizedMessage in)
+			throws DOMException, MessagingException, TransformerException,
+			ParserConfigurationException, IOException, SAXException {
 		org.openengsb.mantis.pojos.UserCredential uc = new UserCredential();
 		String user = extractSingleNode(in, "//username").getNodeValue();
 		String pass = extractSingleNode(in, "//password").getNodeValue();
 		uc.setPassword(pass);
 		uc.setUser(user);
 		return uc;
-		
+
 	}
 
 }

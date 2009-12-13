@@ -18,6 +18,6 @@
 package org.openengsb.mantis.util;
 
 public enum IssueOpType {
-	CREATE_ISSUE,UPDATE_ISSUE,DELETE_ISSUE
+	CREATE_ISSUE,UPDATE_ISSUE,DELETE_ISSUE, GET_ISSUE
 	
 }

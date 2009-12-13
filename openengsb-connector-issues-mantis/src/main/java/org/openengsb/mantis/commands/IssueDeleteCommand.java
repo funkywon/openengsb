@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -50,28 +51,31 @@ public class IssueDeleteCommand implements IssueCommand {
 	}
 	@Override
 	public String execute(NormalizedMessage in) throws IssueDomainException{
-		IssueData data1 = MantisUtil.extractIssueData(in);
 		UserCredential userCred;
+		IssueData data1;
 		try {
 			userCred = MantisUtil.extractUserCredentials(in);
+			data1 = MantisUtil.extractIssueData(in);
 		} catch (DOMException e) {
 			e.printStackTrace();
-			throw new IssueDomainException("DomException");
+			throw new IssueDomainException("DomException: "+e.getMessage());
 		} catch (MessagingException e) {
 			e.printStackTrace();
-			throw new IssueDomainException("MessagingException");
+			throw new IssueDomainException("MessagingException: "+e.getMessage());
 		} catch (TransformerException e) {
 			e.printStackTrace();
-			throw new IssueDomainException("TransformerException");
+			throw new IssueDomainException("TransformerException: "+e.getMessage());
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-			throw new IssueDomainException("ParserConfigurationException");
+			throw new IssueDomainException("ParserConfigurationException: "+e.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new IssueDomainException("IOException");
+			throw new IssueDomainException("IOException: "+e.getMessage());
 		} catch (SAXException e) {
 			e.printStackTrace();
-			throw new IssueDomainException("SAXException");
+			throw new IssueDomainException("SAXException: "+e.getMessage());
+		} catch (JAXBException e) {
+			throw new IssueDomainException("JAXBException: "+e.getMessage());
 		}
 		try {
 			
