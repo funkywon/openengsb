@@ -17,12 +17,9 @@
  */
 package org.openengsb.mantis.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
-import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXSource;
 
@@ -39,6 +36,11 @@ import biz.futureware.mantisconnect.IssueData;
 
 public class XmlParserFunctions {
 
+	private final static String SCHEMA_ISSUECREATE_ELEMENT= "issue_create_message";
+	private final static String SCHEMA_ISSUEUPDATE_ELEMENT= "issue_update_message";
+	private final static String SCHEMA_ISSUEDELETE_ELEMENT= "issue_delete_message";
+	private final static String SCHEMA_ISSUEGET_ELEMENT= "issue_get_message";
+	
 	private static SourceTransformer sourceTransformer = new SourceTransformer();
 
 	private static Logger logger = Logger.getLogger(XmlParserFunctions.class);
@@ -56,18 +58,22 @@ public class XmlParserFunctions {
 			DocumentException {
 		Document doc = readMessage(in);
 		
-		if (doc.getRootElement().getName().equals("CreateIssueRequestMessage")) {
+		if (doc.getRootElement().getName().equals(XmlParserFunctions.SCHEMA_ISSUECREATE_ELEMENT)) {
 			return IssueOpType.CREATE_ISSUE;
 			
 		} else if (doc.getRootElement().getName().equals(
-				"UpdateIssueRequestMessage")) {
+				XmlParserFunctions.SCHEMA_ISSUEUPDATE_ELEMENT)) {
 			return IssueOpType.UPDATE_ISSUE;
 			
 		} else if (doc.getRootElement().getName().equals(
-				"DelteIssueRequestMessage")) {
+				XmlParserFunctions.SCHEMA_ISSUEDELETE_ELEMENT)) {
 			return IssueOpType.DELETE_ISSUE;
 			
-		} else {
+		} else if (doc.getRootElement().getName().equals(
+				XmlParserFunctions.SCHEMA_ISSUEGET_ELEMENT)) {
+			return IssueOpType.GET_ISSUE;
+		}
+		else {
 			throw new RuntimeException("root element could not be sorted..."
 					+ doc.getRootElement().getName());
 		}

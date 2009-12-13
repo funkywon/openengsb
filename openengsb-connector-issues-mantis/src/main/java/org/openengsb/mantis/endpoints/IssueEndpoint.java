@@ -33,6 +33,7 @@ import org.openengsb.mantis.MantisIssueHandlerImpl;
 import org.openengsb.mantis.commands.IssueCommand;
 import org.openengsb.mantis.commands.IssueCreateCommand;
 import org.openengsb.mantis.commands.IssueDeleteCommand;
+import org.openengsb.mantis.commands.IssueGetCommand;
 import org.openengsb.mantis.commands.IssueUpdateCommand;
 import org.openengsb.mantis.endpoints.AbstractEndpoint;
 import org.openengsb.mantis.util.IssueOpType;
@@ -71,17 +72,10 @@ public class IssueEndpoint extends AbstractEndpoint {
 	protected void processInOutRequest(MessageExchange exchange,
 			NormalizedMessage in, NormalizedMessage out)  throws IOException, SAXException, TransformerException, DocumentException, IssueDomainException, MessagingException{
 //		String op = exchange.getOperation().getLocalPart();
-
-		
-		
 		IssueOpType op;
-		
 		op = XmlParserFunctions.getMessageType(in);
-		
 		String body = null;
-
 		body = IssueEndpoint.commandMap.get(op).execute(in);
-
 		// body =
 		// "<?xml version=\"1.0\" encoding=\"UTF-8\"?><acmResponseMessage><body>"
 		// + body
@@ -98,6 +92,8 @@ public class IssueEndpoint extends AbstractEndpoint {
 		commandMap.put(IssueOpType.DELETE_ISSUE, new IssueDeleteCommand(
 				handler, getLog()));
 		commandMap.put(IssueOpType.UPDATE_ISSUE, new IssueUpdateCommand(
+				handler, getLog()));
+		commandMap.put(IssueOpType.GET_ISSUE, new IssueGetCommand(
 				handler, getLog()));
 	}
 	

@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -51,10 +52,10 @@ public class IssueGetCommand implements IssueCommand {
 
 	@Override
 	public String execute(NormalizedMessage in) throws IssueDomainException {
-		
-		IssueData data = MantisUtil.extractIssueData(in);
+		IssueData data;
 		UserCredential userCred;
 		try {
+			data = MantisUtil.extractIssueData(in);
 			userCred = MantisUtil.extractUserCredentials(in);
 		} catch (DOMException e) {
 			e.printStackTrace();
@@ -74,6 +75,8 @@ public class IssueGetCommand implements IssueCommand {
 		} catch (SAXException e) {
 			e.printStackTrace();
 			throw new IssueDomainException("SAXException: "+e.getMessage());
+		} catch (JAXBException e) {
+			throw new IssueDomainException("JAXBException: "+e.getMessage());
 		}
 		
 		IssueData returnData;

@@ -1,17 +1,12 @@
 package org.openengsb.mantis.commands;
 
-
 import static org.junit.Assert.*;
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.util.Properties;
-
 import javax.xml.rpc.ServiceException;
-
 import org.apache.axis.EngineConfiguration;
 import org.apache.axis.configuration.EngineConfigurationFactoryFinder;
 import org.apache.axis.configuration.SimpleProvider;
@@ -22,27 +17,23 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openengsb.mantis.util.MantisUtil;
-
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.MantisConnectLocator;
 import biz.futureware.mantisconnect.MantisConnectPortType;
 import biz.futureware.mantisconnect.ObjectRef;
 
 public class IssueDeleteCommandTest {
-
 	private static final String USER_KEY = "user";
 	private static final String PASSWORD_KEY = "password";
 	private static final String HOST_KEY = "host";
-	private static final String PROPS_FILE= "config.properties";
+	private static final String PROPS_FILE = "config.properties";
 	
 	private static String USER;
 	private static String PASS;
 	private static String HOST;
-
 	
 	MantisConnectLocator locator;
 	InputStream istream;
-
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws  IOException{
@@ -52,8 +43,6 @@ public class IssueDeleteCommandTest {
 		USER = props.getProperty(USER_KEY);
 		PASS = props.getProperty(PASSWORD_KEY);
 		HOST = props.getProperty(HOST_KEY);
-		
-
 	}
 
 	@Before
@@ -88,25 +77,15 @@ public class IssueDeleteCommandTest {
 			assertTrue(before);
 			assertTrue(deleteSuccess);
 			assertFalse(after);
-			
-			
-			
 		} catch (RemoteException e) {
 			fail();
 		}
-		
-		
-		
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
-
-
-
 	@After
 	public void tearDown() throws Exception {
 	}
-
 }
