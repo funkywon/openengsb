@@ -40,7 +40,8 @@ import biz.futureware.mantisconnect.ObjectRef;
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}integer" minOccurs="0"/>
  *         &lt;element name="last_updated" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *         &lt;element name="project" type="{http://futureware.biz/mantisconnect}ObjectRef" minOccurs="0"/>
+ *         &lt;element name="project" type="{http://futureware.biz/mantisconnect}ObjectRef"/>
+ *         <xsd:element name="category" type="xsd:string"/>
  *         &lt;element name="priority" type="{http://futureware.biz/mantisconnect}ObjectRef" minOccurs="0"/>
  *         &lt;element name="severity" type="{http://futureware.biz/mantisconnect}ObjectRef" minOccurs="0"/>
  *         &lt;element name="status" type="{http://futureware.biz/mantisconnect}ObjectRef" minOccurs="0"/>
@@ -69,6 +70,7 @@ import biz.futureware.mantisconnect.ObjectRef;
     "id",
     "lastUpdated",
     "project",
+    "category",
     "priority",
     "severity",
     "status",
@@ -92,7 +94,8 @@ public class IssueDataType {
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar lastUpdated;
     protected ObjectRef project;
-    protected ObjectRef priority;
+    protected String category;
+	protected ObjectRef priority;
     protected ObjectRef severity;
     protected ObjectRef status;
     protected AccountData reporter;
@@ -182,6 +185,14 @@ public class IssueDataType {
     public void setProject(ObjectRef value) {
         this.project = value;
     }
+    
+    public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
     /**
      * Gets the value of the priority property.

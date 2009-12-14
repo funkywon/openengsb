@@ -54,6 +54,7 @@ public class IssueEndpoint extends AbstractEndpoint {
 	private IssueHandler handler = new MantisIssueHandlerImpl();
 
 	public IssueEndpoint() {
+		init();
 	}
 
 	@Override
@@ -76,7 +77,6 @@ public class IssueEndpoint extends AbstractEndpoint {
 		String body = null;
 		body = IssueEndpoint.commandMap.get(op).execute(in);
 		Source response = new StringSource(body);
-		this.logger.info(body);
 		out.setContent(response);
 		getChannel().send(exchange);
 	}

@@ -2180,7 +2180,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[0]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_version");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_version");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2217,7 +2217,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[1]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_status");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_status");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2257,7 +2257,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[2]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_priorities");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_priorities");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2297,7 +2297,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[3]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_severities");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_severities");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2337,7 +2337,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[4]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_reproducibilities");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_reproducibilities");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2378,7 +2378,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[5]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_projections");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_projections");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2418,7 +2418,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[6]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_etas");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_etas");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2458,7 +2458,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[7]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_resolutions");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_resolutions");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2498,7 +2498,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[8]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_access_levels");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_access_levels");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call
@@ -2540,7 +2540,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[9]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_project_status");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_project_status");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call
@@ -2582,7 +2582,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[10]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_project_view_states");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_project_view_states");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2623,7 +2623,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[11]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_view_states");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_view_states");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2663,7 +2663,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[12]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_custom_field_types");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_custom_field_types");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2704,7 +2704,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[13]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_enum_get");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_enum_get");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2742,7 +2742,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[14]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_exists");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_issue_exists");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
@@ -2780,7 +2780,7 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		_call.setOperation(_operations[15]);
 		_call.setUseSOAPAction(true);
 		_call
-				.setSOAPActionURI("http://85.126.79.3/mantis/api/soap/mantisconnect.php/mc_issue_get");
+				.setSOAPActionURI("http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php/mc_issue_get");
 		_call
 				.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
 		_call.setOperationName(new javax.xml.namespace.QName(
