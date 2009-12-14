@@ -9,6 +9,7 @@ import org.openengsb.issues.common.pojos.IssueDataType;
 import org.openengsb.issues.common.pojos.IssueDeleteMessage;
 import org.openengsb.issues.common.pojos.IssueGetMessage;
 import org.openengsb.issues.common.pojos.IssueUpdateMessage;
+import biz.futureware.mantisconnect.AttachmentData;
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.IssueNoteData;
 
@@ -83,6 +84,10 @@ public class JAXBUtil {
 		if(issue.getNotes() != null) {
 			issueData.setNotes((IssueNoteData[]) issue.getNotes()
 					.getIssueNoteData().toArray());
+		}
+		if(issue.getAttachments() != null) {
+			issueData.setAttachments((AttachmentData[]) issue.getAttachments()
+					.getAttachmentData().toArray());
 		}
 		return issueData;
 	}
