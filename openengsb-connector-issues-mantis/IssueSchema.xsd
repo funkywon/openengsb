@@ -65,8 +65,8 @@
 			<xsd:element name="id" type="xsd:integer" minOccurs="0" />
 			<xsd:element name="last_updated" type="xsd:dateTime"
 				minOccurs="0" />
-			<xsd:element name="project" type="man:ObjectRef"
-				minOccurs="0" />
+			<xsd:element name="project" type="man:ObjectRef"/>
+			<xsd:element name="category" type="xsd:string"/>
 			<xsd:element name="priority" type="man:ObjectRef"
 				minOccurs="0" />
 			<xsd:element name="severity" type="man:ObjectRef"

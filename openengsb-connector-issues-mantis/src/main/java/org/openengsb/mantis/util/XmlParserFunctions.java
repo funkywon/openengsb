@@ -94,17 +94,40 @@ public class XmlParserFunctions {
 
 	public static String prepareCreateIssueResponse(String response) {
 		//<issue_create_messageResponse>
-		return null;
+		StringBuilder builder = new StringBuilder();
+		builder.append("<issue_create_messageResponse>");
+		builder.append("<issue_id>");
+		builder.append(response);
+		builder.append("</issue_id>");
+		builder.append("</issue_create_messageResponse>");
+		return builder.toString();
 	}
 
-	public static String prepareDeleteIssueResponse(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public static String prepareDeleteIssueResponse(String response) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<issue_delete_messageResponse>");
+		builder.append("<message>");
+		builder.append(response);
+		builder.append("</message>");
+		builder.append("</issue_delete_messageResponse>");
+		return builder.toString();
 	}
+	
+	public static String prepareGetIssueResponse(String response) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<issue_get_messageResponse>");
+		builder.append(response);
+		builder.append("</issue_get_messageResponse>");
+		return builder.toString();
+	}
+	
 
-	public static String prepareUpdateIssueResponse(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public static String prepareUpdateIssueResponse(String response) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<issue_update_messageResponse>");
+		builder.append(response);
+		builder.append("</issue_update_messageResponse>");
+		return builder.toString();
 	}
 
 	

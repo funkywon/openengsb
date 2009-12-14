@@ -31,7 +31,7 @@ public class MantisConnectLocator extends org.apache.axis.client.Service impleme
     }
 
     // Use to get a proxy class for MantisConnectPort
-    private java.lang.String MantisConnectPort_address = "http://issues.openengsb.org/mantis/api/soap/mantisconnect.php";
+    private java.lang.String MantisConnectPort_address = "http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php";
 
     public java.lang.String getMantisConnectPortAddress() {
         return MantisConnectPort_address;

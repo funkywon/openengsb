@@ -62,7 +62,6 @@ public class IssueCreateCommand implements IssueCommand {
 		
 		String response = handler.createIssue(data, userCred.getUsername(), userCred.getPassword());
 		response = XmlParserFunctions.prepareCreateIssueResponse(response);
-		
 		return response;
 	}
 }

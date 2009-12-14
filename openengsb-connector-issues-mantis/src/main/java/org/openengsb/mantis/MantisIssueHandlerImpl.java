@@ -17,7 +17,6 @@
 */
 package org.openengsb.mantis;
 
-
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import javax.xml.rpc.ServiceException;
@@ -36,7 +35,7 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 	MantisConnectPortType porttype = null;
 	
 	public MantisIssueHandlerImpl() {
-		//this has to be done because of the "bad <br> tag" error
+		//this has to be done because of the error faultString: (0)null
 		EngineConfiguration engine = EngineConfigurationFactoryFinder.newFactory().getClientEngineConfig();
         SimpleProvider provider = new SimpleProvider(engine);
         provider.deployTransport("http", new CommonsHTTPSender());
@@ -50,7 +49,6 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 	}
 	@Override
 	public String createIssue(IssueData issue, String user, String pass) throws IssueDomainException{
-		
 		BigInteger returnInt = null;
 		try {
 			returnInt = porttype.mc_issue_add(user,pass, issue);
@@ -81,7 +79,6 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 			e.printStackTrace();
 			throw new IssueDomainException ("Error updating issue: "+e.getMessage());			
 		}
-
 	}
 
 	@Override

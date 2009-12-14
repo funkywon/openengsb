@@ -60,7 +60,7 @@ public class IssueDeleteCommand implements IssueCommand {
 			
 			handler.deleteIssue(BigInteger.valueOf(requestMessage.getIssueId()),userCred.getUsername(), userCred.getPassword());
 		} catch(IssueDomainException e) {
-			return XmlParserFunctions.prepareDeleteIssueResponse("Failure deleting issue!");
+			return XmlParserFunctions.prepareDeleteIssueResponse("failure");
 		}
 		
 		return XmlParserFunctions.prepareDeleteIssueResponse("success");

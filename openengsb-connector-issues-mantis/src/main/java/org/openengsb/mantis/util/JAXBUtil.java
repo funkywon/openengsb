@@ -59,9 +59,10 @@ public class JAXBUtil {
 
 	public static IssueData convertIssueData(IssueDataType issue) {
 		IssueData issueData = new IssueData();
-	
+		
 		issueData.setId(issue.getId());
 		issueData.setProject(issue.getProject());
+		issueData.setCategory(issue.getCategory());
 		issueData.setSummary(issue.getSummary());
 		issueData.setVersion(issue.getVersion());
 		issueData.setDescription(issue.getDescription());
@@ -71,6 +72,7 @@ public class JAXBUtil {
 		issueData.setStatus(issue.getStatus());
 		issueData.setResolution(issue.getResolution());
 		issueData.setReporter(issue.getReporter());
+		
 		if(issue.getDateSubmitted() != null){
 			issueData.setDate_submitted(issue.getDateSubmitted()
 					.toGregorianCalendar());
@@ -82,8 +84,9 @@ public class JAXBUtil {
 			
 		}
 		if(issue.getNotes() != null) {
-			issueData.setNotes((IssueNoteData[]) issue.getNotes()
-					.getIssueNoteData().toArray());
+			IssueNoteData[] notes = new IssueNoteData[issue.getNotes().getIssueNoteData().size()]; 
+			issue.getNotes().getIssueNoteData().toArray(notes);
+			issueData.setNotes(notes);
 		}
 		if(issue.getAttachments() != null) {
 			issueData.setAttachments((AttachmentData[]) issue.getAttachments()
