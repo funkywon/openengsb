@@ -26,6 +26,15 @@ import org.apache.axis.configuration.SimpleProvider;
 import org.apache.axis.transport.http.CommonsHTTPSender;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+import org.openengsb.issues.common.pojos.IssueCreateMessage;
+import org.openengsb.issues.common.pojos.IssueDataType;
+import org.openengsb.issues.common.pojos.IssueDeleteMessage;
+import org.openengsb.issues.common.pojos.IssueGetMessage;
+import org.openengsb.issues.common.pojos.IssueUpdateMessage;
+import org.openengsb.issues.common.pojos.UserCredentials;
+import org.openengsb.issues.common.util.TypeConverter;
+import org.openengsb.mantis.util.MantisTypeConverter;
+import org.w3c.dom.DOMException;
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.MantisConnectLocator;
 import biz.futureware.mantisconnect.MantisConnectPortType;
@@ -33,13 +42,18 @@ import biz.futureware.mantisconnect.MantisConnectPortType;
 public class MantisIssueHandlerImpl implements IssueHandler {
 
 	MantisConnectPortType porttype = null;
-	
+	TypeConverter<IssueData,
+	biz.futureware.mantisconnect.AccountData,
+	biz.futureware.mantisconnect.ObjectRef,
+	biz.futureware.mantisconnect.IssueNoteData,
+	biz.futureware.mantisconnect.AttachmentData> typeConverter=null;
 	public MantisIssueHandlerImpl() {
 		//this has to be done because of the error faultString: (0)null
 		EngineConfiguration engine = EngineConfigurationFactoryFinder.newFactory().getClientEngineConfig();
         SimpleProvider provider = new SimpleProvider(engine);
         provider.deployTransport("http", new CommonsHTTPSender());
         
+        typeConverter = new MantisTypeConverter();
 		MantisConnectLocator locator = new MantisConnectLocator(provider);
     	try {
 			porttype =locator.getMantisConnectPort();
@@ -47,22 +61,12 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 			e.printStackTrace();
 		}
 	}
+	
 	@Override
-	public String createIssue(IssueData issue, String user, String pass) throws IssueDomainException{
-		BigInteger returnInt = null;
+	public void deleteIssue(IssueDeleteMessage message) throws IssueDomainException {
+		UserCredentials uc = message.getAccountData();
 		try {
-			returnInt = porttype.mc_issue_add(user,pass, issue);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("Error adding issue: "+e.getMessage());
-		}
-		return returnInt.toString();
-	}
-
-	@Override
-	public void deleteIssue(BigInteger issueId, String user, String password) throws IssueDomainException {
-		try {
-			if(!porttype.mc_issue_delete(user, password, issueId)) {
+			if(!porttype.mc_issue_delete(uc.getUsername(), uc.getPassword(), BigInteger.valueOf(message.getIssueId()))) {
 				throw new IssueDomainException ("Could not delete issue.");
 			}
 		} catch (RemoteException e) {
@@ -72,9 +76,11 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 	}
 
 	@Override
-	public void updateIssue(BigInteger issueId, IssueData issue, String user, String password) throws IssueDomainException {
+	public void updateIssue(IssueUpdateMessage message) throws IssueDomainException {
+		UserCredentials uc = message.getAccountData();
+		IssueData data = typeConverter.convertIssueDataToSpecific(message.getIssueData());
 		try {
-			porttype.mc_issue_update(user, password, issueId, issue);
+			porttype.mc_issue_update(uc.getUsername(), uc.getPassword(), BigInteger.valueOf(message.getIssueId()), data);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			throw new IssueDomainException ("Error updating issue: "+e.getMessage());			
@@ -82,14 +88,36 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 	}
 
 	@Override
-	public IssueData getIssue(BigInteger issueId, String user, String password) throws IssueDomainException{
+	public IssueDataType getIssue(IssueGetMessage getMessage) throws IssueDomainException{
 		IssueData data;
+		UserCredentials uc = getMessage.getAccountData();
 		try {
-			 data = porttype.mc_issue_get(password, user, issueId);
+			 data = porttype.mc_issue_get(uc.getUsername(),uc.getPassword(),BigInteger.valueOf(getMessage.getIssueId()));
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			throw new IssueDomainException ("Error getting issue: "+e.getMessage());			
 		}
-		return data;
+		return typeConverter.convertIssueDataToGeneric(data);
+	}
+	
+	@Override
+	public int createIssue(IssueCreateMessage createMessage)
+			throws IssueDomainException {
+		IssueData data;
+		UserCredentials userCred;
+		
+		BigInteger returnInt = null;
+		try {
+			
+			userCred = createMessage.getAccountData();
+			data = typeConverter.convertIssueDataToSpecific(createMessage.getIssueData());
+			returnInt = porttype.mc_issue_add(userCred.getUsername(), userCred.getPassword(), data);
+		} catch (DOMException e) {
+			e.printStackTrace();
+			throw new IssueDomainException("Error during DOM parsing.");
+		} catch (RemoteException e) {
+			throw new IssueDomainException("Error during invoking Webservice.");
+		}
+		return returnInt.intValue();
 	}
 }

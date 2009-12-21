@@ -15,18 +15,11 @@
    limitations under the License.
    
 */
-package org.openengsb.mantis.endpoints;
+package org.openengsb.issues.common.endpoints;
 
-import javax.jbi.messaging.MessageExchange;
-
-import org.apache.servicemix.common.endpoints.ConsumerEndpoint;
-
-public class MyConsumerEndpoint extends ConsumerEndpoint{
-
-	@Override
-	public void process(MessageExchange exchange) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+/**
+ * Marker interface for XBean schema generation
+ */
+public interface MantisEndpointType {
 
 }

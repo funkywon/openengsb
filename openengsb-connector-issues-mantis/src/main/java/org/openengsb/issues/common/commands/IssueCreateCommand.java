@@ -15,59 +15,45 @@
    limitations under the License.
    
  */
-package org.openengsb.mantis.commands;
+package org.openengsb.issues.common.commands;
 
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.pojos.AccountDataType;
-import org.openengsb.issues.common.pojos.IssueUpdateMessage;
-import org.openengsb.mantis.util.JAXBUtil;
+import org.openengsb.issues.common.pojos.IssueCreateMessage;
+import org.openengsb.issues.common.util.JAXBUtil;
 import org.openengsb.mantis.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
-import biz.futureware.mantisconnect.IssueData;
 
-public class IssueUpdateCommand implements IssueCommand {
+public class IssueCreateCommand implements IssueCommand {
 
-	private IssueHandler handler;
-	@SuppressWarnings("unused")
-	private Log log;
 	
+	IssueHandler handler;
+	Log log;
 	
-	
-	public IssueUpdateCommand(IssueHandler handler, Log log) {
+	public IssueCreateCommand(IssueHandler handler, Log log) {
 		this.handler = handler;
 		this.log = log;
 	}
 	@SuppressWarnings("unused")
-	private IssueUpdateCommand() {
+	private IssueCreateCommand() {
 		
 	}
 	
 	@Override
-	public String execute(NormalizedMessage in) throws IssueDomainException{
-		IssueUpdateMessage requestMessage = null;
-		AccountDataType userCred;
-		IssueData data;
+	public String execute(NormalizedMessage in) throws IssueDomainException {
+		IssueCreateMessage requestMessage = null;
 		try {
-			requestMessage = JAXBUtil.extractIssueUpdateMessage(in);
-			userCred = requestMessage.getAccountData();
-			data = JAXBUtil.convertIssueData(requestMessage.getIssueData());
+			requestMessage = JAXBUtil.extractIssueCreateMessage(in);
 		} catch (DOMException e) {
 			e.printStackTrace();
 			throw new IssueDomainException("DomException: "+e.getMessage());
 		} catch (JAXBException e) {
 			throw new IssueDomainException("JAXBException: "+e.getMessage());
 		}
-		
-		try {
-			handler.updateIssue(data.getId(),data, userCred.getUsername(), userCred.getPassword());
-		} catch (IssueDomainException e) {
-			return XmlParserFunctions.prepareUpdateIssueResponse("Failure updating issue!");
-		}
-		return XmlParserFunctions.prepareUpdateIssueResponse("success");
+		int issueId = handler.createIssue(requestMessage);
+		return XmlParserFunctions.prepareCreateIssueResponse(""+issueId);
 	}
-
 }

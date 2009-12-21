@@ -15,9 +15,11 @@
    limitations under the License.
    
  */
-package org.openengsb.mantis.util;
+package org.openengsb.issues.common.commands;
 
-public enum IssueOpType {
-	CREATE_ISSUE,UPDATE_ISSUE,DELETE_ISSUE, GET_ISSUE
-	
+import javax.jbi.messaging.NormalizedMessage;
+import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+
+public interface IssueCommand {
+	public String execute(NormalizedMessage in) throws IssueDomainException;
 }

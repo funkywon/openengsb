@@ -15,7 +15,7 @@
    limitations under the License.
    
  */
-package org.openengsb.mantis.endpoints;
+package org.openengsb.issues.common.endpoints;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,14 +29,14 @@ import javax.xml.transform.TransformerException;
 
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+import org.openengsb.issues.common.commands.IssueCommand;
+import org.openengsb.issues.common.commands.IssueCreateCommand;
+import org.openengsb.issues.common.commands.IssueDeleteCommand;
+import org.openengsb.issues.common.commands.IssueGetCommand;
+import org.openengsb.issues.common.commands.IssueUpdateCommand;
+import org.openengsb.issues.common.endpoints.AbstractEndpoint;
+import org.openengsb.issues.common.util.IssueOpType;
 import org.openengsb.mantis.MantisIssueHandlerImpl;
-import org.openengsb.mantis.commands.IssueCommand;
-import org.openengsb.mantis.commands.IssueCreateCommand;
-import org.openengsb.mantis.commands.IssueDeleteCommand;
-import org.openengsb.mantis.commands.IssueGetCommand;
-import org.openengsb.mantis.commands.IssueUpdateCommand;
-import org.openengsb.mantis.endpoints.AbstractEndpoint;
-import org.openengsb.mantis.util.IssueOpType;
 import org.apache.servicemix.jbi.jaxp.StringSource;
 import org.dom4j.DocumentException;
 
@@ -44,13 +44,13 @@ import org.openengsb.mantis.util.XmlParserFunctions;
 import org.xml.sax.SAXException;
 
 /**
- * @org.apache.xbean.XBean element="mantisprovider"
+ * @org.apache.xbean.XBean element="issueTrackerProvider"
  */
 public class IssueEndpoint extends AbstractEndpoint {
 
 	private static final Map<IssueOpType, IssueCommand> commandMap = new HashMap<IssueOpType, IssueCommand>();
 
-	// FIX THIS -> Factory
+	// FIX THIS -> Factory/Spring
 	private IssueHandler handler = new MantisIssueHandlerImpl();
 
 	public IssueEndpoint() {

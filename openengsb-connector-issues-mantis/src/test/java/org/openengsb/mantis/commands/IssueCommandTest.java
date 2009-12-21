@@ -23,10 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigInteger;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.Properties;
 
 import javax.jbi.JBIException;
@@ -213,7 +210,7 @@ public class IssueCommandTest extends SpringTestSupport {
         return DocumentHelper.createDocument(root);
 	}
 	
-	@Ignore
+	
 	@Test
 	public void createIssue() throws ServiceException, MessagingException, FileNotFoundException, IOException, SAXException, TransformerException {
 		Document response = sendMessageAndParseResponse(new StreamSource(new FileInputStream(
@@ -225,7 +222,7 @@ public class IssueCommandTest extends SpringTestSupport {
 		Integer id = Integer.valueOf(issueIdElement.getText());
 		assertNotNull(id);
 	}
-
+	
 	@Test
 	public void deleteIssue() throws ServiceException, MessagingException, FileNotFoundException, IOException, SAXException, TransformerException {
 		Document response = sendMessageAndParseResponse(new StreamSource(new FileInputStream(

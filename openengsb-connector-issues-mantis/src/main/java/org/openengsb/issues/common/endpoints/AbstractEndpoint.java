@@ -15,7 +15,7 @@
    limitations under the License.
    
 */
-package org.openengsb.mantis.endpoints;
+package org.openengsb.issues.common.endpoints;
 
 
 import javax.jbi.messaging.ExchangeStatus;
