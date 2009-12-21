@@ -1,17 +1,30 @@
-package org.openengsb.mantis.util;
+/**
+
+   Copyright 2009 OpenEngSB Division, Vienna University of Technology
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE\-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   
+ */
+package org.openengsb.issues.common.util;
 
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.openengsb.issues.common.pojos.IssueCreateMessage;
-import org.openengsb.issues.common.pojos.IssueDataType;
 import org.openengsb.issues.common.pojos.IssueDeleteMessage;
 import org.openengsb.issues.common.pojos.IssueGetMessage;
 import org.openengsb.issues.common.pojos.IssueUpdateMessage;
-import biz.futureware.mantisconnect.AttachmentData;
-import biz.futureware.mantisconnect.IssueData;
-import biz.futureware.mantisconnect.IssueNoteData;
 
 public class JAXBUtil {
 
@@ -57,42 +70,5 @@ public class JAXBUtil {
 		return issueUpdateMessage;
 	}
 
-	public static IssueData convertIssueData(IssueDataType issue) {
-		IssueData issueData = new IssueData();
-		
-		issueData.setId(issue.getId());
-		issueData.setProject(issue.getProject());
-		issueData.setCategory(issue.getCategory());
-		issueData.setSummary(issue.getSummary());
-		issueData.setVersion(issue.getVersion());
-		issueData.setDescription(issue.getDescription());
-		issueData.setPriority(issue.getPriority());
-		issueData.setSeverity(issue.getSeverity());
-		issueData.setHandler(issue.getHandler());
-		issueData.setStatus(issue.getStatus());
-		issueData.setResolution(issue.getResolution());
-		issueData.setReporter(issue.getReporter());
-		
-		if(issue.getDateSubmitted() != null){
-			issueData.setDate_submitted(issue.getDateSubmitted()
-					.toGregorianCalendar());
-			
-		}
-		if(issue.getLastUpdated() != null) {
-			issueData.setLast_updated(issue.getLastUpdated()
-					.toGregorianCalendar());
-			
-		}
-		if(issue.getNotes() != null) {
-			IssueNoteData[] notes = new IssueNoteData[issue.getNotes().getIssueNoteData().size()]; 
-			issue.getNotes().getIssueNoteData().toArray(notes);
-			issueData.setNotes(notes);
-		}
-		if(issue.getAttachments() != null) {
-			issueData.setAttachments((AttachmentData[]) issue.getAttachments()
-					.getAttachmentData().toArray());
-		}
-		return issueData;
-	}
-
 }
+

@@ -15,19 +15,19 @@
    limitations under the License.
    
 */
-package org.openengsb.mantis;
+package org.openengsb.issues.common.components;
 
 import java.util.List;
 import javax.jbi.servicedesc.ServiceEndpoint;
 import org.apache.servicemix.common.DefaultComponent;
 import org.apache.servicemix.common.Endpoint;
-import org.openengsb.mantis.endpoints.AbstractEndpoint;
-import org.openengsb.mantis.endpoints.IssueEndpoint;
+import org.openengsb.issues.common.endpoints.AbstractEndpoint;
+import org.openengsb.issues.common.endpoints.IssueEndpoint;
 /**
- * @org.apache.xbean.XBean element="mantisComponent"
+ * @org.apache.xbean.XBean element="issueTrackerComponent"
  * description="mantis component"
  */
-public class MantisComponent extends DefaultComponent
+public class IssueTrackerComponent extends DefaultComponent
 {
 
     private AbstractEndpoint[] endpoints;

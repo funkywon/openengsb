@@ -18,21 +18,17 @@
 package org.openengsb.mantis.util;
 
 import java.io.IOException;
-
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXSource;
-
 import org.apache.log4j.Logger;
 import org.apache.servicemix.jbi.jaxp.SourceTransformer;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
-
-
+import org.openengsb.issues.common.pojos.IssueDataType;
+import org.openengsb.issues.common.util.IssueOpType;
 import org.xml.sax.SAXException;
-
-import biz.futureware.mantisconnect.IssueData;
 
 public class XmlParserFunctions {
 
@@ -46,7 +42,7 @@ public class XmlParserFunctions {
 	private static Logger logger = Logger.getLogger(XmlParserFunctions.class);
 
 	
-	public static String parseIssueGetResponse(IssueData data) {
+	public static String parseIssueGetResponse(IssueDataType data) {
 		return "";
 	}
 	

@@ -28,11 +28,11 @@
     <sm:activationSpecs>
       <sm:activationSpec>
         <sm:component>
-          <man:mantisComponent>
+          <man:issueTrackerComponent>
             <man:endpoints>
-              <man:mantisprovider endpoint="mantis" service="test:mantis" />
+              <man:issueTrackerProvider endpoint="mantis" service="test:mantis" />
             </man:endpoints>
-          </man:mantisComponent>
+          </man:issueTrackerComponent>
         </sm:component>
       </sm:activationSpec>
 

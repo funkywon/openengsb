@@ -14,20 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.openengsb.mantis.commands;
+package org.openengsb.issues.common.commands;
 
-import java.math.BigInteger;
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.pojos.AccountDataType;
+import org.openengsb.issues.common.pojos.IssueDataType;
 import org.openengsb.issues.common.pojos.IssueGetMessage;
-import org.openengsb.mantis.util.JAXBUtil;
+import org.openengsb.issues.common.util.JAXBUtil;
 import org.openengsb.mantis.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
-import biz.futureware.mantisconnect.IssueData;
 
 public class IssueGetCommand implements IssueCommand {
 	
@@ -47,25 +45,15 @@ public class IssueGetCommand implements IssueCommand {
 	@Override
 	public String execute(NormalizedMessage in) throws IssueDomainException {
 		IssueGetMessage requestMessage = null;
-		AccountDataType userCred;
 		try {
 			requestMessage = JAXBUtil.extractIssueGetMessage(in);
-			userCred = requestMessage.getAccountData();
-			
 		} catch (DOMException e) {
 			e.printStackTrace();
 			throw new IssueDomainException("DomException: "+e.getMessage());
 		} catch (JAXBException e) {
 			throw new IssueDomainException("JAXBException: "+e.getMessage());
 		}
-		
-		IssueData returnData;
-		try {
-			returnData = handler.getIssue(BigInteger.valueOf(requestMessage.getIssueId()),userCred.getUsername(), userCred.getPassword());
-		} catch(IssueDomainException e) {
-			return XmlParserFunctions.parseIssueGetResponse("Error getting isssue: "+e.getMessage());
-		}
-		
+		IssueDataType returnData = handler.getIssue(requestMessage);
 		return  XmlParserFunctions.parseIssueGetResponse(returnData);
 	}
 

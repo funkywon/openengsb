@@ -15,44 +15,43 @@
    limitations under the License.
    
  */
-package org.openengsb.mantis.commands;
+package org.openengsb.issues.common.commands;
 
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.pojos.AccountDataType;
-import org.openengsb.issues.common.pojos.IssueCreateMessage;
-import org.openengsb.mantis.util.JAXBUtil;
+import org.openengsb.issues.common.pojos.IssueUpdateMessage;
+import org.openengsb.issues.common.util.JAXBUtil;
 import org.openengsb.mantis.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
-import biz.futureware.mantisconnect.IssueData;
 
-public class IssueCreateCommand implements IssueCommand {
+public class IssueUpdateCommand implements IssueCommand {
 
+	private IssueHandler handler;
+	@SuppressWarnings("unused")
+	private Log log;
 	
-	IssueHandler handler;
-	Log log;
 	
-	public IssueCreateCommand(IssueHandler handler, Log log) {
+	
+	public IssueUpdateCommand(IssueHandler handler, Log log) {
 		this.handler = handler;
 		this.log = log;
 	}
 	@SuppressWarnings("unused")
-	private IssueCreateCommand() {
+	private IssueUpdateCommand() {
 		
 	}
 	
 	@Override
-	public String execute(NormalizedMessage in) throws IssueDomainException {
-		IssueData data;
-		IssueCreateMessage requestMessage = null;
-		AccountDataType userCred;
+	public String execute(NormalizedMessage in) throws IssueDomainException{
+		IssueUpdateMessage requestMessage = null;
+		
+		
 		try {
-			requestMessage = JAXBUtil.extractIssueCreateMessage(in);
-			userCred = requestMessage.getAccountData();
-			data = JAXBUtil.convertIssueData(requestMessage.getIssueData());
+			requestMessage = JAXBUtil.extractIssueUpdateMessage(in);
+		
 		} catch (DOMException e) {
 			e.printStackTrace();
 			throw new IssueDomainException("DomException: "+e.getMessage());
@@ -60,8 +59,12 @@ public class IssueCreateCommand implements IssueCommand {
 			throw new IssueDomainException("JAXBException: "+e.getMessage());
 		}
 		
-		String response = handler.createIssue(data, userCred.getUsername(), userCred.getPassword());
-		response = XmlParserFunctions.prepareCreateIssueResponse(response);
-		return response;
+		try {
+			handler.updateIssue(requestMessage);
+		} catch (IssueDomainException e) {
+			return XmlParserFunctions.prepareUpdateIssueResponse("Failure updating issue!");
+		}
+		return XmlParserFunctions.prepareUpdateIssueResponse("success");
 	}
+
 }

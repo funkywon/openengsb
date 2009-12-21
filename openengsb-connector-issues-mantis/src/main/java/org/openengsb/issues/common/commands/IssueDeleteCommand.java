@@ -15,17 +15,15 @@
    limitations under the License.
    
  */
-package org.openengsb.mantis.commands;
+package org.openengsb.issues.common.commands;
 
-import java.math.BigInteger;
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.pojos.AccountDataType;
 import org.openengsb.issues.common.pojos.IssueDeleteMessage;
-import org.openengsb.mantis.util.JAXBUtil;
+import org.openengsb.issues.common.util.JAXBUtil;
 import org.openengsb.mantis.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
 
@@ -45,20 +43,15 @@ public class IssueDeleteCommand implements IssueCommand {
 	@Override
 	public String execute(NormalizedMessage in) throws IssueDomainException{
 		IssueDeleteMessage requestMessage = null;
-		AccountDataType userCred;
+
 		try {
 			requestMessage = JAXBUtil.extractIssueDeleteMessage(in);
-			userCred = requestMessage.getAccountData();
-			
-		} catch (DOMException e) {
-			e.printStackTrace();
-			throw new IssueDomainException("DomException: "+e.getMessage());
 		} catch (JAXBException e) {
-			throw new IssueDomainException("JAXBException: "+e.getMessage());
+			throw new IssueDomainException("Could not extract request message. Please check the message format.");
 		}
 		try {
 			
-			handler.deleteIssue(BigInteger.valueOf(requestMessage.getIssueId()),userCred.getUsername(), userCred.getPassword());
+			handler.deleteIssue(requestMessage);
 		} catch(IssueDomainException e) {
 			return XmlParserFunctions.prepareDeleteIssueResponse("failure");
 		}

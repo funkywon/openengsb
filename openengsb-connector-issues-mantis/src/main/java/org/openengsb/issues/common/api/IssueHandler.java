@@ -17,11 +17,12 @@
 */
 package org.openengsb.issues.common.api;
 
-import java.math.BigInteger;
-
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-
-import biz.futureware.mantisconnect.IssueData;
+import org.openengsb.issues.common.pojos.IssueCreateMessage;
+import org.openengsb.issues.common.pojos.IssueDataType;
+import org.openengsb.issues.common.pojos.IssueDeleteMessage;
+import org.openengsb.issues.common.pojos.IssueGetMessage;
+import org.openengsb.issues.common.pojos.IssueUpdateMessage;
 
 /**
  * Interface describing a generic issue domain.
@@ -38,29 +39,22 @@ public interface IssueHandler {
 	 * @return Issue data.
 	 * @throws IssueDomainException If issue can not be found.
 	 */
-	IssueData getIssue(BigInteger issueId, String user, String password) throws IssueDomainException;
+	IssueDataType getIssue(IssueGetMessage requestMessage) throws IssueDomainException;
 
     /**
      * Creates an issue.
      *
-     * @param issue The issue to create.
-     * @param pass 
-     * @param user 
+     * @param createMessage Request message for creating an issue.
      * @return ID of created issue
      */
-    String createIssue(IssueData issue, String user, String pass) throws IssueDomainException;
+    int createIssue(IssueCreateMessage createMessage) throws IssueDomainException;
 
     /**
      * Updates the given issue.
-     *
-     * @param issue The issue to update (the ID of the issue must be set).
-     * @param issueId Id of the issue to update
-     * @param user
-     * @param pass
+     * @param 
      * @throws IssueDomainException
      */
-    void updateIssue(BigInteger issueId, IssueData issue, String user,
-			String password) throws IssueDomainException;
+    void updateIssue(IssueUpdateMessage updateMessage) throws IssueDomainException;
     /**
      * Deletes the issue with the given ID.
      *
@@ -69,8 +63,9 @@ public interface IssueHandler {
      * @param pass
      * @throws IssueDomainException
      */
-	void deleteIssue(BigInteger issueId, String user,
-			String password) throws IssueDomainException;
+	void deleteIssue(IssueDeleteMessage deleteMessage) throws IssueDomainException;
+
+	
 
 	
 
