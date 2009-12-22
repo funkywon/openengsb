@@ -26,15 +26,18 @@ xmlns:man="http://futureware.biz/mantisconnect">
 			<name>engsb</name>
 		</project>
 		<category>cat1</category>
-		<summary>Test im Schrödinger
+		<summary>Test zuhause
 		</summary>
 		<description>
 			Das ist ein JAXB TEST Beschreibung!!!
 		</description>
 		<notes>
-			<man:IssueNoteData>
+			<IssueNoteData>
 				<text>Das ist eine Notiz vom Test.</text>
-			</man:IssueNoteData>
+			</IssueNoteData>
+			<IssueNoteData>
+				<text>Das ist eine zweite Notiz vom Test.</text>
+			</IssueNoteData>
 		</notes>
 		
 	</issue_data>

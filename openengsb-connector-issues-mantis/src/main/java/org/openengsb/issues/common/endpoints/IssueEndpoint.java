@@ -36,11 +36,11 @@ import org.openengsb.issues.common.commands.IssueGetCommand;
 import org.openengsb.issues.common.commands.IssueUpdateCommand;
 import org.openengsb.issues.common.endpoints.AbstractEndpoint;
 import org.openengsb.issues.common.util.IssueOpType;
+import org.openengsb.issues.common.util.XmlParserFunctions;
 import org.openengsb.mantis.MantisIssueHandlerImpl;
 import org.apache.servicemix.jbi.jaxp.StringSource;
 import org.dom4j.DocumentException;
 
-import org.openengsb.mantis.util.XmlParserFunctions;
 import org.xml.sax.SAXException;
 
 /**

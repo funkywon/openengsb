@@ -24,7 +24,7 @@ import org.openengsb.issues.common.api.exceptions.IssueDomainException;
 import org.openengsb.issues.common.pojos.IssueDataType;
 import org.openengsb.issues.common.pojos.IssueGetMessage;
 import org.openengsb.issues.common.util.JAXBUtil;
-import org.openengsb.mantis.util.XmlParserFunctions;
+import org.openengsb.issues.common.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
 
 public class IssueGetCommand implements IssueCommand {

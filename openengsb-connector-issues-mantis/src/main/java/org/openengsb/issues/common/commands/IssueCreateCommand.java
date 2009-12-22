@@ -17,15 +17,22 @@
  */
 package org.openengsb.issues.common.commands;
 
+import java.io.IOException;
+
+import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 import org.apache.commons.logging.Log;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
 import org.openengsb.issues.common.pojos.IssueCreateMessage;
 import org.openengsb.issues.common.util.JAXBUtil;
-import org.openengsb.mantis.util.XmlParserFunctions;
+import org.openengsb.issues.common.util.XmlParserFunctions;
 import org.w3c.dom.DOMException;
+import org.xml.sax.SAXException;
 
 public class IssueCreateCommand implements IssueCommand {
 
@@ -52,6 +59,21 @@ public class IssueCreateCommand implements IssueCommand {
 			throw new IssueDomainException("DomException: "+e.getMessage());
 		} catch (JAXBException e) {
 			throw new IssueDomainException("JAXBException: "+e.getMessage());
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		int issueId = handler.createIssue(requestMessage);
 		return XmlParserFunctions.prepareCreateIssueResponse(""+issueId);
