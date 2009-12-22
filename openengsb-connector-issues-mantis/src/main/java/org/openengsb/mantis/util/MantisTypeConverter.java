@@ -17,6 +17,8 @@
  */
 package org.openengsb.mantis.util;
 
+import java.util.List;
+
 import org.openengsb.issues.common.pojos.IssueDataType;
 import org.openengsb.issues.common.util.TypeConverter;
 import biz.futureware.mantisconnect.AttachmentData;
@@ -77,9 +79,14 @@ public class MantisTypeConverter
 			issueData.setLast_updated(genericIssue.getLastUpdated());
 			
 		}
-		if(genericIssue.getNotes() != null) {
-			IssueNoteData[] notes = new IssueNoteData[genericIssue.getNotes().getIssueNoteData().size()]; 
-			genericIssue.getNotes().getIssueNoteData().toArray(notes);
+		if(genericIssue.getNotes() != null&&genericIssue.getNotes().getIssueNoteData().size()>0) {
+			IssueNoteData[] notes = new IssueNoteData[genericIssue.getNotes().getIssueNoteData().size()];
+			
+			List<org.openengsb.issues.common.pojos.IssueNoteData> list =  genericIssue.getNotes().getIssueNoteData();
+			for(int i=0;i<list.size();i++) {
+				notes[i]=convertIssueNoteToSpecific(list.get(i));
+			}
+			
 			issueData.setNotes(notes);
 		}
 		if(genericIssue.getAttachments() != null) {
@@ -140,6 +147,18 @@ public class MantisTypeConverter
 			biz.futureware.mantisconnect.IssueNoteData note) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public biz.futureware.mantisconnect.IssueNoteData convertIssueNoteToSpecific(
+			org.openengsb.issues.common.pojos.IssueNoteData note){
+		IssueNoteData specNote = new IssueNoteData();
+		specNote.setDate_submitted(note.getDateSubmitted());
+		specNote.setId(note.getId());
+		specNote.setLast_modified(note.getLastModified());
+		specNote.setText(note.getText());
+		return specNote;
+		
 	}
 	
 	@Override

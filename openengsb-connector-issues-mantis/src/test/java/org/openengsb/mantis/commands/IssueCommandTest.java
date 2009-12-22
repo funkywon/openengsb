@@ -223,6 +223,7 @@ public class IssueCommandTest extends SpringTestSupport {
 		assertNotNull(id);
 	}
 	
+	@Ignore
 	@Test
 	public void deleteIssue() throws ServiceException, MessagingException, FileNotFoundException, IOException, SAXException, TransformerException {
 		Document response = sendMessageAndParseResponse(new StreamSource(new FileInputStream(

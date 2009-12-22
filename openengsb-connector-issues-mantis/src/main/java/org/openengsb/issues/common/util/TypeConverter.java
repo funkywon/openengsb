@@ -37,11 +37,13 @@ public interface TypeConverter<SpecificIssue,SpecificAccountData,SpecificObjectR
 	
 	public AttachmentData convertAttachmentToGeneric(SpecificAttachment attachment);
 	
+	public SpecificNote convertIssueNoteToSpecific(IssueNoteData note);
 	public IssueNoteData convertIssueNoteToGeneric(SpecificNote note);
 	
 	public ObjectRef convertObjectRefToGeneric(SpecificObjectRef ob);
 	
 	public AccountData convertAccountDataToGeneric(SpecificAccountData ac);
+
 	
 
 }
