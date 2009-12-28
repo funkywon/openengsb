@@ -17,8 +17,10 @@
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://common.issues.openengsb.org/pojos" xmlns:tns="http://common.issues.openengsb.org/pojos"
-	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0">
-	<xsd:import namespace="http://java.sun.com/xml/ns/jaxb" ></xsd:import>
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0"
+	xmlns:priorities="http://common.issues.openengsb.org/pojos/priorities">
+	<xsd:import namespace="http://java.sun.com/xml/ns/jaxb"/>
+	<xsd:import namespace="http://common.issues.openengsb.org/pojos/priorities"/>
 	
 	<xsd:annotation>
 		<xsd:appinfo>
