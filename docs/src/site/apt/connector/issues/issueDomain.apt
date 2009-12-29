@@ -178,7 +178,89 @@ Issue Tracker Domain
 |inherit_global|boolean|no info|+|-|-|-|
 *------------------+--------+---------------------+----------+----------+------------+--------+
 
-	Subprojects are not included in the actual releases # no support.
+	Subprojects are not included in the actual releases – no support.
+
+* Comparison/mapping of Enumerations
+	
+	Since the the parameters of an issue differ  from one bug tracker to another (or at least named differently),
+	a common selection has to be agreed on and also a mapping between those parameters has to be arranged (since 
+	some of them have different names for the same state).
+
+** Parameter Status
+
+*----------+------------+--------+----------+
+|<<Bugzilla>>|<<Mantis>>|<<Trac>>|<<GitHub>>|
+*----------+------------+--------+----------+
+|new (confirmed; als bug verifiziert)|confirmed|new|open|
+*----------+------------+--------+----------+
+|assigned|assigned|assigned|open|
+*----------+------------+--------+----------+
+|resolved|resolved|closed|open|
+*----------+------------+--------+----------+
+|closed|closed|closed|closed|
+*----------+------------+--------+----------+
+|unconfirmed (new issue created)|new|new|unread|
+*----------+------------+--------+----------+
+Status
+
+** Parameter Resolution
+
+*----------+------------+--------+----------+
+|<<Bugzilla>>|<<Mantis>>|<<Trac>>|<<GitHub>>|
+*----------+------------+--------+----------+
+|fixed	|fixed	|fixed||
+*----------+------------+--------+----------+
+|invalid (is not a bug)	|no change required	|invalid||
+*----------+------------+--------+----------+
+|wontfix (aus unterschiedl. Gründen)	|wontfix	|wontfix||
+*----------+------------+--------+----------+
+|duplicate	|duplicate	|duplicate||
+*----------+------------+--------+----------+
+|worksforme	|unable to reproduce	|worksforme||
+*----------+------------+--------+----------+
+Resolution
+
+** Parameter Severity
+
+*----------+------------+--------+----------+
+|<<Bugzilla>>|<<Mantis>>|<<Trac>>|<<GitHub>>|
+*----------+------------+--------+----------+
+|trivial	|trivial	|defect||
+*----------+------------+--------+----------+
+|minor	|minor	|defect||
+*----------+------------+--------+----------+
+|major	|major	|defect||
+*----------+------------+--------+----------+
+|critical	|crash	|defect||
+*----------+------------+--------+----------+
+|blocker	|block	|task||
+*----------+------------+--------+----------+
+|enhancement (requesting enhancement)	|feature (requesting new feature)	|enhancement||
+*----------+------------+--------+----------+
+Severity
+
+** Parameter Priority
+
+*----------+------------+--------+----------+
+|<<Bugzilla>>|<<Mantis>>|<<Trac>>|<<GitHub>>|
+*----------+------------+--------+----------+
+|P1	|low	|trivial||
+*----------+------------+--------+----------+
+|P2	|normal	|minor||
+*----------+------------+--------+----------+
+|P3	|high	|major||
+*----------+------------+--------+----------+
+|P4	|urgent	|critical||
+*----------+------------+--------+----------+
+|P5	|immediate	|blocker||
+*----------+------------+--------+----------+
+Priority
+
+	Two things to notice here. First, Mantis has the option of a priority "none", which would be equivalent to P0 in bugzilla.
+	But since the other bugtrackers support only 5 levels of priority, the priority "none" is omitted. Second, Trac uses the same notation
+	for priorities, the other bugtrackers use for the parameter "Severity". But since the parameters have to be mapped to be compatible
+	to each other, this fact can be seen as secondary.
+>>>>>>> Added Licence header. Updated IssueTracker proposal. Added files for mantis connector.:openengsb-docs/src/site/apt/proposals/issueDomain.apt
 	
 * Interface description
 
@@ -323,23 +405,21 @@ public enum IssuePriority {
  * Describes the possibilities for resolution
  */
 public enum IssueResolution {
-	OPEN, REOPENED, FIXED, INVALID, WONTFIX, 
-        DUPLICATE, WORKSFORM, UNABLETOPRODUCE, 
-        NOTFIXABLE, NOCHANGEREQUIRED, SUSPENDED
+	FIXED, INVALID, WONTFIX, DUPLICATE, WORKSFORME
 }
 
 /**
  * Describes the possibilities for severity
  */
 public enum IssueSeverity {
-	BLOCK, CRASH, MAJOR, MINOR, TWEAK, TEXT, TRIVIAL, FEATURE
+	TRIVIAL,MINOR,MAJOR,CRITICAL,BLOCKER,ENHANCEMENT
 }
 
 /**
  * Describes the possibilities for issue states
  */
 public enum IssueStatus {
-	NEW, ASSIGNED, CLOSED
+	NEW, CONFIRMED, ASSIGNED, RESOLVED, CLOSED
 }
 
 /**
