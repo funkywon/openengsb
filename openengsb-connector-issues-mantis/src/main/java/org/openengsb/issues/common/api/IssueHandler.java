@@ -27,6 +27,18 @@ import biz.futureware.mantisconnect.IssueData;
  * Interface describing a generic issue domain.
  */
 public interface IssueHandler {
+	
+	
+	
+	
+	/**
+	 * @param issueId The id of the issue to get.
+	 * @param user
+	 * @param password
+	 * @return Issue data.
+	 * @throws IssueDomainException If issue can not be found.
+	 */
+	IssueData getIssue(BigInteger issueId, String user, String password) throws IssueDomainException;
 
     /**
      * Creates an issue.
@@ -53,12 +65,11 @@ public interface IssueHandler {
      * Deletes the issue with the given ID.
      *
      * @param issueId ID of the issue being deleted.
-     * @param issue Data of Issue
      * @param user
      * @param pass
      * @throws IssueDomainException
      */
-	void deleteIssue(BigInteger issueId, IssueData issue, String user,
+	void deleteIssue(BigInteger issueId, String user,
 			String password) throws IssueDomainException;
 
 	

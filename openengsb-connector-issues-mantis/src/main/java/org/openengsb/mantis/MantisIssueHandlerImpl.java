@@ -21,8 +21,15 @@ package org.openengsb.mantis;
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import javax.xml.rpc.ServiceException;
+
+import org.apache.axis.EngineConfiguration;
+import org.apache.axis.configuration.EngineConfigurationFactoryFinder;
+import org.apache.axis.configuration.SimpleProvider;
+import org.apache.axis.transport.http.CommonsHTTPSender;
 import org.openengsb.issues.common.api.IssueHandler;
 import org.openengsb.issues.common.api.exceptions.IssueDomainException;
+import org.openengsb.mantis.pojos.UserCredential;
+
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.MantisConnectLocator;
 import biz.futureware.mantisconnect.MantisConnectPortType;
@@ -31,41 +38,41 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 
 	MantisConnectPortType porttype = null;
 	
-	
 	public MantisIssueHandlerImpl() {
-		MantisConnectLocator locator = new MantisConnectLocator();
+		//this has to be done because of the "bad <br> tag" error
+		EngineConfiguration engine = EngineConfigurationFactoryFinder.newFactory().getClientEngineConfig();
+        SimpleProvider provider = new SimpleProvider(engine);
+        provider.deployTransport("http", new CommonsHTTPSender());
+        
+		MantisConnectLocator locator = new MantisConnectLocator(provider);
     	try {
 			porttype =locator.getMantisConnectPort();
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
+		} catch (ServiceException e) {			
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
 	@Override
-	public String createIssue(IssueData issue,String user, String pass) throws IssueDomainException{
+	public String createIssue(IssueData issue, String user, String pass) throws IssueDomainException{
 		
 		BigInteger returnInt = null;
 		try {
 			returnInt = porttype.mc_issue_add(user,pass, issue);
 		} catch (RemoteException e) {
 			e.printStackTrace();
-			throw new IssueDomainException("Error adding issue.");
+			throw new IssueDomainException("Error adding issue: "+e.getMessage());
 		}
 		return returnInt.toString();
 	}
 
 	@Override
-	public void deleteIssue(BigInteger issueId, IssueData issue, String user, String password) throws IssueDomainException {
+	public void deleteIssue(BigInteger issueId, String user, String password) throws IssueDomainException {
 		try {
-			porttype.mc_issue_update(user, password, issueId, issue);
+			if(!porttype.mc_issue_delete(user, password, issueId)) {
+				throw new IssueDomainException ("Could not delete issue.");
+			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
-			throw new IssueDomainException ("Error deleting issue.");
+			throw new IssueDomainException ("Error deleting issue: "+e.getMessage());
 		}
 	}
 
@@ -75,9 +82,21 @@ public class MantisIssueHandlerImpl implements IssueHandler {
 			porttype.mc_issue_update(user, password, issueId, issue);
 		} catch (RemoteException e) {
 			e.printStackTrace();
-			throw new IssueDomainException ("Error updating issue.");			
+			throw new IssueDomainException ("Error updating issue: "+e.getMessage());			
 		}
 
+	}
+
+	@Override
+	public IssueData getIssue(BigInteger issueId, String user, String password) throws IssueDomainException{
+		IssueData data;
+		try {
+			 data = porttype.mc_issue_get(password, user, issueId);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			throw new IssueDomainException ("Error getting issue: "+e.getMessage());			
+		}
+		return data;
 	}
 	
 	

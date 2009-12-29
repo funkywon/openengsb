@@ -127,7 +127,7 @@ Issue Tracker Domain
 	2) Status vs. Resolution
 	The issue tracker have different statuses. For example, GitHub has only three, not realy typically states: Open, Unread, Closed.
 	For the interface a enum of all declared states is defined to support more than one issue tracker for the 
-	resolution, but for the mappind of the issue status only that all provide.
+	resolution, but for the mapping of the issue status only that all provide.
 
 
 * IssueNotes

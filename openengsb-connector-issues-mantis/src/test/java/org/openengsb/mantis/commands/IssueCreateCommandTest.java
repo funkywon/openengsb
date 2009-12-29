@@ -49,6 +49,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openengsb.issues.MantisIssueAdd;
 import org.openengsb.mantis.commands.IssueCreateCommand;
+import org.openengsb.mantis.util.MantisUtil;
 
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.MantisConnectLocator;
@@ -60,68 +61,39 @@ public class IssueCreateCommandTest {
 	private static final String USER_KEY = "user";
 	private static final String PASSWORD_KEY = "password";
 	private static final String HOST_KEY = "host";
+	private static final String PROPS_FILE = "config.properties";
 
-	private static final String USER = "administrator";
-	private static final String PASS = "root";
-	private static final String HOST = "http://localhost/mantisbt-1.1.8/api/soap/mantisconnect.php";
+	private static String USER;
+	private static String PASS;
+	private static String HOST;
 
-	
-	private static Preferences prefs=null;
 	MantisConnectLocator locator;
 	InputStream istream;
-	String user;
-	String pass;
-	String host;
 
 	@BeforeClass
-	public static void setUpBeforeClass() {
-		prefs = Preferences.userRoot().node("/org/openengsb/mantis/commands");
-		prefs.put(USER_KEY, USER);
-		prefs.put(PASSWORD_KEY, PASS);
-		prefs.put(HOST_KEY, HOST);
-		
-		try {
-			FileOutputStream fos = new FileOutputStream("prefs.out");
-			prefs.exportNode(fos);
-		} catch (Exception e) {
-			System.err.println("Unable to export nodes: " + e);
-		}
+	public static void setUpBeforeClass() throws IOException {
+		Properties props;
+		props = MantisUtil.load(PROPS_FILE);
+
+		USER = props.getProperty(USER_KEY);
+		PASS = props.getProperty(PASSWORD_KEY);
+		HOST = props.getProperty(HOST_KEY);
+
 	}
 
 	@Before
 	public void setUp() throws IOException {
-		
-		try {
-			Preferences.importPreferences(new FileInputStream(new File("prefs.out")));
-		} catch (InvalidPreferencesFormatException e) {
-			
-			e.printStackTrace();
-		}
-    	
-		EngineConfiguration engine = EngineConfigurationFactoryFinder.newFactory().getClientEngineConfig();
-        SimpleProvider provider = new SimpleProvider(engine);
-        provider.deployTransport("http", new CommonsHTTPSender());
-        
-    	prefs=Preferences.userNodeForPackage(getClass());
-    	user=prefs.get(USER_KEY,"");
-		pass=prefs.get(PASSWORD_KEY,"");
-		host=prefs.get(HOST_KEY,"");
-		locator = new MantisConnectLocator(provider);
-		locator.setMantisConnectPortEndpointAddress(host);
-		
-		
-		
+		EngineConfiguration engine = EngineConfigurationFactoryFinder
+				.newFactory().getClientEngineConfig();
+		SimpleProvider provider = new SimpleProvider(engine);
+		provider.deployTransport("http", new CommonsHTTPSender());
 
+		locator = new MantisConnectLocator(provider);
+		locator.setMantisConnectPortEndpointAddress(HOST);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() {
-		try {
-			prefs.removeNode();
-		} catch (BackingStoreException e) {
-			System.err.println("Unable to access backing store: " + e);
-		}
-
 	}
 
 	@After
@@ -130,26 +102,17 @@ public class IssueCreateCommandTest {
 	}
 
 	@Test
-	public void createIssue() throws Exception {
-		try {
+	public void createIssue() throws ServiceException, RemoteException{
 
-			MantisConnectPortType porttype = locator.getMantisConnectPort();
+		MantisConnectPortType porttype = locator.getMantisConnectPort();
 
-			
-			IssueData data1 = new IssueData();
-			data1.setCategory("cat1");
-			data1.setDescription("This is a unit test.");
-			data1.setSummary("this is the test summary of data.");
-			data1.setProject(new ObjectRef(new BigInteger("1"), "engsb"));
-			porttype.mc_issue_add(user, pass, data1);
-
-		} catch (RemoteException ex) {
-			ex.printStackTrace();
-		} catch (ServiceException ex) {
-			ex.printStackTrace();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+		IssueData data1 = new IssueData();
+		data1.setCategory("cat1");
+		data1.setDescription("This is a unit test.");
+		data1.setSummary("this is the test summary of data.");
+		data1.setProject(new ObjectRef(new BigInteger("1"), "engsb"));
+		
+		porttype.mc_issue_add(USER, PASS, data1);
 
 	}
 

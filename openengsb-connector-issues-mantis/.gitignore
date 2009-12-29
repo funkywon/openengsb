@@ -1,3 +1,9 @@
 .classpath
 .project
 bin/
+src/main/java/org/openengsb/issues/config.properties
+src/main/resources/config.properties
+src/test/java/org/openengsb/mantis/commands/config.properties
+src/test/resources/config.properties
+test.xml
+config.properties

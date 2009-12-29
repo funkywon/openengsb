@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://openengsb.org/connectorIssues" xmlns:tns="http://openengsb.org/connectorIssues">
+	<xsd:element name="issue_update_message">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="account_data" type="tns:AccountDataType" />
+				<xsd:element name="issue_id" type="xsd:int"/>
+				<xsd:element name="issue_data" type="tns:IssueDataType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="issue_delete_message">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="account_data" type="tns:AccountDataType" />
+				<xsd:element name="issue_id" type="xsd:int"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="issue_get_message">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="account_data" type="tns:AccountDataType" />
+				<xsd:element name="issue_id" type="xsd:int"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="issue_create_message">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="account_data" type="tns:AccountDataType" />
+				<xsd:element name="issue_data" type="tns:IssueDataType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AccountDataType">
+		<xsd:sequence>
+			<xsd:element name="username" type="xsd:string" />
+			<xsd:element name="password" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IssueDataType">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:integer" minOccurs="0" />
+			<xsd:element name="last_updated" type="xsd:dateTime"
+				minOccurs="0" />
+			<xsd:element name="project" type="tns:ObjectRef"
+				minOccurs="0" />
+			<xsd:element name="priority" type="tns:ObjectRef"
+				minOccurs="0" />
+			<xsd:element name="severity" type="tns:ObjectRef"
+				minOccurs="0" />
+			<xsd:element name="status" type="tns:ObjectRef"
+				minOccurs="0" />
+			<xsd:element name="reporter" type="tns:AccountData"
+				minOccurs="0" />
+			<xsd:element name="summary" type="xsd:string" minOccurs="0" />
+			<xsd:element name="version" type="xsd:string" minOccurs="0" />
+			<xsd:element name="os" type="xsd:string" minOccurs="0" />
+			<xsd:element name="date_submitted" type="xsd:dateTime"
+				minOccurs="0" />
+			<xsd:element name="handler" type="tns:AccountData"
+				minOccurs="0" />
+			<xsd:element name="eta" type="tns:ObjectRef" minOccurs="0" />
+			<xsd:element name="resolution" type="tns:ObjectRef"
+				minOccurs="0" />
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="attachments" type="tns:AttachmentDataArray"
+				minOccurs="0" />
+			<xsd:element name="notes" type="tns:IssueNoteDataArray"
+				minOccurs="0" />
+			<xsd:element name="custom_fields" type="tns:CustomFieldValueForIssueDataArray"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ObjectRef">
+		<xsd:all>
+			<xsd:element name="id" type="xsd:integer" minOccurs="0" />
+			<xsd:element name="name" type="xsd:string" minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="IssueNoteDataArray">
+		<xsd:sequence>
+			<xsd:element ref="tns:IssueNoteData" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="IssueNoteData">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="id" type="xsd:integer" minOccurs="0" />
+				<xsd:element name="reporter" type="tns:AccountData"
+					minOccurs="0" />
+				<xsd:element name="text" type="xsd:string" minOccurs="0" />
+				<xsd:element name="view_state" type="tns:ObjectRef"
+					minOccurs="0" />
+				<xsd:element name="date_submitted" type="xsd:dateTime"
+					minOccurs="0" />
+				<xsd:element name="last_modified" type="xsd:dateTime"
+					minOccurs="0" />
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AttachmentDataArray">
+		<xsd:sequence>
+			<xsd:element ref="tns:AttachmentData" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AttachmentData">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="id" type="xsd:integer" minOccurs="0" />
+				<xsd:element name="filename" type="xsd:string"
+					minOccurs="0" />
+				<xsd:element name="size" type="xsd:integer" minOccurs="0" />
+				<xsd:element name="content_type" type="xsd:string"
+					minOccurs="0" />
+				<xsd:element name="date_submitted" type="xsd:dateTime"
+					minOccurs="0" />
+				<xsd:element name="download_url" type="xsd:anyURI"
+					minOccurs="0" />
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AccountData">
+		<xsd:all>
+			<xsd:element name="id" type="xsd:integer" minOccurs="0" />
+			<xsd:element name="name" type="xsd:string" minOccurs="0" />
+			<xsd:element name="real_name" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="email" type="xsd:string" minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="CustomFieldValueForIssueDataArray">
+		<xsd:sequence>
+			<xsd:element ref="tns:CustomFieldValueForIssueData"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CustomFieldValueForIssueData">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="field" type="tns:ObjectRef"
+					minOccurs="0" />
+				<xsd:element name="value" type="xsd:string" minOccurs="0" />
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

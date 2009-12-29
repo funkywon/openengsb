@@ -17,66 +17,37 @@
 package biz.futureware.mantisconnect;
 
 public class IssueData  implements java.io.Serializable {
-    private java.math.BigInteger id;
-
+    
+	private java.math.BigInteger id;
     private biz.futureware.mantisconnect.ObjectRef view_state;
-
     private java.util.Calendar last_updated;
-
     private biz.futureware.mantisconnect.ObjectRef project;
-
     private java.lang.String category;
-
     private biz.futureware.mantisconnect.ObjectRef priority;
-
     private biz.futureware.mantisconnect.ObjectRef severity;
-
     private biz.futureware.mantisconnect.ObjectRef status;
-
     private biz.futureware.mantisconnect.AccountData reporter;
-
     private java.lang.String summary;
-
     private java.lang.String version;
-
     private java.lang.String build;
-
     private java.lang.String platform;
-
     private java.lang.String os;
-
     private java.lang.String os_build;
-
     private biz.futureware.mantisconnect.ObjectRef reproducibility;
-
     private java.util.Calendar date_submitted;
-
     private java.math.BigInteger sponsorship_total;
-
     private biz.futureware.mantisconnect.AccountData handler;
-
     private biz.futureware.mantisconnect.ObjectRef projection;
-
     private biz.futureware.mantisconnect.ObjectRef eta;
-
     private biz.futureware.mantisconnect.ObjectRef resolution;
-
     private java.lang.String fixed_in_version;
-
     private java.lang.String target_version;
-
     private java.lang.String description;
-
     private java.lang.String steps_to_reproduce;
-
     private java.lang.String additional_information;
-
     private biz.futureware.mantisconnect.AttachmentData[] attachments;
-
     private biz.futureware.mantisconnect.RelationshipData[] relationships;
-
     private biz.futureware.mantisconnect.IssueNoteData[] notes;
-
     private biz.futureware.mantisconnect.CustomFieldValueForIssueData[] custom_fields;
 
     public IssueData() {
