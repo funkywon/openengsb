@@ -145,9 +145,11 @@
     <module>domains/toolabstraction/maven</module>
 
     <!-- Connectors -->
+
     <module>domains/scm/subversion/service-engine</module>
     <module>domains/notification/email/service-engine</module>
     <module>domains/issues/trac/service-engine</module>
+
 
     <!-- Implementation Modules -->
     <module>domains/build/maven/service-unit</module>
@@ -1218,6 +1220,7 @@
         <scope>test</scope>
       </dependency>
 
+<<<<<<< HEAD
       <!-- Jetty  -->
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
@@ -1225,6 +1228,15 @@
         <version>${jetty.version}</version>
         <type>zip</type>
       </dependency>
+=======
+      <!-- Axis Dependency -->
+      <dependency>
+        <groupId>org.apache.axis</groupId>
+        <artifactId>axis</artifactId>
+        <version>1.4</version>
+      </dependency>
+      
+>>>>>>> conflict: pom.xml
     </dependencies>
   </dependencyManagement>
 

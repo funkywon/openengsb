@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package biz.futureware.mantisconnect;
+package org.openengsb.mantis;
 
-public interface MantisConnect extends javax.xml.rpc.Service {
-    public java.lang.String getMantisConnectPortAddress();
+/**
+ * Marker interface for XBean schema generation
+ */
+public interface MantisEndpointType {
 
-    public biz.futureware.mantisconnect.MantisConnectPortType getMantisConnectPort() throws javax.xml.rpc.ServiceException;
-
-    public biz.futureware.mantisconnect.MantisConnectPortType getMantisConnectPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
 }
