@@ -210,7 +210,7 @@
     <module>features/link/http-processor/service-engine</module>
     <module>features/link/http-processor/service-unit</module>
 
-    <!-- Issues -->
+    <!-- issues -->
     <module>domains/issues/common</module>
 
 
