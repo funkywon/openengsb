@@ -17,28 +17,17 @@
 */
 package org.openengsb.mantis.endpoints;
 
-import java.io.IOException;
 
 import javax.jbi.messaging.ExchangeStatus;
 import javax.jbi.messaging.MessageExchange;
-import javax.jbi.messaging.MessagingException;
 import javax.jbi.messaging.NormalizedMessage;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.dom.DOMSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.servicemix.common.endpoints.ProviderEndpoint;
-import org.apache.servicemix.jbi.jaxp.SourceTransformer;
-import org.apache.xpath.CachedXPathAPI;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public abstract class AbstractEndpoint extends ProviderEndpoint {
-    private static final CachedXPathAPI XPATH = new CachedXPathAPI();
+    
 
     private Log log = null;
 
@@ -119,107 +108,7 @@ public abstract class AbstractEndpoint extends ProviderEndpoint {
 
     /* end template methods and default implementations */
 
-    /* helpers */
-
-    /**
-     * Convenience method to extract a single Node from a normalized message,
-     * indicated by an x-path.
-     * 
-     * @param inMessage The normalized message.
-     * @param xPath The x-path
-     * @return The Extracted Node
-     * @throws MessagingException
-     * @throws TransformerException
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected Node extractSingleNode(NormalizedMessage inMessage, String xPath) throws MessagingException,
-            TransformerException, ParserConfigurationException, IOException, SAXException {
-        Node rootNode = getRootNode(inMessage);
-        if (rootNode == null) {
-            return null;
-        } else {
-            return AbstractEndpoint.XPATH.selectSingleNode(rootNode, xPath);
-        }
-    }
-
-    /**
-     * Convenience method to extract a NodeList from a normalized message,
-     * indicated by an x-path.
-     * 
-     * @param inMessage The normalized message.
-     * @param xPath The x-path
-     * @return The extracted NodeList
-     * @throws MessagingException
-     * @throws TransformerException
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected NodeList extractNodeList(NormalizedMessage inMessage, String xPath) throws MessagingException,
-            TransformerException, ParserConfigurationException, IOException, SAXException {
-        Node rootNode = getRootNode(inMessage);
-        if (rootNode == null) {
-            return null;
-        } else {
-            return AbstractEndpoint.XPATH.selectNodeList(rootNode, xPath);
-        }
-    }
-
-    /**
-     * Convenience method to extract parameter (attribute) from a normalized
-     * message, indicated by an x-path.
-     * 
-     * @param inMessage The normalized message.
-     * @param xPath The x-path.
-     * @return The extracted value.
-     * @throws MessagingException
-     * @throws TransformerException
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     */
-    protected String extractStringParameter(NormalizedMessage inMessage, String xpath) throws MessagingException,
-            TransformerException, ParserConfigurationException, IOException, SAXException {
-        // get parameter
-        Node node = extractSingleNode(inMessage, xpath);
-
-        // validate them
-        if (node == null) {
-            return null;
-        } else {
-            return node.getNodeValue();
-        }
-    }
-
-    /**
-     * Extracts to root-Node (actually XML-Element) from a NormalizedMessage.
-     * This helper is needed, since, depending on the way the request was sent
-     * (via the domain, or directly) Either a Document-Node or Element-Node is
-     * the message's root. To be able to apply the same XPaths either way, this
-     * helper "normalizes" the root-Node.
-     * 
-     * @param message
-     * @return
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     * @throws TransformerException
-     */
-    private Node getRootNode(NormalizedMessage message) throws ParserConfigurationException, IOException, SAXException,
-            TransformerException {
-        SourceTransformer sourceTransformer = new SourceTransformer();
-        DOMSource messageXml = sourceTransformer.toDOMSource(message.getContent());
-
-        Node rootNode = messageXml.getNode();
-
-        if (rootNode instanceof Document) {
-            return rootNode.getFirstChild();
-        } else {
-            return rootNode;
-        }
-    }
+    
 
     /**
      * This method may seem not very useful, since logger is protected already
