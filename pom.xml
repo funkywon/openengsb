@@ -1220,7 +1220,6 @@
         <scope>test</scope>
       </dependency>
 
-<<<<<<< HEAD
       <!-- Jetty  -->
       <dependency>
         <groupId>org.mortbay.jetty</groupId>
@@ -1228,15 +1227,6 @@
         <version>${jetty.version}</version>
         <type>zip</type>
       </dependency>
-=======
-      <!-- Axis Dependency -->
-      <dependency>
-        <groupId>org.apache.axis</groupId>
-        <artifactId>axis</artifactId>
-        <version>1.4</version>
-      </dependency>
-      
->>>>>>> conflict: pom.xml
     </dependencies>
   </dependencyManagement>
 
