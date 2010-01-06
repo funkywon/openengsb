@@ -40,6 +40,6 @@
     </sm:activationSpecs>
   </sm:container>
 
-  <mockns:mock id="mockedIssueDomain" object-class="org.openengsb.issues.common.IssueDomain" />
+  <mockns:mock id="mockedIssueDomain" object-class="org.openengsb.drools.IssueDomain" />
 
 </beans>

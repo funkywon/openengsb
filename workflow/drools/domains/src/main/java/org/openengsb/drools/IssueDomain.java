@@ -16,15 +16,14 @@
 
  */
 
-package org.openengsb.issues.common;
+package org.openengsb.drools;
 
-import org.openengsb.issues.common.exceptions.IssueDomainException;
-import org.openengsb.issues.common.model.Issue;
+import org.openengsb.drools.model.Issue;
 
 /**
  * Interface describing a generic issue domain.
  */
-public interface IssueDomain {
+public interface IssueDomain extends Domain {
 
     /**
      * Creates an issue in an issue tracking system.

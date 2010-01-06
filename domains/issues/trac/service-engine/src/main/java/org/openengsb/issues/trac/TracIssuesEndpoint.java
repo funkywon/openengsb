@@ -21,9 +21,9 @@ package org.openengsb.issues.trac;
 import org.openengsb.contextcommon.ContextHelper;
 import org.openengsb.core.MessageProperties;
 import org.openengsb.drools.DroolsIssuesDomain;
-import org.openengsb.issues.common.IssueDomain;
+import org.openengsb.drools.IssueDomain;
+import org.openengsb.drools.IssueDomainException;
 import org.openengsb.issues.common.endpoints.AbstractIssueEndpoint;
-import org.openengsb.issues.common.exceptions.IssueDomainException;
 
 /**
  * @org.apache.xbean.XBean element="issuesEndpoint"

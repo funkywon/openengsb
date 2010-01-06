@@ -16,11 +16,21 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
 /**
- * Describes the possibilities for issue states
+ * Describes the possibilities for resolution
  */
-public enum IssueStatus {
-    NEW, ASSIGNED, CLOSED
+public class IssueResolution {
+    public static final int OPEN = 0;
+    public static final int REOPENED = 1;
+    public static final int FIXED = 2;
+    public static final int INVALID = 3;
+    public static final int WONTFIX = 4;
+    public static final int DUPLICATE = 5;
+    public static final int WORKSFORM = 6;
+    public static final int UNABLETOPRODUCE = 7;
+    public static final int NOTFIXABLE = 8;
+    public static final int NOCHANGEREQUIRED = 9;
+    public static final int SUSPENDED = 10;
 }

@@ -1,4 +1,4 @@
-<!--
+/**
 
    Copyright 2010 OpenEngSB Division, Vienna University of Technology
 
@@ -14,8 +14,16 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
--->
-<binding>
-	<include path="binding-createissuemessage.xml" />
-  <include path="binding-createissueresponsemessage.xml" />
-</binding>
+ */
+
+package org.openengsb.drools.model;
+
+/**
+ * Describes the possibilities for project states
+ */
+public class ProjectStatus {
+    public static final int OPEN = 0;
+    public static final int ENABLED = 1;
+    public static final int DISABLE = 2;
+    public static final int CLOSED = 3;
+}

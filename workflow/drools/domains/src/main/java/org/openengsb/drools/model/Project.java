@@ -16,7 +16,7 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
 import java.net.URI;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Project {
 
     private String id;
     private String name;
-    private ProjectStatus status;
+    private int status;
     private String description;
     private URI uri;
     private List<Issue> issues;
@@ -72,17 +72,17 @@ public class Project {
      * @return status - the topically status of the project
      * @see ProjectStatus
      */
-    public ProjectStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
     /**
      * Sets the status of the project
      *
-     * @param projectStatus - use the enumaration values for setting
+     * @param status - use the enumaration values for setting
      * @see ProjectStatus
      */
-    public void setStatus(ProjectStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

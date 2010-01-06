@@ -16,11 +16,16 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
 /**
- * Describes the possibilities for project states
+ * Describes the possibilities for priorities
  */
-public enum ProjectStatus {
-    OPEN, ENABLED, DISABLE, CLOSED
+public class IssuePriority {
+    public static final int NONE = 0;
+    public static final int LOW = 1;
+    public static final int NORMAL = 2;
+    public static final int HIGH = 3;
+    public static final int URGENT = 4;
+    public static final int IMMEDIATE = 5;
 }

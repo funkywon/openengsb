@@ -21,7 +21,7 @@ package org.openengsb.issues.common.test.unit;
 import org.openengsb.contextcommon.ContextHelper;
 import org.openengsb.core.MessageProperties;
 import org.openengsb.drools.DroolsIssuesDomain;
-import org.openengsb.issues.common.IssueDomain;
+import org.openengsb.drools.IssueDomain;
 import org.openengsb.issues.common.endpoints.AbstractIssueEndpoint;
 
 /**

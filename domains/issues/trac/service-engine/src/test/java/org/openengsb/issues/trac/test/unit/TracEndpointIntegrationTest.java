@@ -47,12 +47,12 @@ import org.junit.runner.RunWith;
 import org.openengsb.core.model.MethodCall;
 import org.openengsb.core.model.ReturnValue;
 import org.openengsb.core.transformation.Transformer;
+import org.openengsb.drools.model.Issue;
+import org.openengsb.drools.model.IssuePriority;
+import org.openengsb.drools.model.IssueSeverity;
+import org.openengsb.drools.model.IssueType;
 import org.openengsb.issues.common.messages.CreateIssueMessage;
 import org.openengsb.issues.common.messages.CreateIssueResponseMessage;
-import org.openengsb.issues.common.model.Issue;
-import org.openengsb.issues.common.model.IssuePriority;
-import org.openengsb.issues.common.model.IssueSeverity;
-import org.openengsb.issues.common.model.IssueType;
 import org.openengsb.util.serialization.JibxXmlSerializer;
 import org.openengsb.util.serialization.Serializer;
 import org.springframework.context.support.AbstractXmlApplicationContext;
@@ -73,9 +73,9 @@ public class TracEndpointIntegrationTest extends SpringTestSupport {
     private String description = "Test Description";
     private String reporter = "Test Reporter";
     private String owner = "Test Owner";
-    private IssueType type = IssueType.BUG;
-    private IssuePriority priority = IssuePriority.HIGH;
-    private IssueSeverity severity = IssueSeverity.BLOCK;
+    private int type = IssueType.BUG;
+    private int priority = IssuePriority.HIGH;
+    private int severity = IssueSeverity.BLOCK;
     private String affectedVersion = "1.0";
 
     /* creators */

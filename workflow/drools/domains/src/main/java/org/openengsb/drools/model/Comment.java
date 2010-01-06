@@ -16,7 +16,7 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
 import java.util.Date;
 
@@ -25,7 +25,7 @@ public class Comment {
     private String id;
     private String reporter;
     private String text;
-    private ViewState viewState;
+    private int viewState;
     private Date creationTime;
     private Date lastChange;
 
@@ -89,7 +89,7 @@ public class Comment {
      * @return viewState - public, private or any
      * @see ViewState
      */
-    public ViewState getViewState() {
+    public int getViewState() {
         return viewState;
     }
 
@@ -100,7 +100,7 @@ public class Comment {
      * @param viewState - uses the enumeration for setting
      * @see ViewState
      */
-    public void setViewState(ViewState viewState) {
+    public void setViewState(int viewState) {
         this.viewState = viewState;
     }
 

@@ -1,4 +1,4 @@
-<!--
+/**
 
    Copyright 2010 OpenEngSB Division, Vienna University of Technology
 
@@ -14,14 +14,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
--->
-<binding xmlns:tns="http://org.openengsb/issues/common/messages" name="binding"
-   package="org.openengsb.issues.common.messages">
-   <namespace uri="http://org.openengsb/issues/common/messages" default="elements"/>
-   <mapping class="org.openengsb.issues.common.messages.CreateIssueResponseMessage"
-      name="createissueresponsemessage">
-     <value name="createdissueid" field="createdIssueId" usage="optional" />
-     <value name="status" field="status" />
-     <value name="statusmessage" field="statusMessage" usage="optional" />
-   </mapping>
-</binding>
+ */
+
+package org.openengsb.drools.model;
+
+public class IssueType {
+    public static final int BUG = 0;
+    public static final int IMPROVEMENT = 1;
+    public static final int NEW_FEATURE = 2;
+    public static final int TASK = 3;
+}

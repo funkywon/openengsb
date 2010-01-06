@@ -22,10 +22,10 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertFalse;
 
 import org.junit.Test;
-import org.openengsb.issues.common.model.Issue;
-import org.openengsb.issues.common.model.IssuePriority;
-import org.openengsb.issues.common.model.IssueSeverity;
-import org.openengsb.issues.common.model.IssueType;
+import org.openengsb.drools.model.Issue;
+import org.openengsb.drools.model.IssuePriority;
+import org.openengsb.drools.model.IssueSeverity;
+import org.openengsb.drools.model.IssueType;
 
 public class IssueTest {
 
@@ -60,7 +60,7 @@ public class IssueTest {
         i9.setId("i1");
         Issue i10 = new Issue("s1", "d1", "r1", "o1", IssueType.BUG, IssuePriority.HIGH, IssueSeverity.BLOCK, "1.0");
         i10.setId("ix");
-        Issue i11 = new Issue(null, null, null, null, null, null, null, null);
+        Issue i11 = new Issue(null, null, null, null, -1, -1, -1, null);
         i11.setId(null);
 
         assertFalse("Problem with summary unequality.", i1.equals(i2));

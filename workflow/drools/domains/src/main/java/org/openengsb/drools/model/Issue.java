@@ -16,7 +16,7 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
 import java.util.Date;
 import java.util.List;
@@ -29,11 +29,11 @@ public class Issue {
     private String reporter;
     private String owner;
     private String affectedVersion;
-    private IssuePriority priority;
-    private IssueSeverity severity;
-    private IssueResolution resolution;
-    private IssueStatus status;
-    private IssueType type;
+    private int priority;
+    private int severity;
+    private int resolution;
+    private int status;
+    private int type;
     private List<Comment> comments;
     private Project project;
     private Date creationTime;
@@ -42,8 +42,8 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(String summary, String description, String reporter, String owner, IssueType type,
-            IssuePriority priority, IssueSeverity severity, String affectedVersion) {
+    public Issue(String summary, String description, String reporter, String owner, int type,
+            int priority, int severity, String affectedVersion) {
         this.summary = summary;
         this.description = description;
         this.reporter = reporter;
@@ -170,7 +170,7 @@ public class Issue {
      * @return priority - the priority of the issue
      * @see IssuePriority
      */
-    public IssuePriority getPriority() {
+    public int getPriority() {
         return priority;
     }
 
@@ -180,7 +180,7 @@ public class Issue {
      * @param priority - uses the enumeration values for setting
      * @see IssuePriority
      */
-    public void setPriority(IssuePriority priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
@@ -190,7 +190,7 @@ public class Issue {
      * @return severity - the severity of the issue
      * @see IssueSeverity
      */
-    public IssueSeverity getSeverity() {
+    public int getSeverity() {
         return severity;
     }
 
@@ -200,7 +200,7 @@ public class Issue {
      * @param severity - uses the enumeration values for setting
      * @see IssueSeverity
      */
-    public void setSeverity(IssueSeverity severity) {
+    public void setSeverity(int severity) {
         this.severity = severity;
     }
 
@@ -210,7 +210,7 @@ public class Issue {
      * @return resolution - the resolution of the issue
      * @see IssueResolution
      */
-    public IssueResolution getResolution() {
+    public int getResolution() {
         return resolution;
     }
 
@@ -220,7 +220,7 @@ public class Issue {
      * @param resolution - uses the enumeration values for setting
      * @see IssueResolution
      */
-    public void setResolution(IssueResolution resolution) {
+    public void setResolution(int resolution) {
         this.resolution = resolution;
     }
 
@@ -230,7 +230,7 @@ public class Issue {
      * @return status - the status of the issue
      * @see IssueStatus
      */
-    public IssueStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
@@ -240,7 +240,7 @@ public class Issue {
      * @param status - uses the enumeration values for setting
      * @see IssueStatus
      */
-    public void setStatus(IssueStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -250,7 +250,7 @@ public class Issue {
      * @return type - the type of the issue
      * @see IssueType
      */
-    public IssueType getType() {
+    public int getType() {
         return type;
     }
 
@@ -259,7 +259,7 @@ public class Issue {
      *
      * @param type - the type of the issue
      */
-    public void setType(IssueType type) {
+    public void setType(int type) {
         this.type = type;
     }
 

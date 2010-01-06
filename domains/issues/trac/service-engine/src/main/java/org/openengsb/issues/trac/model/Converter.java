@@ -22,20 +22,20 @@ import java.util.Hashtable;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
-import org.openengsb.issues.common.model.Issue;
-import org.openengsb.issues.common.model.IssuePriority;
-import org.openengsb.issues.common.model.IssueType;
+import org.openengsb.drools.model.Issue;
+import org.openengsb.drools.model.IssuePriority;
+import org.openengsb.drools.model.IssueType;
 
 public class Converter {
 
     private Logger log = Logger.getLogger(Converter.class);
 
-    private Hashtable<IssuePriority, String> priorityMapping;
-    private Hashtable<IssueType, String> typeMapping;
+    private Hashtable<Integer, String> priorityMapping;
+    private Hashtable<Integer, String> typeMapping;
 
     public Converter() {
-        priorityMapping = new Hashtable<IssuePriority, String>();
-        typeMapping = new Hashtable<IssueType, String>();
+        priorityMapping = new Hashtable<Integer, String>();
+        typeMapping = new Hashtable<Integer, String>();
 
         priorityMapping.put(IssuePriority.HIGH, "major");
         priorityMapping.put(IssuePriority.IMMEDIATE, "blocker");

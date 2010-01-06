@@ -16,11 +16,18 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
 /**
  * Describes the possibilities for severity
  */
-public enum IssueSeverity {
-    BLOCK, CRASH, MAJOR, MINOR, TWEAK, TEXT, TRIVIAL, FEATURE
+public class IssueSeverity {
+    public static final int FEATURE = 0;
+    public static final int TWEAK = 1;
+    public static final int TEXT = 2;
+    public static final int TRIVIAL = 3;
+    public static final int MINOR = 4;
+    public static final int MAJOR = 5;
+    public static final int CRASH = 6;
+    public static final int BLOCK = 7;
 }

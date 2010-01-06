@@ -16,11 +16,13 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
 /**
- * Describes the possibilities for resolution
+ * Describes the possibilities for the view state
  */
-public enum IssueResolution {
-    OPEN, REOPENED, FIXED, INVALID, WONTFIX, DUPLICATE, WORKSFORM, UNABLETOPRODUCE, NOTFIXABLE, NOCHANGEREQUIRED, SUSPENDED
+public class ViewState {
+    public static final int PUBLIC = 0;
+    public static final int PRIVATE = 1;
+    public static final int ANY = 2;
 }

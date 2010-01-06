@@ -16,8 +16,13 @@
 
  */
 
-package org.openengsb.issues.common.model;
+package org.openengsb.drools.model;
 
-public enum IssueType {
-    BUG, IMPROVEMENT, NEW_FEATURE, TASK
+/**
+ * Describes the possibilities for issue states
+ */
+public class IssueStatus {
+    public static final int NEW = 0;
+    public static final int ASSIGNED = 1;
+    public static final int CLOSED = 2;
 }
