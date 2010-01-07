@@ -31,7 +31,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.log4j.Logger;
 import org.apache.servicemix.jbi.jaxp.StringSource;
 import org.openengsb.contextcommon.ContextHelper;
-import org.openengsb.core.MessageProperties;
+import org.openengsb.core.endpoints.LinkingEndpoint;
 import org.openengsb.core.endpoints.RPCEndpoint;
 import org.openengsb.drools.DroolsIssuesDomain;
 import org.openengsb.drools.IssueDomain;
@@ -46,7 +46,7 @@ import org.openengsb.util.serialization.Serializer;
 /**
  * @org.apache.xbean.XBean element="create-issue"
  */
-public abstract class AbstractIssueEndpoint extends RPCEndpoint<IssueDomain> {
+public abstract class AbstractIssueEndpoint extends LinkingEndpoint<IssueDomain> {
 
     private Logger log = Logger.getLogger(AbstractIssueEndpoint.class);
 
@@ -59,6 +59,7 @@ public abstract class AbstractIssueEndpoint extends RPCEndpoint<IssueDomain> {
         serializer = new JibxXmlSerializer();
     }
 
+<<<<<<< HEAD
     @Override
     public void validate() throws DeploymentException {
     }
@@ -110,6 +111,11 @@ public abstract class AbstractIssueEndpoint extends RPCEndpoint<IssueDomain> {
         return null;
     }
 
+=======
+    
+    
+    
+>>>>>>> Deleted local enum files.
     public Serializer getSerializer() {
         return serializer;
     }

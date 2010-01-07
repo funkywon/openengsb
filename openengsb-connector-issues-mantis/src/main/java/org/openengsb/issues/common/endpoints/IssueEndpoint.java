@@ -64,11 +64,10 @@ public class IssueEndpoint extends AbstractIssueEndpoint {
 
     @Override
     protected IssueDomain getImplementation(ContextHelper arg0) {
+        counter++;
         if(counter%2==0) {
             return domain1;
-        } else return domain2;
-        
-        
+        }
+        return domain2;
     }
-	
 }
