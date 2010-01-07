@@ -17,9 +17,7 @@
 package biz.futureware.mantisconnect;
 
 import java.util.List;
-
 import javax.xml.namespace.QName;
-import javax.xml.rpc.handler.Handler;
 import javax.xml.rpc.handler.HandlerInfo;
 import javax.xml.rpc.handler.HandlerRegistry;
 
@@ -1751,7 +1749,8 @@ public class MantisConnectBindingStub extends org.apache.axis.client.Stub
 		super.cachedEndpoint = endpointURL;
 	}
 
-	public MantisConnectBindingStub(javax.xml.rpc.Service service)
+	@SuppressWarnings("unchecked")
+    public MantisConnectBindingStub(javax.xml.rpc.Service service)
 			throws org.apache.axis.AxisFault {
 		if (service == null) {
 			super.service = new org.apache.axis.client.Service();

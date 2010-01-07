@@ -46,7 +46,7 @@ import org.openengsb.util.serialization.Serializer;
 /**
  * @org.apache.xbean.XBean element="create-issue"
  */
-public abstract class AbstractIssueEndpoint extends RPCEndpoint<DroolsIssuesDomain> {
+public abstract class AbstractIssueEndpoint extends RPCEndpoint<IssueDomain> {
 
     private Logger log = Logger.getLogger(AbstractIssueEndpoint.class);
 

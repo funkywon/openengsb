@@ -28,7 +28,8 @@
 	<artifactId>openengsb-connector-issues-mantis</artifactId>
 	<packaging>jbi-component</packaging>
 	<name>openengsb-connector-issues-mantis</name>
-	<description>A binding component for mantis issue tracker.</description>
+	<description>A binding component for mantis issue tracker.
+	</description>
 
 
 	<properties>
@@ -97,6 +98,22 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.openengsb</groupId>
+			<artifactId>openengsb-workflow-drools-domains</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openengsb</groupId>
+			<artifactId>openengsb-domains-issues-common</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.openengsb</groupId>
+			<artifactId>openengsb-domains-issues-trac-se</artifactId>	
+		</dependency>
+		
 
 		<!-- Test dependencies -->
 		<dependency>

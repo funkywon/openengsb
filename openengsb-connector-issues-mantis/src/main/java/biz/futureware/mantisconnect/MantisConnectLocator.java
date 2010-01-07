@@ -16,6 +16,7 @@
  */
 package biz.futureware.mantisconnect;
 
+@SuppressWarnings("serial")
 public class MantisConnectLocator extends org.apache.axis.client.Service implements biz.futureware.mantisconnect.MantisConnect {
 
     public MantisConnectLocator() {
@@ -119,6 +120,7 @@ public class MantisConnectLocator extends org.apache.axis.client.Service impleme
 
     private java.util.HashSet ports = null;
 
+    @SuppressWarnings("unchecked")
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();

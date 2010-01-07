@@ -17,170 +17,156 @@
  */
 package org.openengsb.mantis.util;
 
-import java.util.List;
-
-import org.openengsb.issues.common.pojos.IssueDataType;
+import java.math.BigInteger;
+import java.util.Calendar;
+import java.util.Date;
+import org.openengsb.drools.model.Comment;
+import org.openengsb.drools.model.Issue;
+import org.openengsb.drools.model.Project;
 import org.openengsb.issues.common.util.TypeConverter;
-import biz.futureware.mantisconnect.AttachmentData;
+import biz.futureware.mantisconnect.AccountData;
 import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.IssueNoteData;
+import biz.futureware.mantisconnect.ObjectRef;
+import biz.futureware.mantisconnect.ProjectData;
 
 public class MantisTypeConverter 
 	implements TypeConverter<IssueData,
-	biz.futureware.mantisconnect.AccountData,
-	biz.futureware.mantisconnect.ObjectRef,
 	biz.futureware.mantisconnect.IssueNoteData,
-	biz.futureware.mantisconnect.AttachmentData> {
+	biz.futureware.mantisconnect.ProjectData> {
 	
-	@Override
-	public biz.futureware.mantisconnect.ObjectRef convertObjectRefToSpecific(org.openengsb.issues.common.pojos.ObjectRef ob) {
-		if(ob==null)
-			return null;
-		biz.futureware.mantisconnect.ObjectRef object = new biz.futureware.mantisconnect.ObjectRef();
-		object.setId(ob.getId());
-		object.setName(ob.getName());
-		return object;
+	private ObjectRef generateObjectRef(String name, int id) {
+	    ObjectRef or = new ObjectRef();
+	    or.setId(BigInteger.valueOf(id));
+	    or.setName(name);
+	    return or;
+	}
+	private AccountData generateAccountData(String owner) {
+        AccountData account = new AccountData();
+        account.setName(owner);
+        return account;
+    }
+    private Project generateProject(int id, String name) {
+        Project p = new Project();
+        p.setId(""+id);
+        p.setName(name);
+        return p;
+    }
+	
+	
+	private Calendar convertDateToCalendar(Date date) {
+	    Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c;
 	}
 	
+    
 	@Override
-	public biz.futureware.mantisconnect.AccountData convertAccountDataToSpecific(org.openengsb.issues.common.pojos.AccountData ac) {
-		if(ac==null)
-			return null;
-		biz.futureware.mantisconnect.AccountData account = new biz.futureware.mantisconnect.AccountData();
-		account.setEmail(ac.getEmail());
-		account.setId(ac.getId());
-		account.setName(ac.getName());
-		account.setReal_name(ac.getRealName());
-		return account;
-	}
-	
-	@Override
-	public IssueData convertIssueDataToSpecific(IssueDataType genericIssue) {
+	public IssueData convertIssueDataToSpecific(Issue genericIssue) {
 		IssueData issueData = new IssueData();
 		
-		issueData.setId(genericIssue.getId());
-		issueData.setProject(convertObjectRefToSpecific(genericIssue.getProject()));
-		issueData.setCategory(genericIssue.getCategory());
-		issueData.setSummary(genericIssue.getSummary());
-		issueData.setVersion(genericIssue.getVersion());
-		issueData.setDescription(genericIssue.getDescription());
-		issueData.setPriority(convertObjectRefToSpecific(genericIssue.getPriority()));
-		issueData.setSeverity(convertObjectRefToSpecific(genericIssue.getSeverity()));
-		issueData.setHandler(convertAccountDataToSpecific(genericIssue.getHandler()));
-		issueData.setStatus(convertObjectRefToSpecific(genericIssue.getStatus()));
-		issueData.setResolution(convertObjectRefToSpecific(genericIssue.getResolution()));
-		issueData.setReporter(convertAccountDataToSpecific(genericIssue.getReporter()));
+		issueData.setId(new BigInteger(genericIssue.getId()));
+		issueData.setProject(generateObjectRef(genericIssue.getProject().getName(),Integer.parseInt(genericIssue.getProject().getId())));
 		
-		if(genericIssue.getDateSubmitted() != null){
-			issueData.setDate_submitted(genericIssue.getDateSubmitted());
-			
+		//TODO set category here (where to get?)
+		issueData.setCategory("");
+		
+		issueData.setSummary(genericIssue.getSummary());
+		issueData.setVersion(genericIssue.getAffectedVersion());
+		issueData.setDescription(genericIssue.getDescription());
+		issueData.setPriority(generateObjectRef("",genericIssue.getPriority()));
+		issueData.setSeverity(generateObjectRef("",genericIssue.getSeverity()));
+		issueData.setHandler(generateAccountData(genericIssue.getOwner()));
+		
+		issueData.setStatus(generateObjectRef("",genericIssue.getStatus()));
+		issueData.setResolution(generateObjectRef("",genericIssue.getResolution()));
+		issueData.setReporter(generateAccountData(genericIssue.getReporter()));
+		
+		if(genericIssue.getCreationTime() != null){
+			issueData.setDate_submitted(convertDateToCalendar(genericIssue.getCreationTime()));
 		}
-		if(genericIssue.getLastUpdated() != null) {
-			issueData.setLast_updated(genericIssue.getLastUpdated());
-			
+		if(genericIssue.getLastChange() != null) {
+			issueData.setLast_updated(convertDateToCalendar(genericIssue.getCreationTime()));
 		}
-		if(genericIssue.getNotes() != null&&genericIssue.getNotes().getIssueNoteData().size()>0) {
-			IssueNoteData[] notes = new IssueNoteData[genericIssue.getNotes().getIssueNoteData().size()];
-			
-			List<org.openengsb.issues.common.pojos.IssueNoteData> list =  genericIssue.getNotes().getIssueNoteData();
-			for(int i=0;i<list.size();i++) {
-				notes[i]=convertIssueNoteToSpecific(list.get(i));
+		if(genericIssue.getComments() != null&&genericIssue.getComments().size()>0) {
+			IssueNoteData[] notes = new IssueNoteData[genericIssue.getComments().size()];			
+			for(int i=0;i<genericIssue.getComments().size();i++) {
+				notes[i]=convertCommentToSpecific(genericIssue.getComments().get(i));
 			}
 			
 			issueData.setNotes(notes);
 		}
-		if(genericIssue.getAttachments() != null) {
-			issueData.setAttachments((AttachmentData[]) genericIssue.getAttachments()
-					.getAttachmentData().toArray());
-		}
 		return issueData;
 	}
 	
-	@Override
-	public org.openengsb.issues.common.pojos.IssueDataType convertIssueDataToGeneric(biz.futureware.mantisconnect.IssueData issue) {
-		IssueDataType issueData = new IssueDataType();
+	
+	
+    @Override
+	public Issue convertIssueDataToGeneric(biz.futureware.mantisconnect.IssueData mantisIssue) {
+		Issue issue = new Issue();
 		
-		issueData.setId(issue.getId());
-		issueData.setProject(convertObjectRefToGeneric(issue.getProject()));
-		issueData.setCategory(issue.getCategory());
-		issueData.setSummary(issue.getSummary());
-		issueData.setVersion(issue.getVersion());
-		issueData.setDescription(issue.getDescription());
-		issueData.setPriority(convertObjectRefToGeneric(issue.getPriority()));
-		issueData.setSeverity(convertObjectRefToGeneric(issue.getSeverity()));
-		issueData.setHandler(convertAccountDataToGeneric(issue.getHandler()));
-		issueData.setStatus(convertObjectRefToGeneric(issue.getStatus()));
-		issueData.setResolution(convertObjectRefToGeneric(issue.getResolution()));
-		issueData.setReporter(convertAccountDataToGeneric(issue.getReporter()));
+		issue.setId(mantisIssue.getId().toString());
+		issue.setProject(generateProject(mantisIssue.getProject().getId().intValue(),mantisIssue.getProject().getName()));
+//		issue.setCategory(mantisIssue.getCategory());
+		issue.setSummary(mantisIssue.getSummary());
+		issue.setAffectedVersion(mantisIssue.getVersion());
+		issue.setDescription(mantisIssue.getDescription());
+		issue.setPriority(mantisIssue.getPriority().getId().intValue());
+		issue.setSeverity(mantisIssue.getSeverity().getId().intValue());
+		issue.setOwner(mantisIssue.getHandler().getName());
+		issue.setStatus(mantisIssue.getStatus().getId().intValue());
+		issue.setResolution(mantisIssue.getResolution().getId().intValue());
+		issue.setReporter(mantisIssue.getReporter().getName());
 		
-		if(issue.getDate_submitted() != null){
-			issueData.setDateSubmitted(issue.getDate_submitted());
+		if(mantisIssue.getDate_submitted() != null){
+			issue.setCreationTime(mantisIssue.getDate_submitted().getTime());
 			
 		}
-		if(issue.getLast_updated() != null) {
-			issueData.setLastUpdated(issue.getLast_updated());
+		if(mantisIssue.getLast_updated() != null) {
+			issue.setLastChange(mantisIssue.getLast_updated().getTime());
 			
 		}
-		if(issue.getNotes() != null&&issue.getNotes().length>0) {
-			for(IssueNoteData note:issue.getNotes()){
-				issueData.getNotes().getIssueNoteData().add(convertIssueNoteToGeneric(note));
+		
+		if(mantisIssue.getNotes() != null&&mantisIssue.getNotes().length>0) {
+			for(IssueNoteData note:mantisIssue.getNotes()){
+				issue.getComments().add(convertCommentToGeneric(note));
 			}
 		}
 		
-		if(issue.getAttachments() != null && issue.getAttachments().length>0) {
-			for(AttachmentData attachment:issue.getAttachments()){
-				issueData.getAttachments().getAttachmentData().add(convertAttachmentToGeneric(attachment));
-			}
-		}
+	
 		return null;
 	}
 	
 	@Override
-	public org.openengsb.issues.common.pojos.AttachmentData convertAttachmentToGeneric(
-			biz.futureware.mantisconnect.AttachmentData attachment) {
-		// TODO Auto-generated method stub
-		return null;
+	public Comment convertCommentToGeneric(biz.futureware.mantisconnect.IssueNoteData note) {
+	    Comment comment = new Comment();
+	    comment.setCreationTime(note.getDate_submitted().getTime());
+	    comment.setId(note.getId().toString());
+	    comment.setLastChange(note.getLast_modified().getTime());
+	    comment.setReporter(note.getReporter().getName());
+	    comment.setText(note.getText());
+	    comment.setViewState(note.getView_state().getId().intValue());
+	    return comment;
 	}
 	
 	@Override
-	public org.openengsb.issues.common.pojos.IssueNoteData convertIssueNoteToGeneric(
-			biz.futureware.mantisconnect.IssueNoteData note) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public biz.futureware.mantisconnect.IssueNoteData convertIssueNoteToSpecific(
-			org.openengsb.issues.common.pojos.IssueNoteData note){
-		IssueNoteData specNote = new IssueNoteData();
-		specNote.setDate_submitted(note.getDateSubmitted());
-		specNote.setId(note.getId());
-		specNote.setLast_modified(note.getLastModified());
-		specNote.setText(note.getText());
-		return specNote;
+	public biz.futureware.mantisconnect.IssueNoteData convertCommentToSpecific(Comment comment){
+		IssueNoteData specComment = new IssueNoteData();
+		specComment.setDate_submitted(convertDateToCalendar(comment.getCreationTime()));
+		specComment.setId(new BigInteger(comment.getId()));
+		specComment.setLast_modified(convertDateToCalendar(comment.getLastChange()));
+		specComment.setText(comment.getText());
+		return specComment;
 		
 	}
-	
-	@Override
-	public org.openengsb.issues.common.pojos.ObjectRef convertObjectRefToGeneric(biz.futureware.mantisconnect.ObjectRef ob) {
-		if(ob==null)
-			return null;
-		org.openengsb.issues.common.pojos.ObjectRef object = new org.openengsb.issues.common.pojos.ObjectRef();
-		object.setId(ob.getId());
-		object.setName(ob.getName());
-		return object;
-		
-	}
-	
-	@Override
-	public org.openengsb.issues.common.pojos.AccountData convertAccountDataToGeneric(biz.futureware.mantisconnect.AccountData ac) {
-		if(ac==null)
-			return null;
-		org.openengsb.issues.common.pojos.AccountData account = new org.openengsb.issues.common.pojos.AccountData();
-		account.setEmail(ac.getEmail());
-		account.setId(ac.getId());
-		account.setName(ac.getName());
-		account.setRealName(ac.getReal_name());
-		return account;
-	}
+    @Override
+    public Project convertProjectToGeneric(ProjectData specProject) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public ProjectData convertProjectToSpecific(Project genericProject) {
+        // TODO Auto-generated method stub
+        return null;
+    }	
 }

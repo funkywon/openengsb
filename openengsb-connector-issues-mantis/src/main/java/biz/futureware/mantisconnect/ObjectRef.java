@@ -16,6 +16,7 @@
  */
 package biz.futureware.mantisconnect;
 
+@SuppressWarnings("serial")
 public class ObjectRef  implements java.io.Serializable {
     private java.math.BigInteger id;
 
@@ -142,6 +143,7 @@ public class ObjectRef  implements java.io.Serializable {
     /**
      * Get Custom Serializer
      */
+    @SuppressWarnings("unchecked")
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType, 
            java.lang.Class _javaType,  
@@ -154,6 +156,7 @@ public class ObjectRef  implements java.io.Serializable {
     /**
      * Get Custom Deserializer
      */
+    @SuppressWarnings("unchecked")
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType, 
            java.lang.Class _javaType,  

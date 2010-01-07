@@ -17,6 +17,7 @@
 
 package biz.futureware.mantisconnect;
 
+@SuppressWarnings("serial")
 public class CustomFieldDefinitionData  implements java.io.Serializable {
     private biz.futureware.mantisconnect.ObjectRef field;
 
@@ -735,6 +736,7 @@ public class CustomFieldDefinitionData  implements java.io.Serializable {
     /**
      * Get Custom Serializer
      */
+    @SuppressWarnings("unchecked")
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType, 
            java.lang.Class _javaType,  
@@ -747,6 +749,7 @@ public class CustomFieldDefinitionData  implements java.io.Serializable {
     /**
      * Get Custom Deserializer
      */
+    @SuppressWarnings("unchecked")
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType, 
            java.lang.Class _javaType,  

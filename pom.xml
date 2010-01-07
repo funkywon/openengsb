@@ -212,6 +212,7 @@
 
     <!-- issues -->
     <module>domains/issues/common</module>
+    <module>openengsb-connector-issues-mantis</module>
 
 
   </modules>

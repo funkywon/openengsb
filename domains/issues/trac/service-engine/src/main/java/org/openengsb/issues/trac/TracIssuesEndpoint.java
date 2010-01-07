@@ -91,7 +91,7 @@ public class TracIssuesEndpoint extends AbstractIssueEndpoint {
                 issuesDomain = new TracIssuesDomain(tracConnector);
             }
 
-            return issuesDomain;
+            return tracConnector;
         } catch (IssueDomainException e) {
             throw new RuntimeException(e);
         }

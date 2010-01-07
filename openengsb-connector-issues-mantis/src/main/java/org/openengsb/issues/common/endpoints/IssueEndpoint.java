@@ -17,79 +17,58 @@
  */
 package org.openengsb.issues.common.endpoints;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import javax.jbi.messaging.MessageExchange;
-import javax.jbi.messaging.MessagingException;
-import javax.jbi.messaging.NormalizedMessage;
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerException;
-
-
-import org.openengsb.issues.common.api.IssueHandler;
-import org.openengsb.issues.common.api.exceptions.IssueDomainException;
-import org.openengsb.issues.common.commands.IssueCommand;
-import org.openengsb.issues.common.commands.IssueCreateCommand;
-import org.openengsb.issues.common.commands.IssueDeleteCommand;
-import org.openengsb.issues.common.commands.IssueGetCommand;
-import org.openengsb.issues.common.commands.IssueUpdateCommand;
-import org.openengsb.issues.common.endpoints.AbstractEndpoint;
-import org.openengsb.issues.common.util.IssueOpType;
-import org.openengsb.issues.common.util.XmlParserFunctions;
+import java.net.URI;
+import java.net.URISyntaxException;
+import org.openengsb.contextcommon.ContextHelper;
+import org.openengsb.drools.IssueDomain;
+import org.openengsb.drools.IssueDomainException;
+import org.openengsb.issues.trac.TracConnector;
 import org.openengsb.mantis.MantisIssueHandlerImpl;
-import org.apache.servicemix.jbi.jaxp.StringSource;
-import org.dom4j.DocumentException;
-
-import org.xml.sax.SAXException;
 
 /**
  * @org.apache.xbean.XBean element="issueTrackerProvider"
  */
-public class IssueEndpoint extends AbstractEndpoint {
+public class IssueEndpoint extends AbstractIssueEndpoint {
 
-	private static final Map<IssueOpType, IssueCommand> commandMap = new HashMap<IssueOpType, IssueCommand>();
 
-	// FIX THIS -> Factory/Spring
-	private IssueHandler handler = new MantisIssueHandlerImpl();
-
+	private IssueDomain domain1;
+	private IssueDomain domain2;
+	private int counter=0;
 	public IssueEndpoint() {
 		init();
 	}
 
-	@Override
-	protected String getEndpointBehaviour() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected void processInOnlyRequest(MessageExchange exchange,
-			NormalizedMessage in) throws Exception {
-		processInOutRequest(exchange, in, null);
-	}
-
-	@Override
-	protected void processInOutRequest(MessageExchange exchange,
-			NormalizedMessage in, NormalizedMessage out)  throws IOException, SAXException, TransformerException, DocumentException, IssueDomainException, MessagingException{
-		IssueOpType op;
-		op = XmlParserFunctions.getMessageType(in);
-		String body = null;
-		body = IssueEndpoint.commandMap.get(op).execute(in);
-		Source response = new StringSource(body);
-		out.setContent(response);
-		getChannel().send(exchange);
-	}
-
 	public void init() {
-		commandMap.put(IssueOpType.CREATE_ISSUE, new IssueCreateCommand(
-				handler, getLog()));
-		commandMap.put(IssueOpType.DELETE_ISSUE, new IssueDeleteCommand(
-				handler, getLog()));
-		commandMap.put(IssueOpType.UPDATE_ISSUE, new IssueUpdateCommand(
-				handler, getLog()));
-		commandMap.put(IssueOpType.GET_ISSUE, new IssueGetCommand(
-				handler, getLog()));
+	    try {
+            createIssueDomain();
+        } catch (IssueDomainException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
+	
+    @Override
+    protected IssueDomain createIssueDomain() throws org.openengsb.drools.IssueDomainException {
+        if(domain1==null) {
+            try {
+                domain1 = new MantisIssueHandlerImpl("","",new URI(""));
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if(domain2==null) 
+            domain2=new TracConnector(endpoint,endpoint,endpoint);
+        return domain2;
+    }
+
+    @Override
+    protected IssueDomain getImplementation(ContextHelper arg0) {
+        if(counter%2==0) {
+            return domain1;
+        } else return domain2;
+        
+        
+    }
 	
 }

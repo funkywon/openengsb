@@ -17,32 +17,23 @@
  */
 package org.openengsb.issues.common.util;
 
-import org.openengsb.issues.common.pojos.AccountData;
-import org.openengsb.issues.common.pojos.AttachmentData;
-import org.openengsb.issues.common.pojos.IssueDataType;
-import org.openengsb.issues.common.pojos.IssueNoteData;
-import org.openengsb.issues.common.pojos.ObjectRef;
-
-
-
-
-public interface TypeConverter<SpecificIssue,SpecificAccountData,SpecificObjectRef,SpecificNote,SpecificAttachment> {
-	public SpecificObjectRef convertObjectRefToSpecific(ObjectRef ob);
+import org.openengsb.drools.model.Comment;
+import org.openengsb.drools.model.Issue;
+import org.openengsb.drools.model.Project;
+public interface TypeConverter<SpecificIssue,SpecificComment, SpecificProject> {
 	
-	public SpecificAccountData convertAccountDataToSpecific(AccountData ac);
+	public SpecificIssue convertIssueDataToSpecific(Issue genericIssue);
+	public Issue convertIssueDataToGeneric(SpecificIssue issue);
 	
-	public SpecificIssue convertIssueDataToSpecific(IssueDataType genericIssue);
+	public SpecificProject convertProjectToSpecific(Project genericProject);
+	public Project convertProjectToGeneric(SpecificProject specProject);
 	
-	public IssueDataType convertIssueDataToGeneric(SpecificIssue issue);
 	
-	public AttachmentData convertAttachmentToGeneric(SpecificAttachment attachment);
+	public SpecificComment convertCommentToSpecific(Comment comment);
+	public Comment convertCommentToGeneric(SpecificComment comment);
 	
-	public SpecificNote convertIssueNoteToSpecific(IssueNoteData note);
-	public IssueNoteData convertIssueNoteToGeneric(SpecificNote note);
 	
-	public ObjectRef convertObjectRefToGeneric(SpecificObjectRef ob);
 	
-	public AccountData convertAccountDataToGeneric(SpecificAccountData ac);
 
 	
 

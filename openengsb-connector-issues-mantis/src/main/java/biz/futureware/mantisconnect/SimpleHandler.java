@@ -16,8 +16,6 @@
  */
 package biz.futureware.mantisconnect;
 
-
-
 import javax.xml.rpc.handler.*;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.handler.soap.SOAPMessageContext;
