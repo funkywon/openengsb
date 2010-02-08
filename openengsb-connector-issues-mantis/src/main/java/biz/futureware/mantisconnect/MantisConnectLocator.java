@@ -16,6 +16,7 @@
  */
 package biz.futureware.mantisconnect;
 
+
 @SuppressWarnings("serial")
 public class MantisConnectLocator extends org.apache.axis.client.Service implements biz.futureware.mantisconnect.MantisConnect {
 
@@ -80,6 +81,7 @@ public class MantisConnectLocator extends org.apache.axis.client.Service impleme
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
+    @SuppressWarnings("unchecked")
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (biz.futureware.mantisconnect.MantisConnectPortType.class.isAssignableFrom(serviceEndpointInterface)) {
@@ -99,6 +101,7 @@ public class MantisConnectLocator extends org.apache.axis.client.Service impleme
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
+    @SuppressWarnings("unchecked")
     public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         if (portName == null) {
             return getPort(serviceEndpointInterface);
@@ -118,7 +121,7 @@ public class MantisConnectLocator extends org.apache.axis.client.Service impleme
         return new javax.xml.namespace.QName("http://futureware.biz/mantisconnect", "MantisConnect");
     }
 
-    private java.util.HashSet ports = null;
+    private java.util.HashSet<javax.xml.namespace.QName> ports = null;
 
     @SuppressWarnings("unchecked")
     public java.util.Iterator getPorts() {

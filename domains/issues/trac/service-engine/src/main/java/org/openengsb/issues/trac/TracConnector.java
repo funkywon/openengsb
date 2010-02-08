@@ -131,4 +131,10 @@ public class TracConnector implements IssueDomain {
         this.password = password;
     }
 
+    @Override
+    public Issue getIssue(String id) throws IssueDomainException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

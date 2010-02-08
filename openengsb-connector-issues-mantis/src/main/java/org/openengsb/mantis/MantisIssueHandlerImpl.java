@@ -37,16 +37,17 @@ import biz.futureware.mantisconnect.MantisConnectPortType;
 
 public class MantisIssueHandlerImpl implements IssueDomain {
 
-	MantisConnectPortType porttype = null;
-	TypeConverter<IssueData,
+	private MantisConnectPortType porttype = null;
+
+    private TypeConverter<IssueData,
     biz.futureware.mantisconnect.IssueNoteData,
     biz.futureware.mantisconnect.ProjectData>  typeConverter=null;
 	
 	private String user;
 	private String pass;
-	private URI uri;
+	private String uri;
 	
-	public MantisIssueHandlerImpl(String user, String pass, URI uri) {
+	public MantisIssueHandlerImpl(String user, String pass, String uri) {
 	    this.user=user;
 	    this.pass=pass;
 	    this.uri=uri;
@@ -55,11 +56,23 @@ public class MantisIssueHandlerImpl implements IssueDomain {
 		EngineConfiguration engine = EngineConfigurationFactoryFinder.newFactory().getClientEngineConfig();
         SimpleProvider provider = new SimpleProvider(engine);
         provider.deployTransport("http", new CommonsHTTPSender());
+        MantisConnectLocator locator = new MantisConnectLocator(provider);
         
         typeConverter = new MantisTypeConverter();
-		MantisConnectLocator locator = new MantisConnectLocator(provider);
+        
+		java.net.URL endpoint;
     	try {
-			porttype =locator.getMantisConnectPort();
+    	    if(uri!=null&&uri!=""){
+    	        try {
+    	             endpoint = new java.net.URL(uri);
+    	        }
+    	        catch (java.net.MalformedURLException e) {
+    	            throw new javax.xml.rpc.ServiceException(e);
+    	        }
+    	        this.porttype =locator.getMantisConnectPort(endpoint);
+    	    } else {
+    	        this.porttype =locator.getMantisConnectPort();
+    	    }
 		} catch (ServiceException e) {			
 			e.printStackTrace();
 		}
@@ -77,14 +90,11 @@ public class MantisIssueHandlerImpl implements IssueDomain {
         } catch (RemoteException e) {
             e.printStackTrace();
             throw new IssueDomainException ("Error deleting issue: "+e.getMessage());
-        }        
+        } catch (NumberFormatException e) {
+            throw new IssueDomainException("Wrong issue ID format.");
+        }
     }
 	
-//	public void updateIssue(IssueUpdateMessage message) throws IssueDomainException {
-//		UserCredentials uc = message.getAccountData();
-//		
-//	}
-
 	@Override
 	public void updateIssue(Issue issue) throws org.openengsb.drools.IssueDomainException {
 	    IssueData mantisIssueData = typeConverter.convertIssueDataToSpecific(issue);
@@ -97,22 +107,6 @@ public class MantisIssueHandlerImpl implements IssueDomain {
 	    
 	}
 	
-	//TODO domain braucht auch methode für getissue
-//	public IssueDataType getIssue(IssueGetMessage getMessage) throws IssueDomainException{
-//		IssueData data;
-//		UserCredentials uc = getMessage.getAccountData();
-//		try {
-//			 data = porttype.mc_issue_get(uc.getUsername(),uc.getPassword(),BigInteger.valueOf(getMessage.getIssueId()));
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//			throw new IssueDomainException ("Error getting issue: "+e.getMessage());			
-//		}
-//		return typeConverter.convertIssueDataToGeneric(data);
-//	}
-	
-	
-
-
     @Override
     public String createIssue(Issue issue) throws org.openengsb.drools.IssueDomainException {
         BigInteger returnInt = null;
@@ -130,6 +124,53 @@ public class MantisIssueHandlerImpl implements IssueDomain {
         return returnInt.toString();
     }
 
+
+
+
+    @Override
+    public Issue getIssue(String id) throws IssueDomainException {
+        IssueData mantisIssueData;
+        try {
+            mantisIssueData = porttype.mc_issue_get(user, pass, new BigInteger(id));
+            return typeConverter.convertIssueDataToGeneric(mantisIssueData);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            throw new IssueDomainException("Error getting issue.");
+        }
+    }
+
+    
+    public MantisConnectPortType getPorttype() {
+        return porttype;
+    }
+    public void setPorttype(MantisConnectPortType porttype) {
+        this.porttype = porttype;
+    }
+    public TypeConverter<IssueData, biz.futureware.mantisconnect.IssueNoteData, biz.futureware.mantisconnect.ProjectData> getTypeConverter() {
+        return typeConverter;
+    }
+    public void setTypeConverter(
+            TypeConverter<IssueData, biz.futureware.mantisconnect.IssueNoteData, biz.futureware.mantisconnect.ProjectData> typeConverter) {
+        this.typeConverter = typeConverter;
+    }
+    public String getUser() {
+        return user;
+    }
+    public void setUser(String user) {
+        this.user = user;
+    }
+    public String getPass() {
+        return pass;
+    }
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+    public String getUri() {
+        return uri;
+    }
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
     
 
 }

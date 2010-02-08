@@ -16,6 +16,9 @@
  */
 package biz.futureware.mantisconnect;
 
+import javax.jws.WebService;
+
+@WebService(name="MantisConnectPortType",targetNamespace="http://futureware.biz/mantisconnect")
 public interface MantisConnectPortType extends java.rmi.Remote {
     public java.lang.String mc_version() throws java.rmi.RemoteException;
 

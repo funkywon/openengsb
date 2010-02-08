@@ -18,8 +18,11 @@
 package org.openengsb.mantis.util;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import org.openengsb.drools.model.Comment;
 import org.openengsb.drools.model.Issue;
 import org.openengsb.drools.model.Project;
@@ -55,8 +58,9 @@ public class MantisTypeConverter
 	
 	
 	private Calendar convertDateToCalendar(Date date) {
+	    
 	    Calendar c = Calendar.getInstance();
-        c.setTime(date);
+	    if(date!=null) c.setTime(date);
         return c;
 	}
 	
@@ -65,8 +69,9 @@ public class MantisTypeConverter
 	public IssueData convertIssueDataToSpecific(Issue genericIssue) {
 		IssueData issueData = new IssueData();
 		
-		issueData.setId(new BigInteger(genericIssue.getId()));
-		issueData.setProject(generateObjectRef(genericIssue.getProject().getName(),Integer.parseInt(genericIssue.getProject().getId())));
+		if(genericIssue.getId()!=null) issueData.setId(new BigInteger(genericIssue.getId()));
+		if(genericIssue.getProject()!=null) issueData.setProject(
+		        generateObjectRef(genericIssue.getProject().getName(),Integer.parseInt(genericIssue.getProject().getId())));
 		
 		//TODO set category here (where to get?)
 		issueData.setCategory("");
@@ -86,9 +91,9 @@ public class MantisTypeConverter
 			issueData.setDate_submitted(convertDateToCalendar(genericIssue.getCreationTime()));
 		}
 		if(genericIssue.getLastChange() != null) {
-			issueData.setLast_updated(convertDateToCalendar(genericIssue.getCreationTime()));
+			issueData.setLast_updated(convertDateToCalendar(genericIssue.getLastChange()));
 		}
-		if(genericIssue.getComments() != null&&genericIssue.getComments().size()>0) {
+		if(genericIssue.getComments() != null && genericIssue.getComments().size()>0) {
 			IssueNoteData[] notes = new IssueNoteData[genericIssue.getComments().size()];			
 			for(int i=0;i<genericIssue.getComments().size();i++) {
 				notes[i]=convertCommentToSpecific(genericIssue.getComments().get(i));
@@ -128,13 +133,15 @@ public class MantisTypeConverter
 		}
 		
 		if(mantisIssue.getNotes() != null&&mantisIssue.getNotes().length>0) {
+		    List<Comment> commentsList = new ArrayList<Comment>();
 			for(IssueNoteData note:mantisIssue.getNotes()){
-				issue.getComments().add(convertCommentToGeneric(note));
+				commentsList.add(convertCommentToGeneric(note));
 			}
+			issue.setComments(commentsList);
 		}
 		
 	
-		return null;
+		return issue;
 	}
 	
 	@Override
@@ -142,10 +149,10 @@ public class MantisTypeConverter
 	    Comment comment = new Comment();
 	    comment.setCreationTime(note.getDate_submitted().getTime());
 	    comment.setId(note.getId().toString());
-	    comment.setLastChange(note.getLast_modified().getTime());
+	    if(note.getLast_modified()!=null) comment.setLastChange(note.getLast_modified().getTime());
 	    comment.setReporter(note.getReporter().getName());
 	    comment.setText(note.getText());
-	    comment.setViewState(note.getView_state().getId().intValue());
+	    if(note.getView_state()!=null) comment.setViewState(note.getView_state().getId().intValue());
 	    return comment;
 	}
 	
@@ -155,6 +162,7 @@ public class MantisTypeConverter
 		specComment.setDate_submitted(convertDateToCalendar(comment.getCreationTime()));
 		specComment.setId(new BigInteger(comment.getId()));
 		specComment.setLast_modified(convertDateToCalendar(comment.getLastChange()));
+		specComment.setReporter(generateAccountData(comment.getReporter()));
 		specComment.setText(comment.getText());
 		return specComment;
 		

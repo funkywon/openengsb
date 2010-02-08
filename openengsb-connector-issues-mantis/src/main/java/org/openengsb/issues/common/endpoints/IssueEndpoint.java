@@ -30,13 +30,14 @@ import org.openengsb.mantis.MantisIssueHandlerImpl;
  */
 public class IssueEndpoint extends AbstractIssueEndpoint {
 
-
 	private IssueDomain domain1;
 	private IssueDomain domain2;
 	private int counter=0;
-	public IssueEndpoint() {
-		init();
-	}
+	
+	private String url;
+	private String user;
+	private String password;
+	
 
 	public void init() {
 	    try {
@@ -50,15 +51,10 @@ public class IssueEndpoint extends AbstractIssueEndpoint {
     @Override
     protected IssueDomain createIssueDomain() throws org.openengsb.drools.IssueDomainException {
         if(domain1==null) {
-            try {
-                domain1 = new MantisIssueHandlerImpl("","",new URI(""));
-            } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            domain1 = new MantisIssueHandlerImpl(user, password, url);
         }
         if(domain2==null) 
-            domain2=new TracConnector(endpoint,endpoint,endpoint);
+            domain2=new TracConnector(url,user,password);
         return domain2;
     }
 
@@ -70,4 +66,29 @@ public class IssueEndpoint extends AbstractIssueEndpoint {
         }
         return domain2;
     }
+    
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

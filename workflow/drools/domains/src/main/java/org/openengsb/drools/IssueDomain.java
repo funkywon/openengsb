@@ -48,5 +48,7 @@ public interface IssueDomain extends Domain {
      * @throws IssueDomainException
      */
     void deleteIssue(String id) throws IssueDomainException;
+    
+    Issue getIssue(String id) throws IssueDomainException;
 
 }
