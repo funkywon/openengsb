@@ -24,7 +24,7 @@ import org.openengsb.drools.IssueDomain;
 import org.openengsb.drools.IssueDomainException;
 import org.openengsb.issues.trac.TracConnector;
 import org.openengsb.mantis.MantisIssueHandlerImpl;
-
+import org.openengsb.core.MessageProperties;
 /**
  * @org.apache.xbean.XBean element="issueTrackerProvider"
  */
@@ -59,7 +59,7 @@ public class IssueEndpoint extends AbstractIssueEndpoint {
     }
 
     @Override
-    protected IssueDomain getImplementation(ContextHelper arg0) {
+    protected IssueDomain getImplementation(ContextHelper arg0,MessageProperties props) {
         counter++;
         if(counter%2==0) {
             return domain1;

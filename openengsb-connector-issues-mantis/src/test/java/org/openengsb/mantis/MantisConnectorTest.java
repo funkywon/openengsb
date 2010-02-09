@@ -1,6 +1,7 @@
 package org.openengsb.mantis;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnit44Runner;
@@ -21,7 +22,7 @@ public class MantisConnectorTest {
         mantisConnector.setPorttype(portType);
         mantisConnector.setTypeConverter(typeConverter);
         
-        when
+        
     }
     
     @Test

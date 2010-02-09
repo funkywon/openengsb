@@ -20,7 +20,6 @@ package org.openengsb.issues.common.test.unit;
 
 import org.openengsb.contextcommon.ContextHelper;
 import org.openengsb.core.MessageProperties;
-import org.openengsb.drools.DroolsIssuesDomain;
 import org.openengsb.drools.IssueDomain;
 import org.openengsb.issues.common.endpoints.AbstractIssueEndpoint;
 
@@ -45,7 +44,7 @@ public class TestCreateIssueEndpoint extends AbstractIssueEndpoint {
     }
 
     @Override
-    public DroolsIssuesDomain getImplementation(ContextHelper contextHelper, MessageProperties msgProperties) {
+    public IssueDomain getImplementation(ContextHelper contextHelper, MessageProperties msgProperties) {
         return null;
     }
 

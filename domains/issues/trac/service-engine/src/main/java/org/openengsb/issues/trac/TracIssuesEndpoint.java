@@ -82,7 +82,7 @@ public class TracIssuesEndpoint extends AbstractIssueEndpoint {
     }
 
     @Override
-    public DroolsIssuesDomain getImplementation(ContextHelper contextHelper, MessageProperties msgProperties) {
+    public IssueDomain getImplementation(ContextHelper contextHelper, MessageProperties msgProperties) {
         try {
             if (issuesDomain == null) {
                 if (tracConnector == null) {

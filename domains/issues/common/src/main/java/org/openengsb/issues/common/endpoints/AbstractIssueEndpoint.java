@@ -42,6 +42,7 @@ import org.openengsb.issues.common.messages.CreateIssueStatus;
 import org.openengsb.util.serialization.JibxXmlSerializer;
 import org.openengsb.util.serialization.SerializationException;
 import org.openengsb.util.serialization.Serializer;
+import org.openengsb.core.MessageProperties;
 
 /**
  * @org.apache.xbean.XBean element="create-issue"
@@ -59,7 +60,6 @@ public abstract class AbstractIssueEndpoint extends LinkingEndpoint<IssueDomain>
         serializer = new JibxXmlSerializer();
     }
 
-<<<<<<< HEAD
     @Override
     public void validate() throws DeploymentException {
     }
@@ -111,11 +111,6 @@ public abstract class AbstractIssueEndpoint extends LinkingEndpoint<IssueDomain>
         return null;
     }
 
-=======
-    
-    
-    
->>>>>>> Deleted local enum files.
     public Serializer getSerializer() {
         return serializer;
     }
