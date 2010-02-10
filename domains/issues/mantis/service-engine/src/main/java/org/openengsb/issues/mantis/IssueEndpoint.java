@@ -15,7 +15,7 @@
    limitations under the License.
    
  */
-package org.openengsb.issues.common.endpoints;
+package org.openengsb.issues.mantis;
 
 import java.net.URI;
 import java.net.URISyntaxException;

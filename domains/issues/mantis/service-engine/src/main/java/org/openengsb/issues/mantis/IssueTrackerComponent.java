@@ -15,14 +15,13 @@
    limitations under the License.
    
 */
-package org.openengsb.issues.common.components;
+package org.openengsb.issues.mantis;
 
 import java.util.List;
 import javax.jbi.servicedesc.ServiceEndpoint;
 import org.apache.servicemix.common.DefaultComponent;
 import org.apache.servicemix.common.Endpoint;
-import org.openengsb.issues.common.endpoints.AbstractEndpoint;
-import org.openengsb.issues.common.endpoints.IssueEndpoint;
+import org.openengsb.issues.common.endpoints.AbstractIssueEndpoint;
 /**
  * @org.apache.xbean.XBean element="issueTrackerComponent"
  * description="mantis component"
@@ -30,13 +29,13 @@ import org.openengsb.issues.common.endpoints.IssueEndpoint;
 public class IssueTrackerComponent extends DefaultComponent
 {
 
-    private AbstractEndpoint[] endpoints;
+    private AbstractIssueEndpoint[] endpoints;
     
-    public AbstractEndpoint[] getEndpoints() {
+    public AbstractIssueEndpoint[] getEndpoints() {
         return endpoints;
     }
     
-    public void setEndpoints(AbstractEndpoint[] endpoints) {
+    public void setEndpoints(AbstractIssueEndpoint[] endpoints) {
         this.endpoints = endpoints;
     }
 
@@ -45,7 +44,7 @@ public class IssueTrackerComponent extends DefaultComponent
     }
 
     protected Class<?>[] getEndpointClasses() {
-        return new Class[] {AbstractEndpoint.class };
+        return new Class[] {AbstractIssueEndpoint.class };
     }
 
     protected Endpoint getResolvedEPR(ServiceEndpoint ep) throws Exception {
