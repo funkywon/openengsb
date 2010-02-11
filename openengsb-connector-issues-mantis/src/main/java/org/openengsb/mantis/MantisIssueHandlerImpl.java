@@ -18,7 +18,6 @@
 package org.openengsb.mantis;
 
 import java.math.BigInteger;
-import java.net.URI;
 import java.rmi.RemoteException;
 import javax.xml.rpc.ServiceException;
 import org.apache.axis.EngineConfiguration;

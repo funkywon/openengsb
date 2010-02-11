@@ -32,8 +32,6 @@ import org.apache.log4j.Logger;
 import org.apache.servicemix.jbi.jaxp.StringSource;
 import org.openengsb.contextcommon.ContextHelper;
 import org.openengsb.core.endpoints.LinkingEndpoint;
-import org.openengsb.core.endpoints.RPCEndpoint;
-import org.openengsb.drools.DroolsIssuesDomain;
 import org.openengsb.drools.IssueDomain;
 import org.openengsb.drools.IssueDomainException;
 import org.openengsb.issues.common.messages.CreateIssueMessage;
