@@ -108,6 +108,7 @@
 		<dependency>
 			<groupId>org.openengsb</groupId>
 			<artifactId>openengsb-domains-issues-common</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		
 		<dependency>
@@ -145,21 +146,6 @@
 					<type>binding-component</type>
 					<component>org.openengsb.mantis.MantisComponent</component>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.xbean</groupId>
-				<artifactId>maven-xbean-plugin</artifactId>
-				<version>${xbean-version}</version>
-				<executions>
-					<execution>
-						<configuration>
-							<namespace>http://openengsb.org/mantis/1.0</namespace>
-						</configuration>
-						<goals>
-							<goal>mapping</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

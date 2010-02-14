@@ -22,6 +22,7 @@ import java.net.URISyntaxException;
 import org.openengsb.contextcommon.ContextHelper;
 import org.openengsb.drools.IssueDomain;
 import org.openengsb.drools.IssueDomainException;
+import org.openengsb.issues.common.endpoints.AbstractIssueEndpoint;
 import org.openengsb.issues.trac.TracConnector;
 import org.openengsb.mantis.MantisIssueHandlerImpl;
 import org.openengsb.core.MessageProperties;
