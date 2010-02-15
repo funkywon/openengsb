@@ -17,8 +17,6 @@
  */
 package org.openengsb.issues.mantis;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import org.openengsb.contextcommon.ContextHelper;
 import org.openengsb.drools.IssueDomain;
 import org.openengsb.drools.IssueDomainException;
