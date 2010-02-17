@@ -16,7 +16,7 @@ limitations under the License.
 
  */
 
-package org.openengsb.drools;
+package org.openengsb.drools.model;
 
 public class IssueDomainException extends Exception {
 

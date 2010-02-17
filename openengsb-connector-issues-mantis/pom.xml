@@ -101,7 +101,7 @@
 
 		<dependency>
 			<groupId>org.openengsb</groupId>
-			<artifactId>openengsb-workflow-drools-domains</artifactId>
+			<artifactId>openengsb-workflow-domains</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 

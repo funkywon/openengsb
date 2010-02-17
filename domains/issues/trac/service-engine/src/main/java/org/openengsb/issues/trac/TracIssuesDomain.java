@@ -18,7 +18,7 @@
 package org.openengsb.issues.trac;
 
 import org.openengsb.drools.DroolsIssuesDomain;
-import org.openengsb.drools.IssueDomainException;
+import org.openengsb.drools.model.IssueDomainException;
 import org.openengsb.drools.model.Issue;
 import org.openengsb.drools.model.IssuePriority;
 import org.openengsb.drools.model.IssueType;

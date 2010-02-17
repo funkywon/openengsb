@@ -19,6 +19,7 @@
 package org.openengsb.drools;
 
 import org.openengsb.drools.model.Issue;
+import org.openengsb.drools.model.IssueDomainException;
 
 /**
  * Interface describing a generic issue domain.

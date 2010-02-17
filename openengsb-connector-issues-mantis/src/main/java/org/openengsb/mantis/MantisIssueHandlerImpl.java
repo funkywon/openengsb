@@ -25,7 +25,7 @@ import org.apache.axis.configuration.EngineConfigurationFactoryFinder;
 import org.apache.axis.configuration.SimpleProvider;
 import org.apache.axis.transport.http.CommonsHTTPSender;
 import org.openengsb.drools.IssueDomain;
-import org.openengsb.drools.IssueDomainException;
+import org.openengsb.drools.model.IssueDomainException;
 import org.openengsb.drools.model.Issue;
 import org.openengsb.issues.common.util.TypeConverter;
 import org.openengsb.mantis.util.MantisTypeConverter;
@@ -81,7 +81,7 @@ public class MantisIssueHandlerImpl implements IssueDomain {
 	
 
 	@Override
-    public void deleteIssue(String issueId) throws org.openengsb.drools.IssueDomainException {
+    public void deleteIssue(String issueId) throws org.openengsb.drools.model.IssueDomainException {
 	    try {
             if(!porttype.mc_issue_delete(user, pass, new BigInteger(issueId))) {
                 throw new IssueDomainException ("Could not delete issue.");
@@ -95,7 +95,7 @@ public class MantisIssueHandlerImpl implements IssueDomain {
     }
 	
 	@Override
-	public void updateIssue(Issue issue) throws org.openengsb.drools.IssueDomainException {
+	public void updateIssue(Issue issue) throws org.openengsb.drools.model.IssueDomainException{
 	    IssueData mantisIssueData = typeConverter.convertIssueDataToSpecific(issue);
         try {
             porttype.mc_issue_update(user, pass, mantisIssueData.getId(), mantisIssueData);
@@ -107,7 +107,7 @@ public class MantisIssueHandlerImpl implements IssueDomain {
 	}
 	
     @Override
-    public String createIssue(Issue issue) throws org.openengsb.drools.IssueDomainException {
+    public String createIssue(Issue issue) throws org.openengsb.drools.model.IssueDomainException{
         BigInteger returnInt = null;
         IssueData mantisIssueData;
         try {
@@ -123,11 +123,8 @@ public class MantisIssueHandlerImpl implements IssueDomain {
         return returnInt.toString();
     }
 
-
-
-
     @Override
-    public Issue getIssue(String id) throws IssueDomainException {
+    public Issue getIssue(String id) throws org.openengsb.drools.model.IssueDomainException {
         IssueData mantisIssueData;
         try {
             mantisIssueData = porttype.mc_issue_get(user, pass, new BigInteger(id));
@@ -137,7 +134,6 @@ public class MantisIssueHandlerImpl implements IssueDomain {
             throw new IssueDomainException("Error getting issue.");
         }
     }
-
     
     public MantisConnectPortType getPorttype() {
         return porttype;

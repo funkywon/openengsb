@@ -111,7 +111,7 @@ public class MantisTypeConverter
 		Issue issue = new Issue();
 		
 		issue.setId(mantisIssue.getId().toString());
-		issue.setProject(generateProject(mantisIssue.getProject().getId().intValue(),mantisIssue.getProject().getName()));
+		if(mantisIssue.getProject()!=null) issue.setProject(generateProject(mantisIssue.getProject().getId().intValue(),mantisIssue.getProject().getName()));
 //		issue.setCategory(mantisIssue.getCategory());
 		issue.setSummary(mantisIssue.getSummary());
 		issue.setAffectedVersion(mantisIssue.getVersion());

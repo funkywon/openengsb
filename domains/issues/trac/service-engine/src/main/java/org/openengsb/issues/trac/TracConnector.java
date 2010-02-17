@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.openengsb.drools.IssueDomain;
-import org.openengsb.drools.IssueDomainException;
+import org.openengsb.drools.model.IssueDomainException;
 import org.openengsb.drools.model.Issue;
 import org.openengsb.issues.trac.model.Converter;
 import org.openengsb.issues.trac.model.TracIssue;
