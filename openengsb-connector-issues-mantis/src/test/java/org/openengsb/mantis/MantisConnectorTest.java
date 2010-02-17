@@ -27,13 +27,13 @@ import biz.futureware.mantisconnect.MantisConnectPortType;
 @RunWith(MockitoJUnit44Runner.class)
 public class MantisConnectorTest {
 
-    private MantisIssueHandlerImpl mantisConnector;
+    private MantisConnector mantisConnector;
     @Mock private MantisTypeConverter typeConverter;
     @Mock private MantisConnectPortType portType;
     
     @Before
     public void setup() throws RemoteException {
-    	mantisConnector = new MantisIssueHandlerImpl("", "", "");
+    	mantisConnector = new MantisConnector("", "", "");
 
         mantisConnector.setPorttype(portType);
         mantisConnector.setTypeConverter(typeConverter);

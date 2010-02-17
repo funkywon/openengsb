@@ -34,7 +34,7 @@ import biz.futureware.mantisconnect.IssueData;
 import biz.futureware.mantisconnect.MantisConnectLocator;
 import biz.futureware.mantisconnect.MantisConnectPortType;
 
-public class MantisIssueHandlerImpl implements IssueDomain {
+public class MantisConnector implements IssueDomain {
 
 	private MantisConnectPortType porttype = null;
 
@@ -46,7 +46,7 @@ public class MantisIssueHandlerImpl implements IssueDomain {
 	private String pass;
 	private String uri;
 	
-	public MantisIssueHandlerImpl(String user, String pass, String uri) {
+	public MantisConnector(String user, String pass, String uri) {
 	    this.user=user;
 	    this.pass=pass;
 	    this.uri=uri;
